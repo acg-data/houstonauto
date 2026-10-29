@@ -323,6 +323,118 @@
   }
 
   /* ---------- Appointment request ---------- */
+  function collectAppointment(requestForm) {
+    const d = Object.fromEntries(new FormData(requestForm));
+    const vehicle = [d.year, d.make, d.model].filter(Boolean).join(' ');
+    const when = d.date ? new Date(d.date + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' }) : 'Flexible';
+    const summary = [
+      'HOUSTON AUTO PROS — APPOINTMENT REQUEST', '',
+      `Service: ${d.service}`, `Vehicle: ${vehicle}${d.mileage ? ` · ${d.mileage} miles` : ''}`,
+      `Preferred: ${when}${d.time ? ` · ${d.time}` : ''}`, '',
+      `Name: ${d.name}`, `Phone: ${d.phone}`, d.email ? `Email: ${d.email}` : null,
+      `Best way to reach me: ${d.contact || 'Call'}`,
+      d.message.trim() ? `\nNotes:\n${d.message.trim()}` : null,
+    ].filter(line => line !== null).join('\n');
+    return { d, vehicle, summary };
+  }
+
+  async function deliverAppointment(requestForm, data) {
+    const body = new FormData(requestForm);
+    body.append('vehicle', data.vehicle);
+    body.append('summary', data.summary);
+    body.append('page', location.pathname);
+    Object.entries(attribution).forEach(([key, value]) => body.append(key, value));
+    const response = await fetch(C.requestEndpoint, {
+      method: 'POST', body, headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(20000)
+    });
+    const result = await response.json();
+    if (!response.ok || result.ok !== true) throw new Error(String(response.status));
+  }
+
+  const inlineForm = $('#appointment-form');
+  if (inlineForm) {
+    const fields = $('.appointment-fields', inlineForm);
+    const button = $('.appointment-submit', inlineForm);
+    const result = $('.appointment-result', inlineForm);
+    const emailOptional = $('[data-inline-email-optional]', inlineForm);
+    let sending = false;
+    const newRequest = () => {
+      inlineForm.elements.requestId.value = crypto.randomUUID();
+      inlineForm.elements.startedAt.value = String(Date.now());
+    };
+    const syncEmail = () => {
+      const required = inlineForm.elements.contact.value === 'Email';
+      inlineForm.elements.email.required = required;
+      emailOptional.textContent = required ? '*' : '(optional)';
+    };
+    newRequest();
+    syncEmail();
+    button.disabled = false;
+    new IntersectionObserver(entries => {
+      document.body.classList.toggle('appointment-in-view', entries[0].isIntersecting);
+    }).observe(inlineForm.closest('section'));
+    const pageMake = document.body.dataset.make;
+    if (pageMake) inlineForm.elements.make.value = pageMake;
+    inlineForm.addEventListener('change', syncEmail);
+    inlineForm.addEventListener('input', event => event.target.setCustomValidity?.(''));
+
+    inlineForm.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (sending) return;
+      const phoneField = inlineForm.elements.phone;
+      const digits = phoneField.value.replace(/\D/g, '');
+      phoneField.setCustomValidity(/^[+\d\s().-]+$/.test(phoneField.value) && digits.length >= 7 && digits.length <= 15 ? '' : 'Enter a phone number with 7 to 15 digits.');
+      if (!inlineForm.reportValidity()) return;
+      const data = collectAppointment(inlineForm);
+      sending = true;
+      button.disabled = true;
+      button.setAttribute('aria-busy', 'true');
+      button.textContent = 'Sending…';
+      result.hidden = true;
+      // Construct the payload before disabling fields so every form value is included.
+      const delivery = C.requestEndpoint && !data.d.company ? deliverAppointment(inlineForm, data) : null;
+      fields.disabled = true;
+      try {
+        if (!delivery && !data.d.company) throw new Error('missing_endpoint');
+        await delivery;
+        fields.hidden = true;
+        const heading = Object.assign(document.createElement('h3'), { textContent: 'Thank you. Your request is on its way.', tabIndex: -1 });
+        const message = Object.assign(document.createElement('p'), { textContent: 'We’ll contact you to confirm a time for your visit.' });
+        const another = Object.assign(document.createElement('button'), { type: 'button', className: 'text-link', textContent: 'Request another visit' });
+        another.addEventListener('click', () => {
+          inlineForm.reset(); newRequest(); syncEmail();
+          if (pageMake) inlineForm.elements.make.value = pageMake;
+          fields.hidden = false; result.hidden = true;
+          inlineForm.elements.name.focus();
+        });
+        result.replaceChildren(heading, message, another);
+        result.hidden = false;
+        heading.focus();
+        if (!data.d.company) track('generate_lead', { service: data.d.service, make: data.d.make, source: 'bottom-form' });
+      } catch {
+        const message = Object.assign(document.createElement('p'), { textContent: 'We couldn’t confirm delivery. Please email your request so we can arrange your visit.', tabIndex: -1 });
+        result.replaceChildren(message);
+        const recipient = C.bookingEmail || email;
+        if (recipient) {
+          const fallback = Object.assign(document.createElement('a'), {
+            className: 'text-link', textContent: 'Email your request',
+            href: `mailto:${recipient}?subject=${encodeURIComponent('Appointment request — ' + data.vehicle)}&body=${encodeURIComponent(data.summary)}`
+          });
+          fallback.addEventListener('click', () => track('request_fallback', { method: 'email', location: 'bottom-form' }));
+          result.append(fallback);
+        }
+        result.hidden = false;
+        message.focus();
+      } finally {
+        sending = false;
+        fields.disabled = false;
+        button.disabled = false;
+        button.removeAttribute('aria-busy');
+        button.textContent = 'Request an appointment';
+      }
+    });
+  }
+
   const dialog = $('#booking');
   const form = $('#request-form');
   if (dialog && form) {
@@ -453,23 +565,7 @@
     }
 
     function collect() {
-      const d = Object.fromEntries(new FormData(form));
-      const vehicle = [d.year, d.make, d.model].filter(Boolean).join(' ');
-      const when = d.date ? new Date(d.date + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' }) : 'Flexible';
-      const summary = [
-        'HOUSTON AUTO PROS — APPOINTMENT REQUEST',
-        '',
-        `Service: ${d.service}`,
-        `Vehicle: ${vehicle}${d.mileage ? ` · ${d.mileage} miles` : ''}`,
-        `Preferred: ${when}${d.time ? ` · ${d.time}` : ''}`,
-        '',
-        `Name: ${d.name}`,
-        `Phone: ${d.phone}`,
-        d.email ? `Email: ${d.email}` : null,
-        `Best way to reach me: ${d.contact || 'Call'}`,
-        d.message.trim() ? `\nNotes:\n${d.message.trim()}` : null,
-      ].filter(line => line !== null).join('\n');
-      return { d, vehicle, summary };
+      return collectAppointment(form);
     }
 
     function actionButton(label, href, method, extra = {}) {
@@ -544,15 +640,7 @@
       sending = true;
       nextLabel.textContent = 'Sending…';
       try {
-        const body = new FormData(form);
-        body.append('vehicle', data.vehicle);
-        body.append('summary', data.summary);
-        body.append('page', location.pathname);
-        body.append('_subject', `Appointment request — ${data.vehicle}`);
-        Object.entries(attribution).forEach(([k, v]) => body.append(k, v));
-        const res = await fetch(C.requestEndpoint, { method: 'POST', body, headers: { Accept: 'application/json' } });
-        const response = await res.json();
-        if (!res.ok || response.ok !== true) throw new Error(String(res.status));
+        await deliverAppointment(form, data);
         sent = true;
         track('generate_lead', { service: data.d.service, make: data.d.make || '', source });
         showResult('sent', data);

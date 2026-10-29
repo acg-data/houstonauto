@@ -18,6 +18,45 @@ def make_control(make, content, source):
         return f'<a href="{FEATURED[make]}">{content}</a>'
     return f'<button type="button" data-book data-make="{escape(make, quote=True)}" data-source="{source}">{content}</button>'
 
+def closing_form():
+    makes = ''.join(f'<option value="{escape(make, quote=True)}">{escape(make)}</option>' for make in MAKES)
+    services = ['Maintenance & service', 'Diagnostics & repair', 'Brakes & suspension', 'Cooling & air conditioning', 'Pre-purchase inspection', 'Something else']
+    options = ''.join(f'<option>{escape(service)}</option>' for service in services)
+    return f'''<div class="contact-grid appointment-grid">
+      <div class="appointment-intro">
+        <h2 id="appointment-title">For the road<br><em>ahead.</em></h2>
+        <p>Tell us about your car. We’ll be in touch to confirm your visit.</p>
+        <a class="text-link" href="/#makes">Explore the European makes we service</a>
+        <small>Houston, Texas</small>
+      </div>
+      <form id="appointment-form" class="appointment-form" method="post" aria-labelledby="inline-booking-title" novalidate>
+        <fieldset class="appointment-fields">
+          <legend id="inline-booking-title">Request an appointment</legend>
+          <p class="form-guidance">Fields marked * are required.</p>
+          <div class="form-row">
+            <label class="field">Your name *<input name="name" autocomplete="name" required minlength="2" maxlength="120"></label>
+            <label class="field">Phone number *<input name="phone" type="tel" autocomplete="tel" required maxlength="40" title="Enter a phone number with 7 to 15 digits."></label>
+          </div>
+          <div class="form-row">
+            <label class="field">Vehicle make *<select name="make" required><option value="" disabled selected>Select your brand</option>{makes}</select></label>
+            <label class="field">Model *<input name="model" required maxlength="120" placeholder="Model or trim"></label>
+          </div>
+          <label class="field">Service *<select name="service" required><option value="" disabled selected>What can we help with?</option>{options}</select></label>
+          <div class="form-row">
+            <label class="field">Email <span class="optional" data-inline-email-optional>(optional)</span><input name="email" type="email" autocomplete="email" maxlength="254"></label>
+            <label class="field">Preferred contact<select name="contact"><option>Call</option><option>Text</option><option>Email</option></select></label>
+          </div>
+          <label class="field">How can we help? <span class="optional">(optional)</span><textarea name="message" maxlength="3000" rows="3" placeholder="Describe the issue or suggest a day for your visit."></textarea></label>
+          <input class="hp" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="hidden" name="requestId"><input type="hidden" name="startedAt">
+          <button class="button dark appointment-submit" type="submit" disabled>Request an appointment</button>
+          <p class="form-guidance confirmation-note">We’ll contact you to confirm availability.</p>
+        </fieldset>
+        <div class="appointment-result" role="status" hidden></div>
+        <noscript><p>Please enable JavaScript to send an appointment request.</p></noscript>
+      </form>
+    </div>'''
+
 def polish():
     for page in (ROOT / 'dist').rglob('*.html'):
         text = page.read_text(encoding='utf-8')
@@ -65,6 +104,20 @@ def polish():
                 links.replace_with(BeautifulSoup(gallery, 'html.parser'))
         for duplicate in soup.select('.additional-makes'):
             duplicate.decompose()
+
+        contact = soup.select_one('section.contact')
+        if contact:
+            contact.clear()
+            contact['id'] = 'contact'
+            contact['aria-labelledby'] = 'appointment-title'
+            contact.append(BeautifulSoup(closing_form(), 'html.parser'))
+            visit_links = soup.select_one('footer .foot-top > div:last-child')
+            if visit_links and not visit_links.select_one('a[href="#contact"]'):
+                visit_links.select_one('h2').insert_after(BeautifulSoup('<a class="footer-booking-link" href="#contact">Request an appointment</a>', 'html.parser'))
+            for link in soup.select('footer a[href="#contact"]'):
+                link['class'] = ['footer-booking-link']
+        for gallery_title in soup.select('.brand-gallery h2'):
+            gallery_title.string = 'European makes we service.'
 
         for form in soup.select('#request-form'):
             group = next((f for f in form.select('fieldset.inline') if f.select_one('input[name="make"]')), None)
@@ -123,7 +176,7 @@ def polish():
         for asset in soup.select('script[src], link[href]'):
             key = 'src' if asset.name == 'script' else 'href'
             if re.match(r'^/(app\.js|config\.js|style\.css)\?v=', asset.get(key, '')):
-                asset[key] = re.sub(r'\?v=\d+', '?v=6', asset[key])
+                asset[key] = re.sub(r'\?v=\d+', '?v=8', asset[key])
         if soup.head and not soup.select_one('meta[property="og:locale"]'):
             meta = soup.new_tag('meta', property='og:locale', content='en_US'); soup.head.append(meta)
         for name, source in [('twitter:title', 'og:title'), ('twitter:description', 'og:description'), ('twitter:image', 'og:image'), ('twitter:image:alt', 'og:image:alt')]:

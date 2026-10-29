@@ -44,6 +44,8 @@ Vehicle photography is stored locally in responsive WebP sizes. `photography-sou
 
 ## Mobile and SEO
 
+The homepage, services page and three make pages include a visible appointment form in the closing section (`#contact`), with a footer link for direct access. Native make/service selectors, name, phone, model, optional email and notes send to the same restricted booking endpoint as the dialog. Choosing email as the contact preference makes it required. Make pages preselect their brand. The phone booking bar hides while the closing section is visible. `scripts/polish_booking.py` preserves this form and the European logo gallery when regenerating pages. A labeled live QA submission was accepted by the email provider and recorded as sent; this confirms submission acceptance, not inbox placement or a reserved appointment.
+
 See `docs/mobile-seo-review.md` for the review and launch priorities. `python scripts/inspect_metadata.py` prints the static metadata baseline. The main marketing pages have unique titles/descriptions, self-referencing canonical URLs, one H1, Open Graph and Twitter cards, image dimensions and mobile viewport tags. The same content and metadata are served to desktop and phone screens. Brand pages include breadcrumb structured data; homepage includes WebSite data.
 
 **Search launch is still pending.** The website is publicly accessible on its custom domain, with canonical/social/schema URLs aligned to that domain. Noindex/nofollow, the staging response header, blocked crawling and an empty sitemap remain until verified shop contact details and claims are ready. `launchState: 'staging'` suppresses AutoRepair schema. Changing config alone does not update static robots/meta/header/sitemap rules.

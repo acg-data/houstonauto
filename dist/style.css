@@ -463,6 +463,39 @@ details[open] .plus { transform: rotate(45deg); }
 .contact-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .contact small { font-size: 13px; display: block; color: var(--on-dark-3); margin-top: 22px; line-height: 1.7; }
 
+/* A complete request at the end of the visit, without opening a dialog. */
+.appointment-grid { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 96px); align-items: start; margin-top: 0; }
+.appointment-intro { padding-top: 20px; }
+.contact .appointment-intro h2 { font-size: clamp(48px, 5.5vw, 80px); }
+.contact .appointment-intro p { max-width: 27ch; margin: 28px 0; }
+.appointment-intro .text-link { font-size: 14px; }
+.appointment-form { min-width: 0; background: var(--porcelain); color: var(--graphite); padding: clamp(24px, 3vw, 40px); }
+.appointment-fields { min-width: 0; padding: 0; margin: 0; border: 0; }
+.appointment-fields legend { padding: 0; margin: 0 0 10px; font-size: clamp(24px, 2.2vw, 30px); letter-spacing: -.025em; line-height: 1.25; }
+.contact .appointment-form .form-guidance { color: var(--ink-3); font-size: 12px; line-height: 1.5; margin: 0; }
+.appointment-form .form-row { min-width: 0; gap: 16px; }
+.appointment-form .field { min-width: 0; }
+.appointment-form input, .appointment-form select, .appointment-form textarea { min-width: 0; }
+.appointment-submit { width: 100%; margin-top: 24px; }
+.appointment-submit:disabled { cursor: wait; opacity: .65; }
+.contact .appointment-form .confirmation-note { margin-top: 12px; text-align: center; }
+.appointment-result h3 { font-size: 30px; line-height: 1.25; }
+.contact .appointment-result p, .contact .appointment-form noscript p { color: var(--ink-2); font-size: 16px; line-height: 1.65; margin: 16px 0; }
+.appointment-result .text-link { font-size: 14px; margin-top: 12px; }
+body.appointment-in-view .action-bar { display: none; }
+.footer-booking-link { display: block; width: fit-content; margin-bottom: 8px; }
+
+@media (max-width: 900px) {
+  .contact-grid.appointment-grid { grid-template-columns: 1fr; gap: 36px; }
+  .appointment-intro { padding-top: 0; }
+  .contact .appointment-intro p { max-width: 36ch; }
+}
+@media (max-width: 480px) {
+  .appointment-form .form-row { grid-template-columns: 1fr; gap: 0; }
+  .appointment-form { padding: 24px 20px; }
+  .contact .appointment-intro h2 { font-size: 52px; }
+}
+
 /* ---------- Footer ---------- */
 footer { background: var(--night); color: var(--platinum); padding: 64px var(--pad) 28px; }
 .foot-top {
