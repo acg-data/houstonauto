@@ -154,9 +154,9 @@ def polish():
             hero_heading = soup.select_one('.hero h1')
             if hero_heading:
                 hero_heading.clear()
-                hero_heading.append('Exceptional cars.')
+                hero_heading.append('Exceptional Cars ')
                 hero_heading.append(soup.new_tag('br'))
-                hero_heading.append('Exacting care.')
+                hero_heading.append('Deserve Exceptional Care.')
             soup.title.string = 'European & Luxury Auto Repair in Houston | Houston Auto Pros'
             for description in soup.select('meta[name="description"], meta[property="og:description"]'):
                 description['content'] = 'European and luxury auto repair in Houston. Maintenance, diagnostics, brakes and inspections for Porsche, BMW, Mercedes-Benz, Audi and more.'
@@ -176,7 +176,7 @@ def polish():
         for asset in soup.select('script[src], link[href]'):
             key = 'src' if asset.name == 'script' else 'href'
             if re.match(r'^/(app\.js|config\.js|style\.css)\?v=', asset.get(key, '')):
-                asset[key] = re.sub(r'\?v=\d+', '?v=8', asset[key])
+                asset[key] = re.sub(r'\?v=\d+', '?v=9', asset[key])
         if soup.head and not soup.select_one('meta[property="og:locale"]'):
             meta = soup.new_tag('meta', property='og:locale', content='en_US'); soup.head.append(meta)
         for name, source in [('twitter:title', 'og:title'), ('twitter:description', 'og:description'), ('twitter:image', 'og:image'), ('twitter:image:alt', 'og:image:alt')]:

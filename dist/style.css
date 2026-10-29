@@ -246,7 +246,7 @@ em { font-style: normal; color: var(--ink-soft); }
   padding: calc(var(--header-h) + 90px) var(--pad) 64px;
   max-width: 980px;
 }
-.hero-content h1 { margin: 26px 0 28px; }
+.hero-content h1 { margin: 26px 0 28px; font-size: clamp(42px, 5vw, 64px); text-wrap: balance; }
 .hero-lede { color: var(--on-dark-2); font-size: 17px; line-height: 1.7; max-width: 520px; margin-bottom: 36px; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 .hero-note { margin-top: 16px; font-size: 13px; color: var(--on-dark-3); }
