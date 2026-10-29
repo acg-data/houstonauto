@@ -131,7 +131,7 @@
     address: el => { el.replaceChildren(...addressLines.flatMap((l, i) => (i ? [document.createElement('br'), l] : [l]))); return true; },
     hours: el => { renderHours(el); return true; },
     today: () => todayStatus(),
-    rating: () => rating && `★ ${rating.value}${rating.count ? ` · ${rating.count} Google reviews` : ' on Google'}`,
+    rating: () => rating && `${rating.value} / 5${rating.count ? ` · ${rating.count} Google reviews` : ' on Google'}`,
   };
   const placeholderText = { phone: 'Phone number', email: 'Email address', address: 'Street address', hours: 'Opening hours', today: 'Hours', rating: 'Google rating' };
   const placeholderKey = { today: 'hours' };
@@ -219,7 +219,7 @@
       reviewsWrap.replaceChildren(...reviews.slice(0, 6).map(r => card(r.quote, r.name || 'Customer', [r.car, r.source || 'Google'].filter(Boolean).join(' · '))));
       if (emptyReviews) emptyReviews.hidden = true;
     } else if (placeholders) {
-      reviewsWrap.replaceChildren(...[1, 2, 3].map(n => card('Paste a real review from your Google Business Profile into config.js. Copy it word for word, with the reviewer’s name as shown.', `Review ${n}`, 'config.js → reviews', true)));
+      reviewsWrap.replaceChildren(...[1, 2, 3].map(n => card('Paste a real review from your Google Business Profile into config.js. Copy it word for word, with the reviewer’s name as shown.', `Review ${n}`, 'config.js reviews', true)));
     } else if (!C.reviewsUrl && C.launchState === 'staging' && C.showReviewsPreview && emptyReviews) {
       reviewsWrap.hidden = true;
       emptyReviews.hidden = false;
@@ -463,9 +463,7 @@
 
     function actionButton(label, href, method, extra = {}) {
       const a = Object.assign(document.createElement('a'), { className: 'button outline-dark', href, ...extra });
-      const arrow = Object.assign(document.createElement('span'), { textContent: '↗' });
-      arrow.setAttribute('aria-hidden', 'true');
-      a.append(label + ' ', arrow);
+      a.textContent = label;
       a.addEventListener('click', () => track(method === 'call' ? 'call_click' : 'request_fallback', { method, location: 'request' }));
       return a;
     }
@@ -510,7 +508,7 @@
 
       const details = document.createElement('details');
       details.append(Object.assign(document.createElement('summary'), { textContent: 'View your details' }), Object.assign(document.createElement('pre'), { className: 'request-details', textContent: data.summary }));
-      const done = Object.assign(document.createElement('button'), { type: 'button', className: 'text-link', textContent: sent ? 'Close' : '← Edit request' });
+      const done = Object.assign(document.createElement('button'), { type: 'button', className: 'text-link', textContent: sent ? 'Close' : 'Edit request' });
       done.addEventListener('click', () => { if (sent) dialog.close(); else { showStep(steps.length); focusStep(); } });
       h.tabIndex = -1;
       result.replaceChildren(h, p, actions, details, done);

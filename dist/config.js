@@ -9,9 +9,9 @@
 window.HAP_CONFIG = {
   showPlaceholders: false,
   launchState: 'staging', // switch to production only after business details and booking are verified
-  showReviewsPreview: true, // show the honest empty reviews section on this private preview
+  showReviewsPreview: true, // show the honest empty reviews section on the staging site
 
-  siteUrl: 'https://houston-auto-pros.jmabr92.chatgpt.site', // real domain, no trailing slash (also replace it in the HTML, robots.txt and sitemap.xml — see README)
+  siteUrl: 'https://houston-auto-pros.justin-b75.workers.dev', // real domain, no trailing slash (also replace it in the HTML, robots.txt and sitemap.xml — see README)
 
   phone: '',        // E.164 format, e.g. '+17135550123'
   phoneDisplay: '', // how it should read, e.g. '(713) 555-0123'

@@ -1,6 +1,6 @@
 # Houston Auto Pros
 
-Website for an independent Porsche, BMW and Mercedes-Benz specialist in Houston. Plain HTML, CSS and JavaScript — no framework, no build step, no npm.
+Website for an independent Porsche, BMW and Mercedes-Benz specialist in Houston. Plain HTML, CSS and JavaScript. No framework or build step; npm is used only for Cloudflare deployment tooling.
 
 ## Run locally
 
@@ -18,7 +18,7 @@ The shared Services dropdown opens on click/tap and supports keyboard navigation
 
 Brand identification assets are self-hosted in `dist/assets/brands/`, with sources recorded in `brand-sources.json`. The manufacturer marks identify vehicles serviced and do not indicate manufacturer affiliation.
 
-The shop does not yet have a Google Business Profile. The private preview displays an honest “reviews are on the way” state through `showReviewsPreview: true`. No quotes, stars or review counts are invented. Add verified reviews and the profile URL to `config.js` when available; the review cards then replace the empty state. The empty state is suppressed automatically in production.
+The shop does not yet have a Google Business Profile. The staging site displays an honest “reviews are on the way” state through `showReviewsPreview: true`. No quotes, stars or review counts are invented. Add verified reviews and the profile URL to `config.js` when available; the review cards then replace the empty state. The empty state is suppressed automatically in production.
 
 | Page | Purpose |
 | --- | --- |
@@ -30,7 +30,7 @@ The shop does not yet have a Google Business Profile. The private preview displa
 
 ## Before launch
 
-The hosted version is a private, polished staging site. `showPlaceholders` is false: missing reviews and contact details are hidden. The planner creates a downloadable service brief and clearly says nothing is sent. No customer contact endpoint has been configured.
+The Cloudflare version is a public, polished staging site. It opens without ChatGPT sign-in and stays noindex until the business setup is complete. `showPlaceholders` is false: missing reviews and contact details are hidden. The planner creates a downloadable service brief and clearly says nothing is sent. No customer contact endpoint has been configured.
 
 `launchState` is `staging`. All pages are noindex/nofollow, robots disallows crawling, the sitemap is empty and AutoRepair schema is suppressed. For a public launch, complete the verified business record below, connect booking, set `launchState: 'production'`, restore appropriate index/follow tags and robots rules, and populate the sitemap with the approved production URLs. Keep brand, photography and 404 pages noindex.
 
@@ -90,3 +90,19 @@ Events are pushed to `dataLayer` (so Google Tag Manager works too) and to GA4, G
 Graphite #17191B · Gunmetal #343A40 · Satin steel #A6ADB4 · Platinum #E4E3DF · Warm porcelain #F3F1EB
 
 `design-reference/` holds the approved brand direction and the expanded concept board. They are visual references, not screenshots of the coded site.
+
+## Cloudflare hosting
+
+The current site is hosted with Cloudflare Workers Static Assets at https://houston-auto-pros.justin-b75.workers.dev. The account has reached its Cloudflare Pages project limit, so an assets-only Worker serves the same static website. There is no application Worker script, backend, database or new booking integration.
+
+```sh
+npm ci
+npm run deploy:check
+npm run deploy
+```
+
+`wrangler.jsonc` selects the account, site name, static output and normal HTML/404 routing. The original `.openai/hosting.json` records the earlier private Sites preview; it is retained for reference and is not the current deployment target.
+
+All decorative Unicode arrows and stars have been removed from the interface. Dropdowns, disclosure controls and close buttons use consistent SVG line icons. `scripts/refine_finish.py` applies the same finish whenever the service page is regenerated.
+
+The public staging site keeps robots meta, robots.txt and `X-Robots-Tag` set to noindex. Remove the staging crawl controls only after business details, services, booking and the final domain are approved.

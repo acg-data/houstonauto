@@ -1,0 +1,13 @@
+{
+  "name": "houston-auto-pros",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static Houston Auto Pros website and Cloudflare hosting tooling",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "deploy:check": "wrangler deploy --dry-run"
+  },
+  "devDependencies": {
+    "wrangler": "^4.155.0"
+  }
+}

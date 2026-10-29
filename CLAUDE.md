@@ -1,5 +1,11 @@
 # Project context
 
+## Current hosting and visual preference
+
+The current public staging target is Cloudflare Workers Static Assets, configured in `wrangler.jsonc`; deploy with `npm run deploy`. The Cloudflare account's Pages project quota is full. The earlier private Sites manifest is retained as historical metadata; do not treat it as the current hosting target.
+
+The user wants a restrained, high-end appearance. Do not add emojis, decorative Unicode arrows, rating-star glyphs or ornamental numbering. Keep controls textual and use SVG line icons only for functional disclosures, menus and close buttons. `scripts/refine_finish.py` applies this finish to generated HTML and runs after `scripts/expand_services.py`.
+
 Houston Auto Pros is an independent premium European automotive repair brand in Houston, focused on Porsche, BMW and Mercedes-Benz owners. This is the website. Its job is to turn visits into calls and appointment requests while keeping the premium brand.
 
 ## Design direction

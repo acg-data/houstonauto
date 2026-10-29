@@ -55,7 +55,7 @@ homepath=DIST/'index.html'
 home=homepath.read_text(encoding='utf-8')
 if 'class="brand-strip"' not in home:
  home=home.replace('    <section class="makes', '    '+brands+'\n\n    <section class="makes',1)
-if 'class="service-directory-link"' not in home:
+if 'class="service-directory-link' not in home:
  home=home.replace('    <section class="statement"', '    <div class="service-directory-link porcelain"><a class="button outline-dark" href="/services/">Explore all 18 services <span aria-hidden="true">↗</span></a><p>Maintenance, diagnostics, brakes, cooling and inspections.</p></div>\n\n    <section class="statement"',1)
 if 'data-reviews-empty' not in home:
  home=home.replace('<div class="reviews-grid" data-reviews></div>', '<div class="reviews-grid" data-reviews></div><div class="reviews-pending" data-reviews-empty hidden><div><h3>Customer reviews are on the way.</h3><p>This space is reserved for real customer feedback. Reviews will appear here as they become available.</p></div><a class="text-link" href="/services/">Explore our services <span aria-hidden="true">↗</span></a></div>')
@@ -73,8 +73,8 @@ main+='''</section><section class="contact"><div class="contact-grid"><h2>Not su
 head=home.split('<body>')[0]
 head=re.sub(r'<title>.*?</title>','<title>European Auto Services in Houston | Houston Auto Pros</title>',head)
 head=re.sub(r'(<meta (?:name="description"|property="og:description") content=")[^"]*',r'\g<1>Explore 18 maintenance, diagnostic and repair services for Porsche, BMW and Mercedes-Benz in Houston.',head)
-head=head.replace('href="https://houston-auto-pros.jmabr92.chatgpt.site/"','href="https://houston-auto-pros.jmabr92.chatgpt.site/services/"')
-head=head.replace('property="og:url" content="https://houston-auto-pros.jmabr92.chatgpt.site/"','property="og:url" content="https://houston-auto-pros.jmabr92.chatgpt.site/services/"')
+head=head.replace('href="https://houston-auto-pros.justin-b75.workers.dev/"','href="https://houston-auto-pros.justin-b75.workers.dev/services/"')
+head=head.replace('property="og:url" content="https://houston-auto-pros.justin-b75.workers.dev/"','property="og:url" content="https://houston-auto-pros.justin-b75.workers.dev/services/"')
 head=head.replace('Houston Auto Pros — Precision you can feel.','European Auto Services | Houston Auto Pros')
 head=re.sub(r'<link rel="preload" as="image"[^>]*>','',head)
 head=re.sub(r'<script type="application/ld\+json">.*?</script>','',head)
@@ -95,3 +95,5 @@ for page in DIST.rglob('*.html'):
 (ROOT/'content').mkdir(exist_ok=True)
 (ROOT/'content/services.json').write_text(json.dumps(GROUPS,indent=2,ensure_ascii=False),encoding='utf-8')
 print('18 services, shared dropdown navigation, brand assets and review section prepared.')
+from refine_finish import refine
+refine()
