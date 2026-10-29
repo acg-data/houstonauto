@@ -1,0 +1,17 @@
+[
+  {
+    "brand": "porsche",
+    "source": "https://github.com/simple-icons/simple-icons/blob/develop/icons/porsche.svg",
+    "license": "https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md"
+  },
+  {
+    "brand": "bmw",
+    "source": "https://github.com/simple-icons/simple-icons/blob/develop/icons/bmw.svg",
+    "license": "https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md"
+  },
+  {
+    "brand": "mercedes-benz",
+    "source": "https://github.com/filippofilip95/car-logos-dataset/blob/master/logos/optimized/mercedes-benz.png",
+    "note": "Star cropped from supplied brand image; original proportions retained."
+  }
+]

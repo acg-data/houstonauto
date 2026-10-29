@@ -9,6 +9,7 @@
 window.HAP_CONFIG = {
   showPlaceholders: false,
   launchState: 'staging', // switch to production only after business details and booking are verified
+  showReviewsPreview: true, // show the honest empty reviews section on this private preview
 
   siteUrl: 'https://houston-auto-pros.jmabr92.chatgpt.site', // real domain, no trailing slash (also replace it in the HTML, robots.txt and sitemap.xml — see README)
 

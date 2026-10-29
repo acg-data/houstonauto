@@ -204,6 +204,7 @@
   /* ---------- Reviews (real ones from config.js only) ---------- */
   const reviewsWrap = $('[data-reviews]');
   if (reviewsWrap) {
+    const emptyReviews = $('[data-reviews-empty]');
     const card = (quote, name, meta, isPlaceholder) => {
       const fig = document.createElement('figure');
       fig.className = 'review' + (isPlaceholder ? ' is-placeholder' : '');
@@ -216,8 +217,12 @@
     };
     if (reviews.length) {
       reviewsWrap.replaceChildren(...reviews.slice(0, 6).map(r => card(r.quote, r.name || 'Customer', [r.car, r.source || 'Google'].filter(Boolean).join(' · '))));
+      if (emptyReviews) emptyReviews.hidden = true;
     } else if (placeholders) {
       reviewsWrap.replaceChildren(...[1, 2, 3].map(n => card('Paste a real review from your Google Business Profile into config.js. Copy it word for word, with the reviewer’s name as shown.', `Review ${n}`, 'config.js → reviews', true)));
+    } else if (!C.reviewsUrl && C.launchState === 'staging' && C.showReviewsPreview && emptyReviews) {
+      reviewsWrap.hidden = true;
+      emptyReviews.hidden = false;
     } else if (!C.reviewsUrl) {
       reviewsWrap.closest('section').hidden = true;
     } else {
@@ -265,18 +270,49 @@
 
   const menu = $('.menu');
   const nav = $('#site-nav');
+  const serviceMenu = $('.nav-services');
+  const serviceSummary = serviceMenu && $('summary', serviceMenu);
+  const desktopNavigation = window.matchMedia('(min-width: 1051px)');
+  if (serviceMenu) {
+    document.addEventListener('click', e => {
+      if (!serviceMenu.contains(e.target)) serviceMenu.open = false;
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && serviceMenu.open) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        serviceMenu.open = false;
+        serviceSummary.focus();
+      }
+    });
+    serviceMenu.addEventListener('focusout', e => {
+      if (desktopNavigation.matches && !serviceMenu.contains(e.relatedTarget)) serviceMenu.open = false;
+    });
+  }
+
+  function openLinkedService() {
+    let id;
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
+    if (!id) return;
+    const service = document.getElementById(id);
+    if (service && service.matches('details.service-option')) service.open = true;
+  }
+  openLinkedService();
+  window.addEventListener('hashchange', openLinkedService);
+
   function setMenu(open) {
     nav.classList.toggle('open', open);
     header.classList.toggle('menu-open', open);
     menu.setAttribute('aria-expanded', String(open));
     menu.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     document.body.style.overflow = open ? 'hidden' : '';
+    if (!open && serviceMenu) serviceMenu.open = false;
   }
   if (menu && nav) {
     menu.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
     nav.addEventListener('click', e => { if (e.target.closest('a, button')) setMenu(false); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); menu.focus(); } });
-    window.matchMedia('(min-width: 861px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
+    desktopNavigation.addEventListener('change', e => { if (e.matches) setMenu(false); });
   }
 
   /* ---------- Appointment request ---------- */

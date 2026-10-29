@@ -14,6 +14,12 @@ Publish the contents of `dist/` to any static host (Netlify, Cloudflare Pages, V
 
 ## Pages
 
+The shared Services dropdown opens on click/tap and supports keyboard navigation and Escape. On mobile it sits in a full-height, scrollable menu. `/services/` contains 18 service options with direct links that expand the matching description and prefill the service planner. `scripts/expand_services.py` regenerates the service page and shared navigation; its catalogue is also exported to `content/services.json`. Confirm the service catalogue with the shop before public launch.
+
+Brand identification assets are self-hosted in `dist/assets/brands/`, with sources recorded in `brand-sources.json`. The manufacturer marks identify vehicles serviced and do not indicate manufacturer affiliation.
+
+The shop does not yet have a Google Business Profile. The private preview displays an honest “reviews are on the way” state through `showReviewsPreview: true`. No quotes, stars or review counts are invented. Add verified reviews and the profile URL to `config.js` when available; the review cards then replace the empty state. The empty state is suppressed automatically in production.
+
 | Page | Purpose |
 | --- | --- |
 | `dist/index.html` | Homepage: cinematic hero, photographed make cards, services, approach, FAQ and visit guide |
