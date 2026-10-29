@@ -9,7 +9,7 @@
 window.HAP_CONFIG = {
   showPlaceholders: true, // set to false before launch
 
-  siteUrl: 'https://houstonautopros.example', // real domain, no trailing slash (also replace it in the HTML, robots.txt and sitemap.xml — see README)
+  siteUrl: 'https://houston-auto-pros.jmabr92.chatgpt.site', // real domain, no trailing slash (also replace it in the HTML, robots.txt and sitemap.xml — see README)
 
   phone: '',        // E.164 format, e.g. '+17135550123'
   phoneDisplay: '', // how it should read, e.g. '(713) 555-0123'
