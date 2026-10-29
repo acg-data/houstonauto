@@ -1,0 +1,20 @@
+{
+  "root": "C:\\Users\\Justin Abrams\\OneDrive\\Documents\\Playground\\houstonauto-live\\dist",
+  "origin": "https://houstonautopros.com",
+  "production": true,
+  "intentionalNoindexPaths": [
+    "/404.html",
+    "/brand.html",
+    "/photography.html"
+  ],
+  "pages": 29,
+  "errors": 0,
+  "warnings": 1,
+  "findings": [
+    {
+      "level": "warning",
+      "url": "https://houstonautopros.com/404.html",
+      "message": "orphan page: no crawlable internal inbound link"
+    }
+  ]
+}

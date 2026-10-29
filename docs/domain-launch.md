@@ -1,5 +1,7 @@
 # Custom-domain launch — 29 October 2026
 
+Current release: static Worker `222271b2-4323-4216-87a3-ae0ed1c4688e`, redirect Worker `4e903580-36c6-4c4d-821c-59611881a351`. The current hero is “Exceptional Cars Deserve Exceptional Care.” Eighteen service pages, the Houston location/coverage pages and licensed Porsche sharing video are live. Search indexing is enabled for 26 canonical pages using the owner-confirmed address and working booking form; the phone remains hidden at the owner's request. See [SEO strategy and live verification](seo-strategy.md). Earlier release notes below are historical.
+
 Latest visual release: `141298a3-9cbf-42bf-a046-ac1ffd3d78d6`. The hero now reads “Exceptional cars. Exacting care.” All 18 supported makes have self-hosted logos in the gallery and Makes menu; decorative link underlines are removed. Checked the 320px/390px phone layouts and desktop gallery, brand prefill and keyboard dropdown opening. All marks loaded, no horizontal overflow or visible text underlines were found, and the static SEO audit still reports zero errors. [Live hero](../outputs/hero-brand-update/hero-live.jpg) · [Live brand gallery](../outputs/hero-brand-update/brands-live.jpg).
 
 https://houstonautopros.com is live with HTTPS, the latest frontend and the working appointment form. All fourteen apex/www hostnames were checked over HTTPS. The primary returns 200, and the thirteen aliases return 301 to the destinations below. Tracking query parameters survive redirects, and existing deep paths are preserved.

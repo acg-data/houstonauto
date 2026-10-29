@@ -177,7 +177,7 @@
     '@id': siteUrl + '/#business',
     name: 'Houston Auto Pros',
     url: siteUrl + '/',
-    image: siteUrl + '/assets/og-image.jpg',
+    image: siteUrl + '/assets/logo-512.png',
     logo: siteUrl + '/assets/logo-512.png',
     description: 'Independent European and luxury automotive service and repair in Houston.',
     areaServed: { '@type': 'City', name: 'Houston' },
@@ -192,7 +192,7 @@
   const ld = document.createElement('script');
   ld.type = 'application/ld+json';
   ld.textContent = JSON.stringify(business);
-  if (C.launchState === 'production') document.head.append(ld);
+  if (C.launchState === 'production' && !document.querySelector('script[data-business-schema]')) document.head.append(ld);
 
   /* ---------- Reviews (real ones from config.js only) ---------- */
   const reviewsWrap = $('[data-reviews]');
@@ -302,7 +302,15 @@
     try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
     if (!id) return;
     const service = document.getElementById(id);
-    if (service && service.matches('details.service-option')) service.open = true;
+    if (service && service.matches('details.service-option')) {
+      if (service.dataset.serviceUrl && location.pathname === '/services/') {
+        const target = new URL(service.dataset.serviceUrl, location.origin);
+        target.search = location.search;
+        location.replace(target.href);
+        return;
+      }
+      service.open = true;
+    }
   }
   openLinkedService();
   window.addEventListener('hashchange', openLinkedService);
@@ -374,7 +382,12 @@
       document.body.classList.toggle('appointment-in-view', entries[0].isIntersecting);
     }).observe(inlineForm.closest('section'));
     const pageMake = document.body.dataset.make;
-    if (pageMake) inlineForm.elements.make.value = pageMake;
+    const pageService = document.body.dataset.service;
+    const applyPageDefaults = () => {
+      if (pageMake) inlineForm.elements.make.value = pageMake;
+      if (pageService) inlineForm.elements.service.value = pageService;
+    };
+    applyPageDefaults();
     inlineForm.addEventListener('change', syncEmail);
     inlineForm.addEventListener('input', event => event.target.setCustomValidity?.(''));
 
@@ -403,7 +416,7 @@
         const another = Object.assign(document.createElement('button'), { type: 'button', className: 'text-link', textContent: 'Request another visit' });
         another.addEventListener('click', () => {
           inlineForm.reset(); newRequest(); syncEmail();
-          if (pageMake) inlineForm.elements.make.value = pageMake;
+          applyPageDefaults();
           fields.hidden = false; result.hidden = true;
           inlineForm.elements.name.focus();
         });
@@ -526,10 +539,10 @@
       }
       if (sent) reset();
       navDropdowns.forEach(dropdown => { dropdown.open = false; });
-      const service = trigger?.dataset.service;
+      const service = trigger?.dataset.service || document.body.dataset.service;
       setChoice('service', service);
       setChoice('make', trigger?.dataset.make || document.body.dataset.make);
-      const topic = trigger?.dataset.note;
+      const topic = trigger?.dataset.note || document.body.dataset.serviceName;
       if (topic && !form.elements.message.value.includes(topic)) {
         form.elements.message.value = `Asking about: ${topic}. ${form.elements.message.value}`.trim() + ' ';
       }

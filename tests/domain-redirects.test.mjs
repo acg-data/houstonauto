@@ -9,7 +9,7 @@ test('secondary domains point at relevant pages on the fixed primary domain', ()
     ['houstonporschemechanic.com', '/porsche/'],
     ['houstonporscherepair.com', '/porsche/'],
     ['houstonautodiagpro.com', '/services/#diagnostics'],
-    ['houstonenginebuilders.com', '/services/#engine-diagnostics'],
+    ['houstonenginebuilders.com', '/services/engine-diagnostics/'],
     ['www.houstonautopros.com', '/']
   ]) {
     const response = worker.fetch(new Request('https://' + host + '/'));
