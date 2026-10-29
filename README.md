@@ -16,14 +16,17 @@ Publish the contents of `dist/` to any static host (Netlify, Cloudflare Pages, V
 
 | Page | Purpose |
 | --- | --- |
-| `dist/index.html` | Homepage: hero, make cards, services, approach, reviews, workshop gallery, FAQ, visit details |
+| `dist/index.html` | Homepage: cinematic hero, photographed make cards, services, approach, FAQ and visit guide |
 | `dist/porsche/`, `dist/bmw/`, `dist/mercedes-benz/` | Search and ad landing pages, one per make. Every booking button pre-selects that make |
-| `dist/brand.html` | Brand guidelines (palette, stationery). Linked from the footer only; set to `noindex` |
+| `dist/brand.html` | Original brand guidelines (palette, stationery); linked from photography credits; noindex |
+| `dist/photography.html` | Image sources, license and clear illustrative-photo disclosure |
 | `dist/404.html` | Not-found page with routes back to booking and the make pages |
 
 ## Before launch
 
-Everything below is a placeholder until verified details are added. While `showPlaceholders` is `true` in `config.js`, every missing detail and empty photo slot is outlined on the page with a note saying what goes there.
+The hosted version is a private, polished staging site. `showPlaceholders` is false: missing reviews and contact details are hidden. The planner creates a downloadable service brief and clearly says nothing is sent. No customer contact endpoint has been configured.
+
+`launchState` is `staging`. All pages are noindex/nofollow, robots disallows crawling, the sitemap is empty and AutoRepair schema is suppressed. For a public launch, complete the verified business record below, connect booking, set `launchState: 'production'`, restore appropriate index/follow tags and robots rules, and populate the sitemap with the approved production URLs. Keep brand, photography and 404 pages noindex.
 
 1. **Business details** — fill in `dist/config.js`: phone, text number (only if it can receive texts), email, address, hours, Google rating and review link. That one file feeds the header, the call/text buttons, the mobile action bar, the visit section, the footer, the "open today" status and the local-business structured data.
 2. **Request form** — set `requestEndpoint` (see below). Until then the form honestly says nothing was sent and offers text, email or download.
@@ -39,21 +42,13 @@ Everything below is a placeholder until verified details are added. While `showP
 8. **Switch off placeholders** — set `showPlaceholders: false`. Anything still missing is then hidden instead of outlined.
 9. Submit `https://YOUR-DOMAIN/sitemap.xml` in Google Search Console, and make sure the Google Business Profile uses exactly the same name, address and phone as `config.js`.
 
-## Photos
+## Photography
 
-Drop a photo into `dist/assets/photos/` with the file name below and it appears. No code changes are needed. Use JPGs about 1600–2400px on the long edge, compressed to under ~400 KB. Real photos of the real shop beat stock or AI images every time.
+The make cards and landing-page heroes use locally stored Unsplash vehicle photography. `photography-sources.json` records each source, license, image dimensions and output files. `dist/photography.html` credits the images and explains they do not depict this shop, its staff or customer cars. The original cinematic homepage image is retained.
 
-| File | Where it shows | What to shoot |
-| --- | --- | --- |
-| `make-porsche.jpg` · `make-bmw.jpg` · `make-mercedes-benz.jpg` | Homepage make cards (4:3) | A customer car of each make in the shop |
-| `porsche-hero.jpg` · `bmw-hero.jpg` · `mercedes-benz-hero.jpg` | Full-screen hero on each make page | Your best photo of that make: wide, dark background, car on the right half. Porsche falls back to the current hero image until replaced |
-| `statement.jpg` | "Not just how it runs" band (darkened) | Moody detail: reflections across bodywork. Falls back to the hero image |
-| `conversation.jpg` | Under "Our approach" (very wide) | A technician walking an owner through findings beside the car |
-| `workshop-bay.jpg` | Gallery, large tile | Wide shot of a clean bay with a car on the lift |
-| `technician.jpg` · `diagnostics.jpg` · `detail.jpg` · `handover.jpg` | Gallery tiles | Hands and tools at work · a scan tool connected · a close detail (brakes, engine bay, wheel) · a key handover at the counter |
-| `shop-exterior.jpg` | Visit section | The front of the shop with the sign visible, so people recognize it when they arrive |
+`dist/assets/photos/{porsche,bmw,mercedes-benz}-{640,1280,1920}.webp` supplies responsive images. `scripts/prepare_photography.py` recreates them (Python, requests, Pillow). The largest new image is under 230 KB. There are no remote image dependencies at runtime.
 
-To replace the homepage hero, overwrite `dist/assets/atelier-hero.jpg` and the three `atelier-hero-*.webp` sizes (768, 1280 and 1536px wide). Or delete the `<source>` line in the hero's `<picture>` so only the JPG is used.
+The empty workshop gallery has been removed. Do not restore it with stock photographs presented as the shop. Add approved photos of the actual premises, team and work when available. Contact sections reveal themselves when verified address, phone or email fields are filled in. Reviews render only from configured real reviews.
 
 ## Connecting the request form
 

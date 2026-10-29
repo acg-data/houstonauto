@@ -66,6 +66,7 @@
   const reviews = (C.reviews || []).filter(r => r && r.quote);
 
   const available = {
+    visit: addressLines.length > 0 || !!phone || !!email,
     phone: !!phone,
     text: !!textNumber,
     email: !!email,
@@ -169,6 +170,13 @@
 
   $$('[data-year]').forEach(el => { el.textContent = new Date().getFullYear(); });
 
+  if (!C.requestEndpoint && !C.schedulerUrl) {
+    $$('[data-booking-faq]').forEach(faq => {
+      $('summary', faq).firstChild.textContent = 'Can I book through this preview?';
+      $('p', faq).textContent = 'You can put together a service brief and download a copy. Online booking is not connected in this preview, so nothing is sent to the shop and no appointment is reserved.';
+    });
+  }
+
   /* Structured data for local search. Only verified fields from config.js are included. */
   const business = {
     '@context': 'https://schema.org',
@@ -191,7 +199,7 @@
   const ld = document.createElement('script');
   ld.type = 'application/ld+json';
   ld.textContent = JSON.stringify(business);
-  document.head.append(ld);
+  if (C.launchState === 'production') document.head.append(ld);
 
   /* ---------- Reviews (real ones from config.js only) ---------- */
   const reviewsWrap = $('[data-reviews]');
@@ -290,9 +298,15 @@
     let sent = false;
     let requestUrl;
 
+    if (!C.requestEndpoint) {
+      $('h2', steps[2]).textContent = 'Your details for the visit.';
+      form.elements.name.required = false;
+      form.elements.phone.required = false;
+    }
+
     note.textContent = C.requestEndpoint
       ? 'A request isn’t a confirmed booking. The shop will contact you to confirm a time.'
-      : 'Online requests aren’t connected yet. In the last step you can text, email or download your request. Nothing is sent automatically.';
+      : 'Preview mode: create and download a service brief. Nothing is sent to the shop. Your details stay in this browser unless you choose to share them.';
 
     const dateInput = form.elements.date;
     dateInput.min = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Chicago' }).format(new Date());
@@ -317,13 +331,13 @@
       steps.forEach((s, i) => { s.hidden = i !== n - 1; });
       flow.forEach(el => { el.hidden = false; });
       result.hidden = true;
-      bar.style.width = `${(n / steps.length) * 100}%`;
+      bar.style.transform = `scaleX(${n / steps.length})`;
       count.textContent = `Step ${n} of ${steps.length}`;
       backBtn.hidden = n === 1;
       setNextLabel();
     }
     function setNextLabel() {
-      nextLabel.textContent = step < steps.length ? 'Continue' : (C.requestEndpoint ? 'Send request' : 'Prepare request');
+      nextLabel.textContent = step < steps.length ? 'Continue' : (C.requestEndpoint ? 'Send request' : 'Create service brief');
     }
     function focusStep() {
       const heading = $('h2', steps[step - 1]);
@@ -436,7 +450,7 @@
         if (phone) actions.append(actionButton(`Call ${phoneLabel}`, 'tel:' + phone, 'call'));
         if (requestUrl) URL.revokeObjectURL(requestUrl);
         requestUrl = URL.createObjectURL(new Blob([body + '\n\nThis request has not been sent. Contact the shop to confirm availability.\n'], { type: 'text/plain' }));
-        actions.append(actionButton('Download your request', requestUrl, 'download', { download: 'houston-auto-pros-request.txt' }));
+        actions.append(actionButton('Download service brief', requestUrl, 'download', { download: 'houston-auto-pros-service-brief.txt' }));
       };
 
       if (kind === 'sent') {
@@ -451,13 +465,15 @@
         actions.append(retry);
         fallbacks();
       } else {
-        h.textContent = 'Your request is ready.';
-        p.textContent = 'Nothing has been sent yet. Choose how you’d like to send it to the shop:';
+        h.textContent = 'Your service brief is ready.';
+        p.textContent = (phone || textNumber || email)
+          ? 'Nothing has been sent. Choose how to share your details with the shop, or download a copy.'
+          : 'Download a copy to keep your details together. Nothing has been sent, and no appointment has been booked.';
         fallbacks();
       }
 
       const details = document.createElement('details');
-      details.append(Object.assign(document.createElement('summary'), { textContent: 'View your request' }), Object.assign(document.createElement('pre'), { className: 'request-details', textContent: data.summary }));
+      details.append(Object.assign(document.createElement('summary'), { textContent: 'View your details' }), Object.assign(document.createElement('pre'), { className: 'request-details', textContent: data.summary }));
       const done = Object.assign(document.createElement('button'), { type: 'button', className: 'text-link', textContent: sent ? 'Close' : '← Edit request' });
       done.addEventListener('click', () => { if (sent) dialog.close(); else { showStep(steps.length); focusStep(); } });
       h.tabIndex = -1;

@@ -1,4 +1,2 @@
 User-agent: *
-Allow: /
-
-Sitemap: https://houston-auto-pros.jmabr92.chatgpt.site/sitemap.xml
+Disallow: /

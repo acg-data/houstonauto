@@ -7,7 +7,8 @@
   - when it is false (launch), anything missing is hidden instead.
 */
 window.HAP_CONFIG = {
-  showPlaceholders: true, // set to false before launch
+  showPlaceholders: false,
+  launchState: 'staging', // switch to production only after business details and booking are verified
 
   siteUrl: 'https://houston-auto-pros.jmabr92.chatgpt.site', // real domain, no trailing slash (also replace it in the HTML, robots.txt and sitemap.xml — see README)
 
