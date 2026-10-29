@@ -170,13 +170,6 @@
 
   $$('[data-year]').forEach(el => { el.textContent = new Date().getFullYear(); });
 
-  if (!C.requestEndpoint && !C.schedulerUrl) {
-    $$('[data-booking-faq]').forEach(faq => {
-      $('summary', faq).firstChild.textContent = 'Can I book through this preview?';
-      $('p', faq).textContent = 'You can put together a service brief and download a copy. Online booking is not connected in this preview, so nothing is sent to the shop and no appointment is reserved.';
-    });
-  }
-
   /* Structured data for local search. Only verified fields from config.js are included. */
   const business = {
     '@context': 'https://schema.org',
@@ -186,7 +179,7 @@
     url: siteUrl + '/',
     image: siteUrl + '/assets/og-image.jpg',
     logo: siteUrl + '/assets/logo-512.png',
-    description: 'Independent European automotive service and repair in Houston for Porsche, BMW and Mercedes-Benz owners.',
+    description: 'Independent European and luxury automotive service and repair in Houston.',
     areaServed: { '@type': 'City', name: 'Houston' },
   };
   if (phone) business.telephone = phone;
@@ -270,25 +263,39 @@
 
   const menu = $('.menu');
   const nav = $('#site-nav');
+  const navDropdowns = $$('.nav-services, .nav-makes');
   const serviceMenu = $('.nav-services');
-  const serviceSummary = serviceMenu && $('summary', serviceMenu);
   const desktopNavigation = window.matchMedia('(min-width: 1051px)');
-  if (serviceMenu) {
+  const hoverNavigation = window.matchMedia('(hover: hover) and (pointer: fine)');
+  navDropdowns.forEach(dropdown => {
+    const summary = $('summary', dropdown);
+    let closeTimer;
+    const close = () => { clearTimeout(closeTimer); dropdown.open = false; };
+    dropdown.addEventListener('pointerenter', () => {
+      if (!desktopNavigation.matches || !hoverNavigation.matches) return;
+      clearTimeout(closeTimer);
+      navDropdowns.forEach(other => { if (other !== dropdown) other.open = false; });
+      dropdown.open = true;
+    });
+    dropdown.addEventListener('pointerleave', () => {
+      if (desktopNavigation.matches && hoverNavigation.matches) closeTimer = setTimeout(close, 180);
+    });
+    summary.addEventListener('focus', () => { if (desktopNavigation.matches) dropdown.open = true; });
     document.addEventListener('click', e => {
-      if (!serviceMenu.contains(e.target)) serviceMenu.open = false;
+      if (!dropdown.contains(e.target)) close();
     });
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && serviceMenu.open) {
+      if (e.key === 'Escape' && dropdown.open) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        serviceMenu.open = false;
-        serviceSummary.focus();
+        summary.focus();
+        close();
       }
     });
-    serviceMenu.addEventListener('focusout', e => {
-      if (desktopNavigation.matches && !serviceMenu.contains(e.relatedTarget)) serviceMenu.open = false;
+    dropdown.addEventListener('focusout', e => {
+      if (desktopNavigation.matches && !dropdown.contains(e.relatedTarget)) close();
     });
-  }
+  });
 
   function openLinkedService() {
     let id;
@@ -306,7 +313,7 @@
     menu.setAttribute('aria-expanded', String(open));
     menu.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     document.body.style.overflow = open ? 'hidden' : '';
-    if (!open && serviceMenu) serviceMenu.open = false;
+    if (!open) navDropdowns.forEach(dropdown => { dropdown.open = false; });
   }
   if (menu && nav) {
     menu.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
@@ -325,24 +332,19 @@
     const backBtn = $('[data-back]', form);
     const bar = $('.progress span', form);
     const count = $('.step-count', form);
-    const note = $('[data-form-note]', form);
     const result = $('#request-result', form);
-    const flow = $$('.progress, .step-count, .step-actions, [data-form-note]', form);
+    const flow = $$('.progress, .step-count, .step-actions', form);
     let step = 1;
     let returnFocus;
     let source = '';
     let sent = false;
-    let requestUrl;
 
-    if (!C.requestEndpoint) {
-      $('h2', steps[2]).textContent = 'Your details for the visit.';
-      form.elements.name.required = false;
-      form.elements.phone.required = false;
-    }
-
-    note.textContent = C.requestEndpoint
-      ? 'A request isn’t a confirmed booking. The shop will contact you to confirm a time.'
-      : 'Preview mode: create and download a service brief. Nothing is sent to the shop. Your details stay in this browser unless you choose to share them.';
+    let sending = false;
+    const newRequest = () => {
+      form.elements.requestId.value = crypto.randomUUID();
+      form.elements.startedAt.value = String(Date.now());
+    };
+    newRequest();
 
     const dateInput = form.elements.date;
     dateInput.min = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Chicago' }).format(new Date());
@@ -373,7 +375,7 @@
       setNextLabel();
     }
     function setNextLabel() {
-      nextLabel.textContent = step < steps.length ? 'Continue' : (C.requestEndpoint ? 'Send request' : 'Create service brief');
+      nextLabel.textContent = step < steps.length ? 'Continue' : 'Request appointment';
     }
     function focusStep() {
       const heading = $('h2', steps[step - 1]);
@@ -384,12 +386,20 @@
     }
     function setChoice(name, value) {
       if (!value) return;
+      const select = $(`select[name="${name}"]`, form);
+      if (select) {
+        const match = [...select.options].find(option => option.value.toLowerCase() === value.toLowerCase());
+        select.value = match?.value || (name === 'make' ? 'Other European make' : '');
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        return;
+      }
       const inputs = $$(`input[name="${name}"]`, form);
       const match = inputs.find(i => i.value.toLowerCase() === value.toLowerCase()) || (name === 'make' && inputs.find(i => i.value === 'Other'));
       if (match) match.checked = true;
     }
     function reset() {
       form.reset();
+      newRequest();
       syncEmail();
       sent = false;
       showStep(1);
@@ -403,6 +413,7 @@
         return;
       }
       if (sent) reset();
+      navDropdowns.forEach(dropdown => { dropdown.open = false; });
       const service = trigger?.dataset.service;
       setChoice('service', service);
       setChoice('make', trigger?.dataset.make || document.body.dataset.make);
@@ -480,29 +491,25 @@
       const fallbacks = () => {
         const body = data.summary;
         if (textNumber) actions.append(actionButton('Text it to the shop', `sms:${textNumber}?&body=${encodeURIComponent(body)}`, 'sms'));
-        if (email) actions.append(actionButton('Email it to the shop', `mailto:${email}?subject=${encodeURIComponent('Appointment request — ' + data.vehicle)}&body=${encodeURIComponent(body)}`, 'email'));
+        const requestEmail = C.bookingEmail || email;
+        if (requestEmail) actions.append(actionButton('Email your request', `mailto:${requestEmail}?subject=${encodeURIComponent('Appointment request — ' + data.vehicle)}&body=${encodeURIComponent(body)}`, 'email'));
         if (phone) actions.append(actionButton(`Call ${phoneLabel}`, 'tel:' + phone, 'call'));
-        if (requestUrl) URL.revokeObjectURL(requestUrl);
-        requestUrl = URL.createObjectURL(new Blob([body + '\n\nThis request has not been sent. Contact the shop to confirm availability.\n'], { type: 'text/plain' }));
-        actions.append(actionButton('Download service brief', requestUrl, 'download', { download: 'houston-auto-pros-service-brief.txt' }));
       };
 
       if (kind === 'sent') {
         h.textContent = `Thank you${first ? ', ' + first : ''}.`;
-        p.textContent = 'Your request has been sent. It isn’t a confirmed booking yet — the shop will contact you to confirm a time.';
+        p.textContent = 'Your appointment request is on its way. We’ll contact you to confirm a time.';
         if (phone) actions.append(actionButton(`Prefer to talk? Call ${phoneLabel}`, 'tel:' + phone, 'call'));
       } else if (kind === 'error') {
-        h.textContent = 'That didn’t go through.';
-        p.textContent = 'Your request was not sent. Try again, or send it another way:';
+        h.textContent = 'We couldn’t confirm delivery.';
+        p.textContent = 'Please email your request so we can arrange your visit.';
         const retry = Object.assign(document.createElement('button'), { type: 'button', className: 'button dark', textContent: 'Try again' });
         retry.addEventListener('click', () => { showStep(steps.length); focusStep(); });
         actions.append(retry);
         fallbacks();
       } else {
-        h.textContent = 'Your service brief is ready.';
-        p.textContent = (phone || textNumber || email)
-          ? 'Nothing has been sent. Choose how to share your details with the shop, or download a copy.'
-          : 'Download a copy to keep your details together. Nothing has been sent, and no appointment has been booked.';
+        h.textContent = 'Send your appointment request.';
+        p.textContent = 'Email your details to arrange your visit.';
         fallbacks();
       }
 
@@ -517,6 +524,7 @@
 
     form.addEventListener('submit', async e => {
       e.preventDefault();
+      if (sending) return;
       if (!validate(step)) return;
       if (step < steps.length) {
         track('book_step', { step, source });
@@ -532,17 +540,19 @@
         return;
       }
       nextBtn.setAttribute('aria-busy', 'true');
+      nextBtn.disabled = true;
+      sending = true;
       nextLabel.textContent = 'Sending…';
       try {
         const body = new FormData(form);
-        body.delete('company');
         body.append('vehicle', data.vehicle);
         body.append('summary', data.summary);
         body.append('page', location.pathname);
         body.append('_subject', `Appointment request — ${data.vehicle}`);
         Object.entries(attribution).forEach(([k, v]) => body.append(k, v));
         const res = await fetch(C.requestEndpoint, { method: 'POST', body, headers: { Accept: 'application/json' } });
-        if (!res.ok) throw new Error(String(res.status));
+        const response = await res.json();
+        if (!res.ok || response.ok !== true) throw new Error(String(res.status));
         sent = true;
         track('generate_lead', { service: data.d.service, make: data.d.make || '', source });
         showResult('sent', data);
@@ -550,6 +560,8 @@
         showResult('error', data);
       } finally {
         nextBtn.removeAttribute('aria-busy');
+        nextBtn.disabled = false;
+        sending = false;
         setNextLabel();
       }
     });

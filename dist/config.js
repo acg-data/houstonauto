@@ -9,7 +9,7 @@
 window.HAP_CONFIG = {
   showPlaceholders: false,
   launchState: 'staging', // switch to production only after business details and booking are verified
-  showReviewsPreview: true, // show the honest empty reviews section on the staging site
+  showReviewsPreview: false, // reveal reviews only when real feedback or a profile link is configured
 
   siteUrl: 'https://houston-auto-pros.justin-b75.workers.dev', // real domain, no trailing slash (also replace it in the HTML, robots.txt and sitemap.xml — see README)
 
@@ -32,10 +32,9 @@ window.HAP_CONFIG = {
     // { days: ['Mo', 'Tu', 'We', 'Th', 'Fr'], opens: '07:30', closes: '17:30' },
   ],
 
-  // Where appointment requests are sent: any HTTPS endpoint that accepts a form POST
-  // (Formspree, Basin, Getform, a Supabase Edge Function...). While empty, the form
-  // says nothing was sent and offers text, email or download instead.
-  requestEndpoint: '',
+  // Same-origin Worker endpoint; success requires JSON { ok: true } after email acceptance.
+  requestEndpoint: '/api/appointments',
+  bookingEmail: 'justin@aryocg.com',
   // Optional: send "Request a visit" buttons to your shop software's online scheduler instead.
   schedulerUrl: '',
 

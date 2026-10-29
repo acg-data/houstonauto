@@ -6,7 +6,11 @@ The current public staging target is Cloudflare Workers Static Assets, configure
 
 The user wants a restrained, high-end appearance. Do not add emojis, decorative Unicode arrows, rating-star glyphs or ornamental numbering. Keep controls textual and use SVG line icons only for functional disclosures, menus and close buttons. `scripts/refine_finish.py` applies this finish to generated HTML and runs after `scripts/expand_services.py`.
 
-Houston Auto Pros is an independent premium European automotive repair brand in Houston, focused on Porsche, BMW and Mercedes-Benz owners. This is the website. Its job is to turn visits into calls and appointment requests while keeping the premium brand.
+The user also wants section-heading side blurbs, ornamental labels and redundant supporting copy removed. Services and Makes open automatically on desktop hover and keyboard focus, while remaining tap controls on touch devices. The booking form uses a native brand dropdown from `content/makes.json`, covering the broader European/luxury range. `scripts/polish_booking.py` preserves these changes after generation. Do not restore preview-mode notices or the service-brief-only flow.
+
+Appointment requests send to the temporary, owner-supplied `justin@aryocg.com` through `/api/appointments`. This is a request flow; availability is confirmed by a person. The Worker uses an existing verified infrastructure sender and a binding restricted to this recipient. D1 stores delivery receipts/hashes, not the visitor's contact details. Keep server validation, origin checks, body limits, honeypot, rate limiter and duplicate-send protection. No appointment data is sent to unrelated lead-routing systems.
+
+Houston Auto Pros is an independent premium European automotive repair brand in Houston, covering the broader luxury European range. Porsche, BMW and Mercedes-Benz have dedicated landing pages. The website turns visits into calls and appointment requests while keeping the premium brand.
 
 ## Design direction
 
@@ -29,6 +33,6 @@ Edit the files in `dist/` directly. No build step. Run with `python -m http.serv
 
 Keep responsive layouts, keyboard accessibility (dialog focus, Escape, visible focus), WCAG AA contrast (small text uses `--ink-3` or darker on porcelain) and reduced-motion behavior. Preserve the service disclosures, the request flow and the palette copy buttons.
 
-The request form only sends when `requestEndpoint` is set and the endpoint returns 2xx. Otherwise it must say plainly that nothing was sent. A request is never a confirmed booking — never claim it is. Do not invent contact information, reviews, ratings, qualifications, warranty coverage, manufacturer affiliation, prices or business history. Placeholders must be visibly placeholders. Obtain verified business details for launch.
+The request form confirms success only when `requestEndpoint` returns a 2xx response with JSON `{ ok: true }` after provider acceptance. Otherwise say delivery could not be confirmed and offer email. A request is never a confirmed booking — never claim it is. Do not invent contact information, reviews, ratings, qualifications, warranty coverage, manufacturer affiliation, prices or business history. Empty reviews and their navigation link remain hidden until real feedback is available. Obtain verified business details for launch.
 
 All assets are local (self-hosted Manrope, hero images). No secrets or hosting IDs are required.

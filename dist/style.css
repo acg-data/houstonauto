@@ -987,7 +987,47 @@ h1, h2, h3 { text-wrap: balance; }
 
 /* Visible service navigation and manufacturer identification. */
 .nav-services { padding: 24px 0; margin: -24px 0; }
+.nav-makes { padding: 24px 0; margin: -24px 0; }
+.nav-makes > summary { display: flex; align-items: center; gap: 9px; padding: 6px 0; cursor: pointer; list-style: none; }
+.nav-makes > summary::-webkit-details-marker { display: none; }
+.nav-makes > summary svg { transition: transform .2s var(--ease); }
+.nav-makes[open] > summary svg { transform: rotate(180deg); }
+.makes-dropdown { position: absolute; top: 100%; left: 5%; right: 5%; padding: 28px 32px; background: var(--night); border: 1px solid var(--line-dark); max-height: calc(100svh - var(--header-h) - 24px); overflow-y: auto; }
+.makes-overview { display: inline-block; margin-bottom: 22px; }
+.makes-menu-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px 24px; }
+.makes-menu-grid a, .makes-menu-grid button { padding: 10px 0; min-height: 44px; text-align: left; color: var(--on-dark-2); font-size: 14px; }
+.makes-menu-grid button:hover { color: var(--porcelain); text-decoration: underline; text-underline-offset: 5px; }
+.makes-menu-grid button, .additional-makes-list button { background: transparent; border: 0; border-radius: 0; }
+.additional-makes { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--line); }
+.additional-makes h2 { font-size: 24px; letter-spacing: -.025em; }
+.additional-makes-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: 28px; margin-top: 20px; }
+.additional-makes-list button { text-align: left; padding: 12px 0; min-height: 44px; font-size: 16px; color: var(--ink-2); }
+.additional-makes-list button:hover { color: var(--graphite); text-decoration: underline; text-underline-offset: 5px; }
+.field select option { background: var(--porcelain); color: var(--graphite); }
+.step-actions button:disabled { opacity: .65; cursor: wait; }
+input[type='hidden'] { display: none !important; }
+@media (max-width: 1050px) {
+  .nav-makes { width: 100%; padding: 0; margin: 0; }
+  .nav-makes > summary { min-height: 48px; padding: 12px 0; justify-content: space-between; }
+  .makes-dropdown { position: static; padding: 16px 0 24px; max-height: none; border: 0; border-bottom: 1px solid var(--line-dark); }
+  .makes-menu-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px 18px; }
+  .additional-makes-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+  .additional-makes { margin-top: 32px; }
+  .additional-makes-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 20px; }
+  .makes-menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .makes-menu-grid a, .makes-menu-grid button { font-size: 16px; }
+  #booking .form-row { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  #booking .choices { grid-template-columns: minmax(0, 1fr); }
+  #booking .choices.compact.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  #booking .step-actions { position: sticky; bottom: 0; padding: 18px 22px max(18px, env(safe-area-inset-bottom)); background: var(--porcelain); z-index: 2; }
+  #booking .step-actions .button { min-height: 48px; }
+}
 .header.menu-open { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--night); }
+html:has(#booking[open]) { overflow: hidden; }
+body:has(.header.menu-open) .action-bar,
+body:has(#booking[open]) .action-bar { display: none; }
 .nav-services > summary { display: flex; align-items: center; gap: 9px; padding: 6px 0; cursor: pointer; list-style: none; }
 .nav-services > summary::-webkit-details-marker { display: none; }
 .nav-services > summary svg { transition: transform .2s var(--ease); }

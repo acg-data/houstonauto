@@ -32,6 +32,8 @@ def refine():
                 text = re.sub(r'<div class="service-directory-link porcelain">.*?</div>', keep_first, text, flags=re.S)
         text = text.replace('/style.css?v=3', '/style.css?v=4').replace('/app.js?v=3','/app.js?v=4').replace('/config.js?v=3','/config.js?v=4')
         page.write_text('\n'.join(line.rstrip() for line in text.splitlines())+'\n',encoding='utf-8')
+    from polish_booking import polish
+    polish()
 
 if __name__ == '__main__':
     refine()

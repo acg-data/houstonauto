@@ -2,12 +2,15 @@
   "name": "houston-auto-pros",
   "version": "1.0.0",
   "private": true,
-  "description": "Static Houston Auto Pros website and Cloudflare hosting tooling",
+  "description": "Houston Auto Pros website with Cloudflare appointment email delivery",
   "scripts": {
     "deploy": "wrangler deploy",
-    "deploy:check": "wrangler deploy --dry-run"
+    "deploy:check": "wrangler deploy --dry-run",
+    "test": "node --test tests/*.test.mjs",
+    "check": "wrangler types && tsc -p jsconfig.json"
   },
   "devDependencies": {
+    "typescript": "7.0.2",
     "wrangler": "^4.155.0"
   }
 }
