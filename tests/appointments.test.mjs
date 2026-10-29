@@ -56,8 +56,10 @@ test('cross-origin requests, invalid submissions and rate limits cannot send ema
   env.BOOKING_LIMITER.limit = async () => ({ success: false });
   assert.equal((await submit(env, booking())).status, 429); assert.equal(sends, 0);
 });
-test('honeypots suppress notification and static pages retain asset handling', async t => {
+test('honeypots suppress notification and the old preview redirects without changing the API', async t => {
   let sends = 0; const env = environment(t, async () => { sends++; return { messageId: 'receipt' }; });
   assert.equal((await submit(env, booking({ company: 'spam' }))).status, 200); assert.equal(sends, 0);
-  const response = await worker.fetch(new Request(origin + '/porsche/'), env, {}); assert.equal(await response.text(), 'static asset');
+  const response = await worker.fetch(new Request(origin + '/porsche/?utm_source=preview'), env, {});
+  assert.equal(response.status, 301);
+  assert.equal(response.headers.get('location'), 'https://houstonautopros.com/porsche/?utm_source=preview');
 });

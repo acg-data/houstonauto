@@ -1,6 +1,6 @@
 # Houston Auto Pros
 
-Independent European and luxury auto service website. The frontend is plain HTML, CSS and JavaScript; one Cloudflare Worker serves static assets and handles appointment email requests.
+Independent European and luxury auto service website at https://houstonautopros.com. Plain HTML, CSS and JavaScript are served as Cloudflare static assets. A separate existing Worker handles appointment email, and a small redirect Worker forwards the secondary domains.
 
 ## Develop and validate
 
@@ -17,7 +17,7 @@ For frontend-only work, `python -m http.server 8080 --directory dist`. This does
 
 ## Appointment requests
 
-Requests go to **justin@aryocg.com**, as requested by the owner. `dist/config.js` uses `/api/appointments`. The form confirms success only after the backend returns JSON `{ ok: true }`, following email-provider acceptance. A request does not reserve a time; the shop must contact the visitor to confirm availability. Provider acceptance does not prove inbox placement.
+Requests go to **justin@aryocg.com**, as requested by the owner. `dist/config.js` points to `https://houston-auto-pros.justin-b75.workers.dev/api/appointments`; the primary website origin is explicitly allowed through CORS. The form confirms success only after JSON `{ ok: true }`, following email-provider acceptance. A request does not reserve a time; the shop must confirm availability. Provider acceptance does not prove inbox placement.
 
 The Worker uses the account's existing verified sending domain, `alerts.homeservicesecretshopper.com`, with display name Houston Auto Pros appointments. The binding is restricted to Justin's verified recipient address. Visitor email becomes Reply-To when supplied. Change to a dedicated business sender after its domain is verified.
 
@@ -44,12 +44,12 @@ Vehicle photography is stored locally in responsive WebP sizes. `photography-sou
 
 See `docs/mobile-seo-review.md` for the review and launch priorities. `python scripts/inspect_metadata.py` prints the static metadata baseline. The main marketing pages have unique titles/descriptions, self-referencing canonical URLs, one H1, Open Graph and Twitter cards, image dimensions and mobile viewport tags. The same content and metadata are served to desktop and phone screens. Brand pages include breadcrumb structured data; homepage includes WebSite data.
 
-**Search launch is still pending.** The current workers.dev version deliberately has robots noindex/nofollow, an `X-Robots-Tag` header, blocked crawling and an empty sitemap. `launchState: 'staging'` suppresses AutoRepair schema. Changing config alone does not update static robots/meta/header/sitemap rules.
+**Search launch is still pending.** The website is publicly accessible on its custom domain, with canonical/social/schema URLs aligned to that domain. Noindex/nofollow, the staging response header, blocked crawling and an empty sitemap remain until verified shop contact details and claims are ready. `launchState: 'staging'` suppresses AutoRepair schema. Changing config alone does not update static robots/meta/header/sitemap rules.
 
-When the production domain is connected:
+Domain setup is complete; the remaining search-launch steps are:
 
-1. Choose `https://houstonautopros.com` as the primary origin and redirect secondary domains to relevant pages. Do not publish identical indexable copies across all seven domains.
-2. Replace workers.dev URLs in canonical tags, social URLs/images, static JSON-LD and `config.js` with the primary domain.
+1. Keep `https://houstonautopros.com` as the primary origin. The other six domains and www aliases already redirect to relevant pages; do not publish duplicate indexable copies.
+2. Keep canonical tags, social URLs/images, static JSON-LD and `config.js` aligned to the primary domain. The workers.dev URL remains only as the booking endpoint.
 3. Set verified phone, address, hours, map/profile URLs and service details in `config.js`; set `launchState: 'production'` to enable accurate AutoRepair data. Never create review schema from invented or self-authored ratings.
 4. Set index/follow on the homepage, services and approved make pages; remove the global staging header and crawling block. Keep 404, brand guidelines and photography credits noindex. Allow crawlers to read the noindex instructions on those utility pages.
 5. Populate the XML sitemap with canonical, indexable 200-status marketing URLs only. Verify the actual response headers, redirects and HTML after deployment.
@@ -60,15 +60,17 @@ GA4, Google Ads and Meta tracking are optional and currently unconfigured. `gene
 
 ## Deploy
 
-The working Cloudflare URL is https://houston-auto-pros.justin-b75.workers.dev.
+The public URL is https://houstonautopros.com. See `docs/domain-launch.md` for the verified routing and release record.
 
 ```sh
 npm run deploy:check
-npm run deploy
+npm run deploy:site     # public static website, shared Anoni account
+npm run deploy:domains  # secondary-domain redirects, shared Anoni account
+npm run deploy          # appointment backend only, Justin account
 ```
 
-`wrangler.jsonc` defines the existing Worker, static-assets routing, restricted email binding, D1 receipt store and rate limiter. No paid plan was added. Check actual account usage separately; static asset traffic and API invocations have different Cloudflare limits.
+`wrangler.site.jsonc` serves the static website on houstonautopros.com. `wrangler.redirects.jsonc` manages the other six domains plus all www aliases. `wrangler.jsonc` keeps the restricted email binding, D1 receipt store and rate limiter in Justin's account; its non-API URLs redirect to the primary domain. The site and redirect workers have workers.dev disabled. No paid plan was added. Check actual account usage separately; static asset traffic and script invocations have different Cloudflare limits.
 
-The seven custom domains are in a shared account that currently denies Worker publishing. DNS was not changed. Moving this release there requires account-level Workers deployment access, the D1 schema and email recipient/sender verification in that account; uploading only `dist/` would omit the appointment endpoint. The older static-only domain-upload bundle is obsolete for booking-enabled deployment.
+The shared account now permits deployments. All fourteen apex/www hostnames are connected through Cloudflare Custom Domains, which manages their web DNS records and certificates. Booking stays in the original account to preserve the existing verified email sender and database. Do not migrate those bindings without setting up the recipient/sender and schema in the destination account. The earlier domain-upload bundle is obsolete; deploy from this repository.
 
 `.openai/hosting.json` is retained for the original Sites preview and is not this deployment target.

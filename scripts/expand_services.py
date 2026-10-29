@@ -73,8 +73,8 @@ main+='''</section><section class="contact"><div class="contact-grid"><h2>Not su
 head=home.split('<body>')[0]
 head=re.sub(r'<title>.*?</title>','<title>European Auto Services in Houston | Houston Auto Pros</title>',head)
 head=re.sub(r'(<meta (?:name="description"|property="og:description") content=")[^"]*',r'\g<1>Explore 18 maintenance, diagnostic and repair services for Porsche, BMW and Mercedes-Benz in Houston.',head)
-head=head.replace('href="https://houston-auto-pros.justin-b75.workers.dev/"','href="https://houston-auto-pros.justin-b75.workers.dev/services/"')
-head=head.replace('property="og:url" content="https://houston-auto-pros.justin-b75.workers.dev/"','property="og:url" content="https://houston-auto-pros.justin-b75.workers.dev/services/"')
+head=head.replace('href="https://houstonautopros.com/"','href="https://houstonautopros.com/services/"')
+head=head.replace('property="og:url" content="https://houstonautopros.com/"','property="og:url" content="https://houstonautopros.com/services/"')
 head=head.replace('Houston Auto Pros — Precision you can feel.','European Auto Services | Houston Auto Pros')
 head=re.sub(r'<link rel="preload" as="image"[^>]*>','',head)
 head=re.sub(r'<script type="application/ld\+json">.*?</script>','',head)

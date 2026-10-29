@@ -2,13 +2,13 @@
 
 ## Current hosting and visual preference
 
-The current public staging target is Cloudflare Workers Static Assets, configured in `wrangler.jsonc`; deploy with `npm run deploy`. The Cloudflare account's Pages project quota is full. The earlier private Sites manifest is retained as historical metadata; do not treat it as the current hosting target.
+The public website is https://houstonautopros.com in the shared Anoni account, configured in `wrangler.site.jsonc`; deploy with `npm run deploy:site`. Six secondary domains and www aliases redirect through `wrangler.redirects.jsonc` (`npm run deploy:domains`). The existing appointment backend remains in Justin's account under `wrangler.jsonc` (`npm run deploy`); its former preview pages redirect to the primary domain. Do not upload static files over the booking backend. No paid plan was added. The earlier Sites manifest is historical, not a deployment target.
 
 The user wants a restrained, high-end appearance. Do not add emojis, decorative Unicode arrows, rating-star glyphs or ornamental numbering. Keep controls textual and use SVG line icons only for functional disclosures, menus and close buttons. `scripts/refine_finish.py` applies this finish to generated HTML and runs after `scripts/expand_services.py`.
 
 The user also wants section-heading side blurbs, ornamental labels and redundant supporting copy removed. Services and Makes open automatically on desktop hover and keyboard focus, while remaining tap controls on touch devices. The booking form uses a native brand dropdown from `content/makes.json`, covering the broader European/luxury range. `scripts/polish_booking.py` preserves these changes after generation. Do not restore preview-mode notices or the service-brief-only flow.
 
-Appointment requests send to the temporary, owner-supplied `justin@aryocg.com` through `/api/appointments`. This is a request flow; availability is confirmed by a person. The Worker uses an existing verified infrastructure sender and a binding restricted to this recipient. D1 stores delivery receipts/hashes, not the visitor's contact details. Keep server validation, origin checks, body limits, honeypot, rate limiter and duplicate-send protection. No appointment data is sent to unrelated lead-routing systems.
+Appointment requests send to the temporary, owner-supplied `justin@aryocg.com` through the existing workers.dev `/api/appointments` endpoint. The primary custom-domain origin is allowed through CORS. Availability is confirmed by a person. The Worker uses an existing verified infrastructure sender and a binding restricted to this recipient. D1 stores delivery receipts/hashes, not the visitor's contact details. Keep server validation, origin checks, body limits, honeypot, rate limiter and duplicate-send protection. No appointment data is sent to unrelated lead-routing systems.
 
 Houston Auto Pros is an independent premium European automotive repair brand in Houston, covering the broader luxury European range. Porsche, BMW and Mercedes-Benz have dedicated landing pages. The website turns visits into calls and appointment requests while keeping the premium brand.
 

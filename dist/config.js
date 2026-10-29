@@ -11,7 +11,7 @@ window.HAP_CONFIG = {
   launchState: 'staging', // switch to production only after business details and booking are verified
   showReviewsPreview: false, // reveal reviews only when real feedback or a profile link is configured
 
-  siteUrl: 'https://houston-auto-pros.justin-b75.workers.dev', // real domain, no trailing slash (also replace it in the HTML, robots.txt and sitemap.xml — see README)
+  siteUrl: 'https://houstonautopros.com', // primary domain; keep canonical and social metadata aligned
 
   phone: '',        // E.164 format, e.g. '+17135550123'
   phoneDisplay: '', // how it should read, e.g. '(713) 555-0123'
@@ -33,7 +33,7 @@ window.HAP_CONFIG = {
   ],
 
   // Same-origin Worker endpoint; success requires JSON { ok: true } after email acceptance.
-  requestEndpoint: '/api/appointments',
+  requestEndpoint: 'https://houston-auto-pros.justin-b75.workers.dev/api/appointments',
   bookingEmail: 'justin@aryocg.com',
   // Optional: send "Request a visit" buttons to your shop software's online scheduler instead.
   schedulerUrl: '',

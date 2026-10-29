@@ -1,5 +1,7 @@
 # Mobile and SEO review — 29 October 2026
 
+Domain update: https://houstonautopros.com is now live; all secondary apex/www hostnames redirect correctly. Canonical and social URLs now use that domain. See [domain launch](domain-launch.md). Search indexing remains staged pending verified shop contact details and claims.
+
 ## Completed
 
 Responsive review covered 320px and 390px phone layouts and a 1440px desktop layout. Services remains scrollable on phones; the desktop dropdown opens for keyboard focus, and desktop pointer-hover opening is implemented. Makes opens the appointment form with the chosen brand. The native dropdown includes 18 European makes plus an other-European option. Inputs use 16px text; phone fields stack vertically. Booking actions remain reachable and include safe-area padding. Corrected the Back-button inset and hid the floating booking bar while the menu or appointment dialog is open. Background page scrolling is locked while the dialog is open.
@@ -12,7 +14,6 @@ The homepage title and description now cover European and luxury repair in Houst
 
 | Priority | Item | Why it matters |
 | --- | --- | --- |
-| 1 | Connect the primary custom domain | The shared domain account currently denies Worker deployment. Keep one canonical business website and redirect the other six domains to relevant pages. |
 | 1 | Remove staging search controls during domain launch | Current HTML/meta, HTTP headers and robots rules prevent normal indexing; the sitemap is empty. These must change together. |
 | 1 | Verify shop phone, address and hours | These are needed for useful local contact content and accurate AutoRepair structured data. They must not be fabricated. |
 | 2 | Add Search Console and submit the production sitemap | Check actual indexing, selected canonicals and crawl errors after launch. |

@@ -9,5 +9,5 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["worker/index.mjs", "worker-configuration.d.ts"]
+  "include": ["worker/index.mjs", "worker/domain-redirects.mjs", "worker-configuration.d.ts"]
 }

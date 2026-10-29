@@ -77,7 +77,12 @@ export default {
   /** @param {Request} request @param {Env} env @param {ExecutionContext} ctx */
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    if (!url.pathname.startsWith('/api/')) return env.ASSETS.fetch(request);
+    if (!url.pathname.startsWith('/api/')) {
+      const target = new URL('https://houstonautopros.com');
+      target.pathname = url.pathname;
+      target.search = url.search;
+      return Response.redirect(target.href, 301);
+    }
     const origin = request.headers.get('origin');
     if (url.pathname !== '/api/appointments') return reply(404, { ok: false }, origin);
     if (!origin || !ORIGINS.has(origin)) return reply(403, { ok: false, error: 'origin_not_allowed' });
