@@ -1,12 +1,670 @@
-const dialog=document.querySelector('#booking');
-let returnFocus;
-document.querySelectorAll('[data-book]').forEach(button=>button.addEventListener('click',()=>{returnFocus=button;dialog.showModal()}));
-document.querySelector('.close').addEventListener('click',()=>dialog.close());
-dialog.addEventListener('close',()=>returnFocus?.focus());
-dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}});
-const dateInput=document.querySelector('[name=date]');
-const now=new Date();dateInput.min=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');
-let requestUrl;
-document.querySelector('#request-form').addEventListener('submit',e=>{e.preventDefault();const data=Object.fromEntries(new FormData(e.target));const summary=`HOUSTON AUTO PROS — APPOINTMENT REQUEST DRAFT\n\nName: ${data.name}\nEmail: ${data.email}\nVehicle: ${data.vehicle}\nPreferred date: ${data.date}\n\n${data.message}\n\nThis draft has not been sent. Contact the shop to confirm availability.`;const out=document.querySelector('#request-result');out.replaceChildren();const message=document.createElement('p');message.textContent='Your request draft is ready. Nothing has been sent or booked.';const pre=document.createElement('pre');pre.className='request-details';pre.textContent=summary;if(requestUrl)URL.revokeObjectURL(requestUrl);requestUrl=URL.createObjectURL(new Blob([summary],{type:'text/plain'}));const download=document.createElement('a');download.href=requestUrl;download.download='houston-auto-pros-request.txt';download.textContent='Download your request draft ↗';out.append(message,download,pre);out.scrollIntoView({block:'nearest',behavior:'smooth'})});
-const menu=document.querySelector('.menu'),nav=document.querySelector('.header nav');menu.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close menu':'Open menu')});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false')}));
-document.querySelectorAll('[data-color]').forEach(button=>button.addEventListener('click',async()=>{const status=document.querySelector('#color-status');try{await navigator.clipboard.writeText(button.dataset.color);status.textContent=`Copied ${button.dataset.color} to clipboard.`}catch{status.textContent=`Color: ${button.dataset.color}`}}));
+(() => {
+  const C = window.HAP_CONFIG || {};
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const placeholders = !!C.showPlaceholders;
+  const siteUrl = (C.siteUrl || location.origin).replace(/\/$/, '');
+  document.documentElement.classList.toggle('show-placeholders', placeholders);
+
+  /* ---------- Analytics ---------- */
+  window.dataLayer = window.dataLayer || [];
+  const gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+  const googleIds = [C.ga4Id, (C.googleAdsConversion || '').split('/')[0]].filter(Boolean);
+  if (googleIds.length) {
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(googleIds[0]);
+    document.head.append(s);
+    window.gtag = gtag;
+    gtag('js', new Date());
+    googleIds.forEach(id => gtag('config', id));
+  }
+  if (C.metaPixelId && !window.fbq) {
+    const f = window.fbq = function () { f.callMethod ? f.callMethod.apply(f, arguments) : f.queue.push(arguments); };
+    f.push = f; f.loaded = true; f.version = '2.0'; f.queue = [];
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://connect.facebook.net/en_US/fbevents.js';
+    document.head.append(s);
+    window.fbq('init', C.metaPixelId);
+    window.fbq('track', 'PageView');
+  }
+  const metaEvents = { generate_lead: 'Lead', call_click: 'Contact', text_click: 'Contact', email_click: 'Contact' };
+  function track(event, params = {}) {
+    window.dataLayer.push({ event, ...params });
+    if (googleIds.length) gtag('event', event, params);
+    if (event === 'generate_lead' && C.googleAdsConversion) gtag('event', 'conversion', { send_to: C.googleAdsConversion });
+    if (window.fbq) metaEvents[event] ? window.fbq('track', metaEvents[event]) : window.fbq('trackCustom', event, params);
+  }
+
+  /* Remember where this visit came from so requests carry ad attribution. */
+  const ATTR_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'gbraid', 'wbraid', 'fbclid', 'msclkid'];
+  let attribution = {};
+  try { attribution = JSON.parse(sessionStorage.getItem('hap_attribution') || '{}'); } catch {}
+  const query = new URLSearchParams(location.search);
+  if (!attribution.landing_page || ATTR_KEYS.some(k => query.has(k))) {
+    attribution = { landing_page: location.pathname, referrer: document.referrer || '' };
+    ATTR_KEYS.forEach(k => { if (query.get(k)) attribution[k] = query.get(k); });
+    try { sessionStorage.setItem('hap_attribution', JSON.stringify(attribution)); } catch {}
+  }
+
+  /* ---------- Business details (config.js) ---------- */
+  const DAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+  const ORDER = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+  const SHORT = { Mo: 'Mon', Tu: 'Tue', We: 'Wed', Th: 'Thu', Fr: 'Fri', Sa: 'Sat', Su: 'Sun' };
+  const LONG = { Mo: 'Monday', Tu: 'Tuesday', We: 'Wednesday', Th: 'Thursday', Fr: 'Friday', Sa: 'Saturday', Su: 'Sunday' };
+
+  const phone = (C.phone || '').trim();
+  const phoneLabel = C.phoneDisplay || formatPhone(phone);
+  const textNumber = (C.textNumber || '').trim();
+  const email = (C.email || '').trim();
+  const addr = C.address || {};
+  const addressLines = addr.street ? [addr.street, [addr.city, [addr.region, addr.postalCode].filter(Boolean).join(' ')].filter(Boolean).join(', ')] : [];
+  const mapsUrl = C.mapsUrl || (addressLines.length ? 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(['Houston Auto Pros', ...addressLines].join(', ')) : '');
+  const hours = (C.hours || []).filter(h => h && Array.isArray(h.days) && /^\d\d:\d\d$/.test(h.opens) && /^\d\d:\d\d$/.test(h.closes));
+  const rating = C.rating && C.rating.value ? C.rating : null;
+  const reviews = (C.reviews || []).filter(r => r && r.quote);
+
+  const available = {
+    visit: addressLines.length > 0 || !!phone || !!email,
+    phone: !!phone,
+    text: !!textNumber,
+    email: !!email,
+    address: addressLines.length > 0,
+    directions: !!mapsUrl,
+    hours: hours.length > 0,
+    rating: !!rating,
+    reviews: reviews.length > 0 || !!C.reviewsUrl,
+    reviewsUrl: !!C.reviewsUrl,
+  };
+
+  function formatPhone(p) {
+    const d = p.replace(/\D/g, '').replace(/^1(?=\d{10}$)/, '');
+    return d.length === 10 ? `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}` : p;
+  }
+  function formatTime(t) {
+    const [h, m] = t.split(':').map(Number);
+    return `${h % 12 || 12}${m ? ':' + String(m).padStart(2, '0') : ''} ${h < 12 ? 'AM' : 'PM'}`;
+  }
+  function houstonNow() {
+    const parts = Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
+      .formatToParts(new Date()).map(p => [p.type, p.value]));
+    return { day: parts.weekday.slice(0, 2), minutes: Number(parts.hour) * 60 + Number(parts.minute) };
+  }
+  const toMinutes = t => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+  const hoursFor = day => hours.find(h => h.days.includes(day));
+  function dayRange(days) {
+    const idx = days.map(d => ORDER.indexOf(d)).sort((a, b) => a - b);
+    const consecutive = idx.every((v, i) => i === 0 || v === idx[i - 1] + 1);
+    if (idx.length > 2 && consecutive) return `${SHORT[ORDER[idx[0]]]}–${SHORT[ORDER[idx[idx.length - 1]]]}`;
+    return idx.map(i => SHORT[ORDER[i]]).join(', ');
+  }
+  function todayStatus() {
+    const now = houstonNow();
+    const today = hoursFor(now.day);
+    if (today && now.minutes < toMinutes(today.closes)) {
+      return now.minutes >= toMinutes(today.opens) ? `Open today until ${formatTime(today.closes)}` : `Opens today at ${formatTime(today.opens)}`;
+    }
+    for (let i = 1; i <= 7; i++) {
+      const day = DAYS[(DAYS.indexOf(now.day) + i) % 7];
+      const h = hoursFor(day);
+      if (h) return `Closed now · opens ${i === 1 ? 'tomorrow' : SHORT[day]} ${formatTime(h.opens)}`;
+    }
+    return '';
+  }
+  function renderHours(el) {
+    const today = houstonNow().day;
+    const rows = hours.map(h => ({ label: dayRange(h.days), value: `${formatTime(h.opens)} – ${formatTime(h.closes)}`, today: h.days.includes(today) }));
+    const closed = ORDER.filter(d => !hoursFor(d));
+    if (closed.length) rows.push({ label: dayRange(closed), value: 'Closed', today: closed.includes(today) });
+    el.replaceChildren(...rows.map(r => {
+      const li = document.createElement('li');
+      li.className = r.today ? 'is-today' : '';
+      li.append(Object.assign(document.createElement('span'), { textContent: r.label }), Object.assign(document.createElement('span'), { textContent: r.value }));
+      return li;
+    }));
+  }
+
+  const fills = {
+    phone: () => phoneLabel,
+    email: () => email,
+    address: el => { el.replaceChildren(...addressLines.flatMap((l, i) => (i ? [document.createElement('br'), l] : [l]))); return true; },
+    hours: el => { renderHours(el); return true; },
+    today: () => todayStatus(),
+    rating: () => rating && `${rating.value} / 5${rating.count ? ` · ${rating.count} Google reviews` : ' on Google'}`,
+  };
+  const placeholderText = { phone: 'Phone number', email: 'Email address', address: 'Street address', hours: 'Opening hours', today: 'Hours', rating: 'Google rating' };
+  const placeholderKey = { today: 'hours' };
+
+  $$('[data-requires]').forEach(el => {
+    if (el.dataset.requires.split(' ').every(k => available[k])) return;
+    if (placeholders) { el.classList.add('is-placeholder'); el.title = 'Add this detail in config.js'; }
+    else el.hidden = true;
+  });
+  $$('[data-biz]').forEach(el => {
+    const key = el.dataset.biz;
+    const value = available[placeholderKey[key] || key] ? fills[key](el) : '';
+    if (value === true) return;
+    if (value) { el.textContent = value; return; }
+    if (!placeholders) return;
+    const text = el.dataset.placeholder || placeholderText[key];
+    if (el.tagName === 'UL') el.replaceChildren(Object.assign(document.createElement('li'), { textContent: text }));
+    else el.textContent = text;
+    el.classList.add('is-placeholder');
+  });
+
+  const hrefs = {
+    call: phone && 'tel:' + phone,
+    text: textNumber && 'sms:' + textNumber,
+    email: email && 'mailto:' + email,
+    directions: mapsUrl,
+    reviews: C.reviewsUrl,
+  };
+  $$('[data-action]').forEach(el => {
+    const action = el.dataset.action;
+    if (!hrefs[action]) return;
+    el.href = hrefs[action];
+    if (action === 'directions' || action === 'reviews') { el.target = '_blank'; el.rel = 'noopener'; }
+    el.addEventListener('click', () => track(action + '_click', { location: el.dataset.source || '' }));
+  });
+
+  $$('[data-year]').forEach(el => { el.textContent = new Date().getFullYear(); });
+
+  /* Structured data for local search. Only verified fields from config.js are included. */
+  const business = {
+    '@context': 'https://schema.org',
+    '@type': 'AutoRepair',
+    '@id': siteUrl + '/#business',
+    name: 'Houston Auto Pros',
+    url: siteUrl + '/',
+    image: siteUrl + '/assets/og-image.jpg',
+    logo: siteUrl + '/assets/logo-512.png',
+    description: 'Independent European and luxury automotive service and repair in Houston.',
+    areaServed: { '@type': 'City', name: 'Houston' },
+  };
+  if (phone) business.telephone = phone;
+  if (email) business.email = email;
+  if (addressLines.length) business.address = { '@type': 'PostalAddress', streetAddress: addr.street, addressLocality: addr.city, addressRegion: addr.region, postalCode: addr.postalCode, addressCountry: 'US' };
+  if (C.geo && C.geo.lat) business.geo = { '@type': 'GeoCoordinates', latitude: C.geo.lat, longitude: C.geo.lng };
+  if (mapsUrl) business.hasMap = mapsUrl;
+  if (hours.length) business.openingHoursSpecification = hours.map(h => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: h.days.map(d => LONG[d]), opens: h.opens, closes: h.closes }));
+  if ((C.sameAs || []).length) business.sameAs = C.sameAs;
+  const ld = document.createElement('script');
+  ld.type = 'application/ld+json';
+  ld.textContent = JSON.stringify(business);
+  if (C.launchState === 'production') document.head.append(ld);
+
+  /* ---------- Reviews (real ones from config.js only) ---------- */
+  const reviewsWrap = $('[data-reviews]');
+  if (reviewsWrap) {
+    const emptyReviews = $('[data-reviews-empty]');
+    const card = (quote, name, meta, isPlaceholder) => {
+      const fig = document.createElement('figure');
+      fig.className = 'review' + (isPlaceholder ? ' is-placeholder' : '');
+      const q = document.createElement('blockquote');
+      q.textContent = isPlaceholder ? quote : `“${quote}”`;
+      const cap = document.createElement('figcaption');
+      cap.append(Object.assign(document.createElement('b'), { textContent: name }), Object.assign(document.createElement('span'), { textContent: meta }));
+      fig.append(q, cap);
+      return fig;
+    };
+    if (reviews.length) {
+      reviewsWrap.replaceChildren(...reviews.slice(0, 6).map(r => card(r.quote, r.name || 'Customer', [r.car, r.source || 'Google'].filter(Boolean).join(' · '))));
+      if (emptyReviews) emptyReviews.hidden = true;
+    } else if (placeholders) {
+      reviewsWrap.replaceChildren(...[1, 2, 3].map(n => card('Paste a real review from your Google Business Profile into config.js. Copy it word for word, with the reviewer’s name as shown.', `Review ${n}`, 'config.js reviews', true)));
+    } else if (!C.reviewsUrl && C.launchState === 'staging' && C.showReviewsPreview && emptyReviews) {
+      reviewsWrap.hidden = true;
+      emptyReviews.hidden = false;
+    } else if (!C.reviewsUrl) {
+      reviewsWrap.closest('section').hidden = true;
+    } else {
+      reviewsWrap.hidden = true;
+    }
+  }
+
+  /* ---------- Photo slots ---------- */
+  $$('.slot').forEach(fig => {
+    const img = $('img', fig);
+    if (!img) return;
+    const path = img.getAttribute('src');
+    if (placeholders) {
+      const hint = document.createElement('div');
+      hint.className = 'slot-hint';
+      hint.setAttribute('aria-hidden', 'true');
+      const label = Object.assign(document.createElement('b'), { textContent: 'Photo slot' });
+      const file = Object.assign(document.createElement('code'), { textContent: 'dist' + path });
+      hint.append(label, file);
+      if (fig.dataset.hint) hint.append(document.createElement('br'), fig.dataset.hint);
+      fig.append(hint);
+    }
+    const fail = () => {
+      if (img.dataset.fallback && !fig.classList.contains('slot--fallback')) {
+        fig.classList.add('slot--fallback');
+        img.src = img.dataset.fallback;
+        return;
+      }
+      fig.classList.remove('slot--fallback');
+      fig.classList.add('slot--empty');
+    };
+    img.addEventListener('error', fail);
+    if (img.complete && img.naturalWidth === 0) {
+      // A lazy image may simply not have started; re-request it so any error fires with the listener attached.
+      if (img.loading === 'lazy') img.src = path;
+      else fail();
+    }
+  });
+
+  /* ---------- Header ---------- */
+  const header = $('[data-header]');
+  const onScroll = () => header && header.classList.toggle('is-solid', window.scrollY > 24);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const menu = $('.menu');
+  const nav = $('#site-nav');
+  const navDropdowns = $$('.nav-services, .nav-makes');
+  const serviceMenu = $('.nav-services');
+  const desktopNavigation = window.matchMedia('(min-width: 1051px)');
+  const hoverNavigation = window.matchMedia('(hover: hover) and (pointer: fine)');
+  navDropdowns.forEach(dropdown => {
+    const summary = $('summary', dropdown);
+    let closeTimer;
+    const close = () => { clearTimeout(closeTimer); dropdown.open = false; };
+    dropdown.addEventListener('pointerenter', () => {
+      if (!desktopNavigation.matches || !hoverNavigation.matches) return;
+      clearTimeout(closeTimer);
+      navDropdowns.forEach(other => { if (other !== dropdown) other.open = false; });
+      dropdown.open = true;
+    });
+    dropdown.addEventListener('pointerleave', () => {
+      if (desktopNavigation.matches && hoverNavigation.matches) closeTimer = setTimeout(close, 180);
+    });
+    summary.addEventListener('focus', () => { if (desktopNavigation.matches) dropdown.open = true; });
+    document.addEventListener('click', e => {
+      if (!dropdown.contains(e.target)) close();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && dropdown.open) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        summary.focus();
+        close();
+      }
+    });
+    dropdown.addEventListener('focusout', e => {
+      if (desktopNavigation.matches && !dropdown.contains(e.relatedTarget)) close();
+    });
+  });
+
+  function openLinkedService() {
+    let id;
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
+    if (!id) return;
+    const service = document.getElementById(id);
+    if (service && service.matches('details.service-option')) service.open = true;
+  }
+  openLinkedService();
+  window.addEventListener('hashchange', openLinkedService);
+
+  function setMenu(open) {
+    nav.classList.toggle('open', open);
+    header.classList.toggle('menu-open', open);
+    menu.setAttribute('aria-expanded', String(open));
+    menu.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (!open) navDropdowns.forEach(dropdown => { dropdown.open = false; });
+  }
+  if (menu && nav) {
+    menu.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+    nav.addEventListener('click', e => { if (e.target.closest('a, button')) setMenu(false); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); menu.focus(); } });
+    desktopNavigation.addEventListener('change', e => { if (e.matches) setMenu(false); });
+  }
+
+  /* ---------- Appointment request ---------- */
+  function collectAppointment(requestForm) {
+    const d = Object.fromEntries(new FormData(requestForm));
+    const vehicle = [d.year, d.make, d.model].filter(Boolean).join(' ');
+    const when = d.date ? new Date(d.date + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' }) : 'Flexible';
+    const summary = [
+      'HOUSTON AUTO PROS — APPOINTMENT REQUEST', '',
+      `Service: ${d.service}`, `Vehicle: ${vehicle}${d.mileage ? ` · ${d.mileage} miles` : ''}`,
+      `Preferred: ${when}${d.time ? ` · ${d.time}` : ''}`, '',
+      `Name: ${d.name}`, `Phone: ${d.phone}`, d.email ? `Email: ${d.email}` : null,
+      `Best way to reach me: ${d.contact || 'Call'}`,
+      d.message.trim() ? `\nNotes:\n${d.message.trim()}` : null,
+    ].filter(line => line !== null).join('\n');
+    return { d, vehicle, summary };
+  }
+
+  async function deliverAppointment(requestForm, data) {
+    const body = new FormData(requestForm);
+    body.append('vehicle', data.vehicle);
+    body.append('summary', data.summary);
+    body.append('page', location.pathname);
+    Object.entries(attribution).forEach(([key, value]) => body.append(key, value));
+    const response = await fetch(C.requestEndpoint, {
+      method: 'POST', body, headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(20000)
+    });
+    const result = await response.json();
+    if (!response.ok || result.ok !== true) throw new Error(String(response.status));
+  }
+
+  const inlineForm = $('#appointment-form');
+  if (inlineForm) {
+    const fields = $('.appointment-fields', inlineForm);
+    const button = $('.appointment-submit', inlineForm);
+    const result = $('.appointment-result', inlineForm);
+    const emailOptional = $('[data-inline-email-optional]', inlineForm);
+    let sending = false;
+    const newRequest = () => {
+      inlineForm.elements.requestId.value = crypto.randomUUID();
+      inlineForm.elements.startedAt.value = String(Date.now());
+    };
+    const syncEmail = () => {
+      const required = inlineForm.elements.contact.value === 'Email';
+      inlineForm.elements.email.required = required;
+      emailOptional.textContent = required ? '*' : '(optional)';
+    };
+    newRequest();
+    syncEmail();
+    button.disabled = false;
+    new IntersectionObserver(entries => {
+      document.body.classList.toggle('appointment-in-view', entries[0].isIntersecting);
+    }).observe(inlineForm.closest('section'));
+    const pageMake = document.body.dataset.make;
+    if (pageMake) inlineForm.elements.make.value = pageMake;
+    inlineForm.addEventListener('change', syncEmail);
+    inlineForm.addEventListener('input', event => event.target.setCustomValidity?.(''));
+
+    inlineForm.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (sending) return;
+      const phoneField = inlineForm.elements.phone;
+      const digits = phoneField.value.replace(/\D/g, '');
+      phoneField.setCustomValidity(/^[+\d\s().-]+$/.test(phoneField.value) && digits.length >= 7 && digits.length <= 15 ? '' : 'Enter a phone number with 7 to 15 digits.');
+      if (!inlineForm.reportValidity()) return;
+      const data = collectAppointment(inlineForm);
+      sending = true;
+      button.disabled = true;
+      button.setAttribute('aria-busy', 'true');
+      button.textContent = 'Sending…';
+      result.hidden = true;
+      // Construct the payload before disabling fields so every form value is included.
+      const delivery = C.requestEndpoint && !data.d.company ? deliverAppointment(inlineForm, data) : null;
+      fields.disabled = true;
+      try {
+        if (!delivery && !data.d.company) throw new Error('missing_endpoint');
+        await delivery;
+        fields.hidden = true;
+        const heading = Object.assign(document.createElement('h3'), { textContent: 'Thank you. Your request is on its way.', tabIndex: -1 });
+        const message = Object.assign(document.createElement('p'), { textContent: 'We’ll contact you to confirm a time for your visit.' });
+        const another = Object.assign(document.createElement('button'), { type: 'button', className: 'text-link', textContent: 'Request another visit' });
+        another.addEventListener('click', () => {
+          inlineForm.reset(); newRequest(); syncEmail();
+          if (pageMake) inlineForm.elements.make.value = pageMake;
+          fields.hidden = false; result.hidden = true;
+          inlineForm.elements.name.focus();
+        });
+        result.replaceChildren(heading, message, another);
+        result.hidden = false;
+        heading.focus();
+        if (!data.d.company) track('generate_lead', { service: data.d.service, make: data.d.make, source: 'bottom-form' });
+      } catch {
+        const message = Object.assign(document.createElement('p'), { textContent: 'We couldn’t confirm delivery. Please email your request so we can arrange your visit.', tabIndex: -1 });
+        result.replaceChildren(message);
+        const recipient = C.bookingEmail || email;
+        if (recipient) {
+          const fallback = Object.assign(document.createElement('a'), {
+            className: 'text-link', textContent: 'Email your request',
+            href: `mailto:${recipient}?subject=${encodeURIComponent('Appointment request — ' + data.vehicle)}&body=${encodeURIComponent(data.summary)}`
+          });
+          fallback.addEventListener('click', () => track('request_fallback', { method: 'email', location: 'bottom-form' }));
+          result.append(fallback);
+        }
+        result.hidden = false;
+        message.focus();
+      } finally {
+        sending = false;
+        fields.disabled = false;
+        button.disabled = false;
+        button.removeAttribute('aria-busy');
+        button.textContent = 'Request an appointment';
+      }
+    });
+  }
+
+  const dialog = $('#booking');
+  const form = $('#request-form');
+  if (dialog && form) {
+    const steps = $$('.step', form);
+    const nextBtn = $('[data-next]', form);
+    const nextLabel = $('[data-label]', nextBtn);
+    const backBtn = $('[data-back]', form);
+    const bar = $('.progress span', form);
+    const count = $('.step-count', form);
+    const result = $('#request-result', form);
+    const flow = $$('.progress, .step-count, .step-actions', form);
+    let step = 1;
+    let returnFocus;
+    let source = '';
+    let sent = false;
+
+    let sending = false;
+    const newRequest = () => {
+      form.elements.requestId.value = crypto.randomUUID();
+      form.elements.startedAt.value = String(Date.now());
+    };
+    newRequest();
+
+    const dateInput = form.elements.date;
+    dateInput.min = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Chicago' }).format(new Date());
+    dateInput.addEventListener('input', () => {
+      dateInput.setCustomValidity('');
+      if (!hours.length || !dateInput.value) return;
+      const day = DAYS[new Date(dateInput.value + 'T12:00:00Z').getUTCDay()];
+      if (!hoursFor(day)) dateInput.setCustomValidity(`The shop is closed on ${LONG[day]}s. Please choose another day.`);
+    });
+
+    const emailInput = form.elements.email;
+    const emailOptional = $('[data-email-optional]', form);
+    const syncEmail = () => {
+      const needEmail = form.elements.contact.value === 'Email';
+      emailInput.required = needEmail;
+      emailOptional.hidden = needEmail;
+    };
+    form.addEventListener('change', e => { if (e.target.name === 'contact') syncEmail(); });
+
+    function showStep(n) {
+      step = n;
+      steps.forEach((s, i) => { s.hidden = i !== n - 1; });
+      flow.forEach(el => { el.hidden = false; });
+      result.hidden = true;
+      bar.style.transform = `scaleX(${n / steps.length})`;
+      count.textContent = `Step ${n} of ${steps.length}`;
+      backBtn.hidden = n === 1;
+      setNextLabel();
+    }
+    function setNextLabel() {
+      nextLabel.textContent = step < steps.length ? 'Continue' : 'Request appointment';
+    }
+    function focusStep() {
+      const heading = $('h2', steps[step - 1]);
+      heading.setAttribute('tabindex', '-1');
+      heading.focus({ preventScroll: true });
+      form.scrollTop = 0;
+      dialog.scrollTop = 0;
+    }
+    function setChoice(name, value) {
+      if (!value) return;
+      const select = $(`select[name="${name}"]`, form);
+      if (select) {
+        const match = [...select.options].find(option => option.value.toLowerCase() === value.toLowerCase());
+        select.value = match?.value || (name === 'make' ? 'Other European make' : '');
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        return;
+      }
+      const inputs = $$(`input[name="${name}"]`, form);
+      const match = inputs.find(i => i.value.toLowerCase() === value.toLowerCase()) || (name === 'make' && inputs.find(i => i.value === 'Other'));
+      if (match) match.checked = true;
+    }
+    function reset() {
+      form.reset();
+      newRequest();
+      syncEmail();
+      sent = false;
+      showStep(1);
+    }
+
+    function open(trigger) {
+      source = trigger?.dataset.source || trigger?.closest('[id]')?.id || '';
+      if (C.schedulerUrl) {
+        track('book_open', { source, method: 'scheduler' });
+        window.open(C.schedulerUrl, '_blank', 'noopener');
+        return;
+      }
+      if (sent) reset();
+      navDropdowns.forEach(dropdown => { dropdown.open = false; });
+      const service = trigger?.dataset.service;
+      setChoice('service', service);
+      setChoice('make', trigger?.dataset.make || document.body.dataset.make);
+      const topic = trigger?.dataset.note;
+      if (topic && !form.elements.message.value.includes(topic)) {
+        form.elements.message.value = `Asking about: ${topic}. ${form.elements.message.value}`.trim() + ' ';
+      }
+      showStep(service ? 2 : step);
+      returnFocus = trigger;
+      dialog.showModal();
+      focusStep();
+      track('book_open', { source, service: service || '' });
+    }
+
+    document.addEventListener('click', e => {
+      const trigger = e.target.closest('[data-book]');
+      if (!trigger) return;
+      e.preventDefault();
+      open(trigger);
+    });
+    $$('[data-close]', dialog).forEach(b => b.addEventListener('click', () => dialog.close()));
+    dialog.addEventListener('click', e => {
+      if (e.target !== dialog) return;
+      const r = dialog.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dialog.close();
+    });
+    dialog.addEventListener('close', () => returnFocus?.focus());
+    backBtn.addEventListener('click', () => { showStep(step - 1); focusStep(); });
+
+    function validate(n) {
+      for (const field of $$('input, select, textarea', steps[n - 1])) {
+        if (field.classList.contains('hp') || field.checkValidity()) continue;
+        field.reportValidity();
+        return false;
+      }
+      return true;
+    }
+
+    function collect() {
+      return collectAppointment(form);
+    }
+
+    function actionButton(label, href, method, extra = {}) {
+      const a = Object.assign(document.createElement('a'), { className: 'button outline-dark', href, ...extra });
+      a.textContent = label;
+      a.addEventListener('click', () => track(method === 'call' ? 'call_click' : 'request_fallback', { method, location: 'request' }));
+      return a;
+    }
+
+    function showResult(kind, data) {
+      steps.forEach(s => { s.hidden = true; });
+      flow.forEach(el => { el.hidden = true; });
+      result.hidden = false;
+      const first = (data.d.name || '').trim().split(/\s+/)[0];
+      const h = document.createElement('h2');
+      const p = document.createElement('p');
+      const actions = document.createElement('div');
+      actions.className = 'result-actions';
+      const fallbacks = () => {
+        const body = data.summary;
+        if (textNumber) actions.append(actionButton('Text it to the shop', `sms:${textNumber}?&body=${encodeURIComponent(body)}`, 'sms'));
+        const requestEmail = C.bookingEmail || email;
+        if (requestEmail) actions.append(actionButton('Email your request', `mailto:${requestEmail}?subject=${encodeURIComponent('Appointment request — ' + data.vehicle)}&body=${encodeURIComponent(body)}`, 'email'));
+        if (phone) actions.append(actionButton(`Call ${phoneLabel}`, 'tel:' + phone, 'call'));
+      };
+
+      if (kind === 'sent') {
+        h.textContent = `Thank you${first ? ', ' + first : ''}.`;
+        p.textContent = 'Your appointment request is on its way. We’ll contact you to confirm a time.';
+        if (phone) actions.append(actionButton(`Prefer to talk? Call ${phoneLabel}`, 'tel:' + phone, 'call'));
+      } else if (kind === 'error') {
+        h.textContent = 'We couldn’t confirm delivery.';
+        p.textContent = 'Please email your request so we can arrange your visit.';
+        const retry = Object.assign(document.createElement('button'), { type: 'button', className: 'button dark', textContent: 'Try again' });
+        retry.addEventListener('click', () => { showStep(steps.length); focusStep(); });
+        actions.append(retry);
+        fallbacks();
+      } else {
+        h.textContent = 'Send your appointment request.';
+        p.textContent = 'Email your details to arrange your visit.';
+        fallbacks();
+      }
+
+      const details = document.createElement('details');
+      details.append(Object.assign(document.createElement('summary'), { textContent: 'View your details' }), Object.assign(document.createElement('pre'), { className: 'request-details', textContent: data.summary }));
+      const done = Object.assign(document.createElement('button'), { type: 'button', className: 'text-link', textContent: sent ? 'Close' : 'Edit request' });
+      done.addEventListener('click', () => { if (sent) dialog.close(); else { showStep(steps.length); focusStep(); } });
+      h.tabIndex = -1;
+      result.replaceChildren(h, p, actions, details, done);
+      h.focus();
+    }
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      if (sending) return;
+      if (!validate(step)) return;
+      if (step < steps.length) {
+        track('book_step', { step, source });
+        showStep(step + 1);
+        focusStep();
+        return;
+      }
+      const data = collect();
+      if (form.elements.company.value) { sent = true; showResult('sent', data); return; } // spam trap
+      if (!C.requestEndpoint) {
+        track('request_prepared', { service: data.d.service, make: data.d.make || '' });
+        showResult('draft', data);
+        return;
+      }
+      nextBtn.setAttribute('aria-busy', 'true');
+      nextBtn.disabled = true;
+      sending = true;
+      nextLabel.textContent = 'Sending…';
+      try {
+        await deliverAppointment(form, data);
+        sent = true;
+        track('generate_lead', { service: data.d.service, make: data.d.make || '', source });
+        showResult('sent', data);
+      } catch {
+        showResult('error', data);
+      } finally {
+        nextBtn.removeAttribute('aria-busy');
+        nextBtn.disabled = false;
+        sending = false;
+        setNextLabel();
+      }
+    });
+
+    showStep(1);
+  }
+
+  /* ---------- Brand page palette ---------- */
+  document.querySelectorAll('[data-color]').forEach(button => button.addEventListener('click', async () => {
+    const status = document.querySelector('#color-status');
+    try {
+      await navigator.clipboard.writeText(button.dataset.color);
+      status.textContent = `Copied ${button.dataset.color} to clipboard.`;
+    } catch {
+      status.textContent = `Color: ${button.dataset.color}`;
+    }
+  }));
+})();

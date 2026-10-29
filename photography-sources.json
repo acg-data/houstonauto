@@ -1,0 +1,83 @@
+[
+  {
+    "name": "porsche",
+    "source": "https://images.unsplash.com/photo-1593353798398-6024b7444bb6",
+    "download": "https://images.unsplash.com/photo-1593353798398-6024b7444bb6?auto=format&fit=max&w=2200&q=88",
+    "license": "https://unsplash.com/license",
+    "usage": "Silver Porsche 911; illustrative vehicle photography",
+    "files": [
+      {
+        "file": "dist/assets/photos/porsche-640.webp",
+        "width": 640,
+        "height": 800,
+        "bytes": 40834
+      },
+      {
+        "file": "dist/assets/photos/porsche-1280.webp",
+        "width": 1280,
+        "height": 1600,
+        "bytes": 119954
+      },
+      {
+        "file": "dist/assets/photos/porsche-1920.webp",
+        "width": 1920,
+        "height": 2400,
+        "bytes": 219826
+      }
+    ]
+  },
+  {
+    "name": "bmw",
+    "source": "https://unsplash.com/photos/Hcg0hqn4SbU",
+    "download": "https://images.unsplash.com/photo-1647966008754-814349917adf?auto=format&fit=max&w=2200&q=88",
+    "license": "https://unsplash.com/license",
+    "usage": "Tim Vegas; black BMW 3 Series; illustrative vehicle photography",
+    "files": [
+      {
+        "file": "dist/assets/photos/bmw-640.webp",
+        "width": 640,
+        "height": 427,
+        "bytes": 24382
+      },
+      {
+        "file": "dist/assets/photos/bmw-1280.webp",
+        "width": 1280,
+        "height": 854,
+        "bytes": 71158
+      },
+      {
+        "file": "dist/assets/photos/bmw-1920.webp",
+        "width": 1920,
+        "height": 1280,
+        "bytes": 123276
+      }
+    ]
+  },
+  {
+    "name": "mercedes-benz",
+    "source": "https://unsplash.com/photos/L9W-qoRGvBk",
+    "download": "https://images.unsplash.com/photo-1605294338126-390cec44062d?auto=format&fit=max&w=2200&q=88",
+    "license": "https://unsplash.com/license",
+    "usage": "Alberto Frias; white Mercedes-Benz C-Class; illustrative vehicle photography",
+    "files": [
+      {
+        "file": "dist/assets/photos/mercedes-benz-640.webp",
+        "width": 640,
+        "height": 976,
+        "bytes": 49880
+      },
+      {
+        "file": "dist/assets/photos/mercedes-benz-1280.webp",
+        "width": 1280,
+        "height": 1951,
+        "bytes": 132646
+      },
+      {
+        "file": "dist/assets/photos/mercedes-benz-1920.webp",
+        "width": 1920,
+        "height": 2927,
+        "bytes": 222476
+      }
+    ]
+  }
+]

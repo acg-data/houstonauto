@@ -1,0 +1,145 @@
+[
+  [
+    "maintenance",
+    "Maintenance",
+    "Maintenance & service",
+    [
+      [
+        "oil-filter-service",
+        "Oil & filter service",
+        "Routine care for the miles ahead.",
+        "Plan an oil and filter change around your vehicle, mileage and service history."
+      ],
+      [
+        "scheduled-maintenance",
+        "Scheduled maintenance",
+        "A plan around your car.",
+        "Review the maintenance your car is due for, with its model, age and mileage in mind."
+      ],
+      [
+        "fluid-service",
+        "Fluid checks & service",
+        "Small details. Important protection.",
+        "Discuss fluid condition, service intervals and any concerns with levels or leaks."
+      ],
+      [
+        "vehicle-inspection",
+        "Vehicle condition checks",
+        "Know what needs attention.",
+        "Bring together a picture of visible wear, maintenance needs and the concerns you have noticed."
+      ]
+    ]
+  ],
+  [
+    "diagnostics",
+    "Diagnostics & repair",
+    "Diagnostics & repair",
+    [
+      [
+        "check-engine-light",
+        "Check-engine lights",
+        "Start with an explanation.",
+        "Tell us which warning appeared, when it started and whether the car feels different. Discuss the next diagnostic steps."
+      ],
+      [
+        "engine-diagnostics",
+        "Engine diagnostics",
+        "Understand what has changed.",
+        "Discuss rough running, unusual sounds, starting problems or a change in performance before planning repairs."
+      ],
+      [
+        "electrical-diagnostics",
+        "Electrical diagnostics",
+        "Find a clearer way forward.",
+        "Describe intermittent electrical concerns, warning messages or accessories that are not behaving as expected."
+      ],
+      [
+        "battery-charging",
+        "Battery & charging checks",
+        "For a more confident start.",
+        "Plan a check for slow cranking, a flat battery or a charging-system warning."
+      ],
+      [
+        "leak-diagnosis",
+        "Oil & fluid leak diagnosis",
+        "Trace the source.",
+        "Discuss new drips, fluid loss or a burning smell, with inspection and diagnosis before a repair recommendation."
+      ]
+    ]
+  ],
+  [
+    "brakes-chassis",
+    "Brakes, suspension & steering",
+    "Brakes & suspension",
+    [
+      [
+        "brake-pads-rotors",
+        "Brake pads & rotors",
+        "Look after the way it stops.",
+        "Discuss brake wear, noise, vibration or a change in pedal feel and plan an inspection."
+      ],
+      [
+        "brake-fluid",
+        "Brake fluid service",
+        "Care beyond the visible parts.",
+        "Review brake-fluid service needs alongside the age, history and condition of your vehicle."
+      ],
+      [
+        "suspension",
+        "Suspension checks & repair",
+        "Keep the connection to the road.",
+        "Describe clunks, changes in ride quality or uneven tire wear so the next checks can be planned."
+      ],
+      [
+        "steering",
+        "Steering concerns",
+        "A more considered diagnosis.",
+        "Discuss changes in steering feel, vibration, pulling or unusual sounds before deciding on repairs."
+      ]
+    ]
+  ],
+  [
+    "cooling-climate",
+    "Cooling & air conditioning",
+    "Cooling & air conditioning",
+    [
+      [
+        "cooling-system",
+        "Cooling-system checks",
+        "Keep temperature in perspective.",
+        "Plan checks for coolant loss, leaks or changes in operating temperature."
+      ],
+      [
+        "overheating",
+        "Overheating diagnosis",
+        "Get to the cause.",
+        "Discuss temperature warnings and when they occur so the cooling system can be assessed."
+      ],
+      [
+        "air-conditioning",
+        "Air-conditioning diagnosis",
+        "Comfort for Houston driving.",
+        "Describe weak cooling, unusual noises or inconsistent airflow and discuss the right checks."
+      ]
+    ]
+  ],
+  [
+    "inspections",
+    "Inspections",
+    "Pre-purchase inspection",
+    [
+      [
+        "pre-purchase",
+        "Pre-purchase inspections",
+        "Before the car becomes yours.",
+        "Discuss an inspection of a car you are considering, including visible condition, service history and questions for the seller."
+      ],
+      [
+        "pre-trip",
+        "Pre-trip condition checks",
+        "A little preparation for the road.",
+        "Review maintenance needs and the concerns you want checked before a longer drive."
+      ]
+    ]
+  ]
+]

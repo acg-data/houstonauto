@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-29T15:48:59.640Z",
+  "results": [
+    {
+      "host": "houstonautodiagpro.com",
+      "status": 301,
+      "location": "https://houstonautopros.com/services/?utm_source=domain-qa#diagnostics"
+    },
+    {
+      "host": "www.houstonautodiagpro.com",
+      "status": 301,
+      "location": "https://houstonautopros.com/services/?utm_source=domain-qa#diagnostics"
+    },
+    {
+      "host": "houstonautopros.com",
+      "status": 200,
+      "location": null
+    },
+    {
+      "host": "www.houstonautopros.com",
+      "status": 301,
+      "location": "https://houstonautopros.com/?utm_source=domain-qa"
+    },
+    {
+      "host": "houstonbmwpros.com",
+      "status": 301,
+      "location": "https://houstonautopros.com/bmw/?utm_source=domain-qa"
+    },
+    {
+      "host": "www.houstonbmwpros.com",
+      "status": 301,
+      "location": "https://houstonautopros.com/bmw/?utm_source=domain-qa"
+    },
+    {
+      "host": "houstonenginebuilders.com",
+      "status": 301,
+      "location": "https://houstonautopros.com/services/?utm_source=domain-qa#engine-diagnostics"
+    },
+    {
+      "host": "www.houstonenginebuilders.com",
+      "status": 301,
+      "location": "https://houstonautopros.com/services/?utm_source=domain-qa#engine-diagnostics"
+    },
+    {
+      "host": "houstonporschemechanic.com",
+      "status": 301,
+      "location": "https://houstonautopros.com/porsche/?utm_source=domain-qa"
+    },
+    {
+      "host": "www.houstonporschemechanic.com",
+      "status": 301,
+      "location": "https://houstonautopros.com/porsche/?utm_source=domain-qa"
+    },
+    {
+      "host": "houstonporschepros.com",
+      "status": 301,
+      "location": "https://houstonautopros.com/porsche/?utm_source=domain-qa"
+    },
+    {
+      "host": "www.houstonporschepros.com",
+      "status": 301,
+      "location": "https://houstonautopros.com/porsche/?utm_source=domain-qa"
+    },
+    {
+      "host": "houstonporscherepair.com",
+      "status": 301,
+      "location": "https://houstonautopros.com/porsche/?utm_source=domain-qa"
+    },
+    {
+      "host": "www.houstonporscherepair.com",
+      "status": 301,
+      "location": "https://houstonautopros.com/porsche/?utm_source=domain-qa"
+    }
+  ]
+}
