@@ -13,5 +13,131 @@
     "brand": "mercedes-benz",
     "source": "https://github.com/filippofilip95/car-logos-dataset/blob/master/logos/optimized/mercedes-benz.png",
     "note": "Star cropped from supplied brand image; original proportions retained."
+  },
+  {
+    "brand": "alfa-romeo",
+    "asset": "dist/assets/brands/alfa-romeo-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/Alfa%20Romeo%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
+  },
+  {
+    "brand": "aston-martin",
+    "asset": "dist/assets/brands/aston-martin-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/Aston%20Martin%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
+  },
+  {
+    "brand": "audi",
+    "asset": "dist/assets/brands/audi-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/Audi%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
+  },
+  {
+    "brand": "bentley",
+    "asset": "dist/assets/brands/bentley-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/Bentley%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
+  },
+  {
+    "brand": "bmw",
+    "asset": "dist/assets/brands/bmw-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/BMW%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
+  },
+  {
+    "brand": "ferrari",
+    "asset": "dist/assets/brands/ferrari-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/Ferrari%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
+  },
+  {
+    "brand": "jaguar",
+    "asset": "dist/assets/brands/jaguar-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/Jaguar%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
+  },
+  {
+    "brand": "lamborghini",
+    "asset": "dist/assets/brands/lamborghini-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/Lamborghini%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
+  },
+  {
+    "brand": "land-rover",
+    "asset": "dist/assets/brands/land-rover-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/Landrover%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
+  },
+  {
+    "brand": "lotus",
+    "asset": "dist/assets/brands/lotus-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/Lotus%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
+  },
+  {
+    "brand": "maserati",
+    "asset": "dist/assets/brands/maserati-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/Maserati%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
+  },
+  {
+    "brand": "mclaren",
+    "asset": "dist/assets/brands/mclaren-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/McLaren%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
+  },
+  {
+    "brand": "mercedes-benz",
+    "asset": "dist/assets/brands/mercedes-benz-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/MB%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
+  },
+  {
+    "brand": "mini",
+    "asset": "dist/assets/brands/mini-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/Mini%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
+  },
+  {
+    "brand": "porsche",
+    "asset": "dist/assets/brands/porsche-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/Porsche%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
+  },
+  {
+    "brand": "rolls-royce",
+    "asset": "dist/assets/brands/rolls-royce-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/Rolls%20Royce%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
+  },
+  {
+    "brand": "volkswagen",
+    "asset": "dist/assets/brands/volkswagen-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/Volkswagen%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
+  },
+  {
+    "brand": "volvo",
+    "asset": "dist/assets/brands/volvo-mark.svg",
+    "source": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/optimized/Volvo%20Icon.svg",
+    "license": "https://raw.githubusercontent.com/cardog-ai/icons/05c4001e83a09a189721a0851546291f71f7e31c/core/LICENSE",
+    "usage": "Manufacturer identification in the make gallery and menu; no affiliation implied."
   }
 ]

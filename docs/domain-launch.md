@@ -1,5 +1,7 @@
 # Custom-domain launch — 29 October 2026
 
+Latest visual release: `141298a3-9cbf-42bf-a046-ac1ffd3d78d6`. The hero now reads “Exceptional cars. Exacting care.” All 18 supported makes have self-hosted logos in the gallery and Makes menu; decorative link underlines are removed. Checked the 320px/390px phone layouts and desktop gallery, brand prefill and keyboard dropdown opening. All marks loaded, no horizontal overflow or visible text underlines were found, and the static SEO audit still reports zero errors. [Live hero](../outputs/hero-brand-update/hero-live.jpg) · [Live brand gallery](../outputs/hero-brand-update/brands-live.jpg).
+
 https://houstonautopros.com is live with HTTPS, the latest frontend and the working appointment form. All fourteen apex/www hostnames were checked over HTTPS. The primary returns 200, and the thirteen aliases return 301 to the destinations below. Tracking query parameters survive redirects, and existing deep paths are preserved.
 
 | Domain, including its www alias | Root destination |

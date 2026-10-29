@@ -7,6 +7,16 @@ import json, re
 ROOT = Path(__file__).resolve().parents[1]
 MAKES = json.loads((ROOT / 'content/makes.json').read_text(encoding='utf-8'))
 FEATURED = {'Porsche': '/porsche/', 'BMW': '/bmw/', 'Mercedes-Benz': '/mercedes-benz/'}
+GALLERY_MAKES = list(FEATURED) + [make for make in MAKES if make not in FEATURED and make != 'Other European make']
+
+def mark(make, css_class):
+    slug = re.sub(r'[^a-z0-9]+', '-', make.lower())
+    return f'<img class="{css_class}" src="/assets/brands/{slug}-mark.svg" alt="" width="96" height="96" loading="lazy" decoding="async">'
+
+def make_control(make, content, source):
+    if make in FEATURED:
+        return f'<a href="{FEATURED[make]}">{content}</a>'
+    return f'<button type="button" data-book data-make="{escape(make, quote=True)}" data-source="{source}">{content}</button>'
 
 def polish():
     for page in (ROOT / 'dist').rglob('*.html'):
@@ -39,6 +49,23 @@ def polish():
                 menu += '</div></div></details>'
                 nav.select_one('.nav-services').insert_after(BeautifulSoup(menu, 'html.parser'))
 
+            menu_grid = nav.select_one('.makes-menu-grid')
+            if menu_grid:
+                menu_grid.clear()
+                for make in MAKES:
+                    if make == 'Other European make': continue
+                    content = mark(make, 'make-menu-logo') + f'<span>{escape(make)}</span>'
+                    menu_grid.append(BeautifulSoup(make_control(make, content, 'makes-menu'), 'html.parser'))
+
+        for strip in soup.select('.brand-strip'):
+            strip['class'] = list(dict.fromkeys(strip.get('class', []) + ['brand-gallery']))
+            links = strip.select_one('.brand-links')
+            if links:
+                gallery = '<ul class="brand-links">' + ''.join('<li>' + make_control(make, mark(make, 'brand-logo') + f'<span>{escape(make)}</span>', 'brand-gallery') + '</li>' for make in GALLERY_MAKES) + '</ul>'
+                links.replace_with(BeautifulSoup(gallery, 'html.parser'))
+        for duplicate in soup.select('.additional-makes'):
+            duplicate.decompose()
+
         for form in soup.select('#request-form'):
             group = next((f for f in form.select('fieldset.inline') if f.select_one('input[name="make"]')), None)
             if group:
@@ -65,15 +92,23 @@ def polish():
         for description in soup.select('meta[name="description"], meta[property="og:description"], meta[name="twitter:description"]'):
             description['content'] = description.get('content', '').replace('for Porsche, BMW and Mercedes-Benz owners', 'for European and luxury vehicle owners').replace('for Porsche, BMW and Mercedes-Benz in Houston', 'for European and luxury vehicles in Houston').replace('Plan a service online.', 'Request an appointment online.')
         if page.parent == ROOT / 'dist' and page.name == 'index.html':
+            gallery = soup.select_one('.brand-gallery')
+            if gallery: gallery['id'] = 'makes'
+            featured_makes = soup.select_one('section.makes')
+            if featured_makes:
+                featured_makes['id'] = 'featured-makes'
+                featured_makes['aria-label'] = 'Featured makes'
+            hero_heading = soup.select_one('.hero h1')
+            if hero_heading:
+                hero_heading.clear()
+                hero_heading.append('Exceptional cars.')
+                hero_heading.append(soup.new_tag('br'))
+                hero_heading.append('Exacting care.')
             soup.title.string = 'European & Luxury Auto Repair in Houston | Houston Auto Pros'
             for description in soup.select('meta[name="description"], meta[property="og:description"]'):
                 description['content'] = 'European and luxury auto repair in Houston. Maintenance, diagnostics, brakes and inspections for Porsche, BMW, Mercedes-Benz, Audi and more.'
             for title in soup.select('meta[property="og:title"], meta[name="twitter:title"]'):
                 title['content'] = 'European & Luxury Auto Repair in Houston | Houston Auto Pros'
-            makes = soup.select_one('#makes')
-            if makes and not makes.select_one('.additional-makes'):
-                extra = '<div class="additional-makes"><h2>More European makes.</h2><div class="additional-makes-list">'+''.join(f'<button type="button" data-book data-make="{escape(make, quote=True)}" data-source="makes">{escape(make)}</button>' for make in MAKES if make not in FEATURED and make != 'Other European make')+'</div></div>'
-                makes.append(BeautifulSoup(extra, 'html.parser'))
         for paragraph in soup.select('.services-intro > div > p'):
             paragraph.string = 'Maintenance, diagnostics and repair for European and luxury vehicles in Houston.'
         for faq in soup.select('.faq-list details'):
@@ -88,7 +123,7 @@ def polish():
         for asset in soup.select('script[src], link[href]'):
             key = 'src' if asset.name == 'script' else 'href'
             if re.match(r'^/(app\.js|config\.js|style\.css)\?v=', asset.get(key, '')):
-                asset[key] = re.sub(r'\?v=\d+', '?v=5', asset[key])
+                asset[key] = re.sub(r'\?v=\d+', '?v=6', asset[key])
         if soup.head and not soup.select_one('meta[property="og:locale"]'):
             meta = soup.new_tag('meta', property='og:locale', content='en_US'); soup.head.append(meta)
         for name, source in [('twitter:title', 'og:title'), ('twitter:description', 'og:description'), ('twitter:image', 'og:image'), ('twitter:image:alt', 'og:image:alt')]:

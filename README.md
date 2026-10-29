@@ -38,6 +38,8 @@ The dedicated `houston-auto-pros-booking` database is configured in `wrangler.js
 
 Graphite, gunmetal, satin steel, platinum and warm porcelain; self-hosted Manrope. No emoji interface controls. Brand marks identify vehicles serviced and imply no manufacturer affiliation.
 
+The homepage hero reads “Exceptional cars. Exacting care.” All 18 supported European makes have self-hosted manufacturer marks in the gallery and Makes menu. `scripts/prepare_brand_marks.py` retrieves pinned Cardog SVGs and preserves the MIT notice in `dist/assets/brands/CARDOG-LICENSE.txt`; `brand-sources.json` records provenance. Link underlines and navigation underline effects are removed; visible keyboard focus remains. The gallery uses six columns on desktop and three on phones.
+
 Vehicle photography is stored locally in responsive WebP sizes. `photography-sources.json` and `/photography.html` record image sources and explain that illustrative photos do not depict the actual shop. `brand-sources.json` records manufacturer-mark sources. Add approved premises, team and work photos when available. Keep image dimensions, alt text and responsive sources.
 
 ## Mobile and SEO
