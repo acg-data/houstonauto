@@ -333,6 +333,8 @@
   /* ---------- Appointment request ---------- */
   function collectAppointment(requestForm) {
     const d = Object.fromEntries(new FormData(requestForm));
+    if (d.fullName) d.name = d.fullName;
+    if (d.addressLine) d.message = 'Address: ' + d.addressLine + '\n' + d.message;
     const vehicle = [d.year, d.make, d.model].filter(Boolean).join(' ');
     const when = d.date ? new Date(d.date + 'T12:00:00Z').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' }) : 'Flexible';
     const summary = [
@@ -348,6 +350,10 @@
 
   async function deliverAppointment(requestForm, data) {
     const body = new FormData(requestForm);
+    if (data.d.fullName) {
+      body.set('name', data.d.name);
+      body.set('message', data.d.message);
+    }
     body.append('vehicle', data.vehicle);
     body.append('summary', data.summary);
     body.append('page', location.pathname);
@@ -359,8 +365,7 @@
     if (!response.ok || result.ok !== true) throw new Error(String(response.status));
   }
 
-  const inlineForm = $('#appointment-form');
-  if (inlineForm) {
+  for (const inlineForm of document.querySelectorAll('#appointment-form, #appointment-form-bottom')) {
     const fields = $('.appointment-fields', inlineForm);
     const button = $('.appointment-submit', inlineForm);
     const result = $('.appointment-result', inlineForm);
@@ -372,8 +377,8 @@
     };
     const syncEmail = () => {
       const required = inlineForm.elements.contact.value === 'Email';
-      inlineForm.elements.email.required = required;
-      emailOptional.textContent = required ? '*' : '(optional)';
+      if (emailOptional) inlineForm.elements.email.required = required;
+      if (emailOptional) emailOptional.textContent = required ? '*' : '(optional)';
     };
     newRequest();
     syncEmail();
@@ -410,6 +415,11 @@
       try {
         if (!delivery && !data.d.company) throw new Error('missing_endpoint');
         await delivery;
+        if (delivery && inlineForm.dataset.successUrl) {
+          track('generate_lead', { service: data.d.service, make: data.d.make, source: 'core-services-form' });
+          location.assign(inlineForm.dataset.successUrl);
+          return;
+        }
         fields.hidden = true;
         const heading = Object.assign(document.createElement('h3'), { textContent: 'Thank you. Your request is on its way.', tabIndex: -1 });
         const message = Object.assign(document.createElement('p'), { textContent: 'We’ll contact you to confirm a time for your visit.' });
@@ -418,7 +428,7 @@
           inlineForm.reset(); newRequest(); syncEmail();
           applyPageDefaults();
           fields.hidden = false; result.hidden = true;
-          inlineForm.elements.name.focus();
+          (inlineForm.elements.fullName || inlineForm.elements.name).focus();
         });
         result.replaceChildren(heading, message, another);
         result.hidden = false;
@@ -427,6 +437,12 @@
       } catch {
         const message = Object.assign(document.createElement('p'), { textContent: 'We couldn’t confirm delivery. Please email your request so we can arrange your visit.', tabIndex: -1 });
         result.replaceChildren(message);
+        if (inlineForm.dataset.successUrl) {
+          const help = Object.assign(document.createElement('a'), {
+            href: '/auto-repair-meta/thank-you1/', className: 'text-link', textContent: 'Appointment request help'
+          });
+          result.append(help);
+        }
         const recipient = C.bookingEmail || email;
         if (recipient) {
           const fallback = Object.assign(document.createElement('a'), {
