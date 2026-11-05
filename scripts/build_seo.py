@@ -379,7 +379,7 @@ def crawl_controls(business, locations):
         relative = page.relative_to(DIST).as_posix()
         path = '/' + relative.removesuffix('index.html') if page.name == 'index.html' else '/' + relative
         soup = BeautifulSoup(page.read_text(encoding='utf-8'), 'html.parser')
-        indexable = production and path not in UTILITY and (path not in eligible_locations or eligible_locations[path]['indexingApproved'])
+        indexable = production and not path.startswith('/auto-repair-meta/') and path not in UTILITY and (path not in eligible_locations or eligible_locations[path]['indexingApproved'])
         robots = soup.select_one('meta[name="robots"]')
         if not robots:
             robots = soup.new_tag('meta', attrs={'name': 'robots'}); soup.head.append(robots)

@@ -24,6 +24,72 @@
       "socialVideo": null
     },
     {
+      "path": "/auto-repair-meta/",
+      "type": "marketing",
+      "title": "Core European Auto Services | Houston Auto Pros",
+      "description": "Independent European auto maintenance, diagnostics and repair in Houston. Request your next visit with Houston Auto Pros.",
+      "h1": "Expert care for your European car.",
+      "canonical": "https://houstonautopros.com/auto-repair-meta/",
+      "indexState": "noindex",
+      "uniqueIntent": "Core European Auto Services | Houston Auto Pros",
+      "serviceRef": null,
+      "locationRef": "houston",
+      "evidenceIds": [
+        "owner-houston",
+        "owner-services"
+      ],
+      "contentOwner": "Houston Auto Pros",
+      "reviewed": "2026-10-29",
+      "hero": "/assets/brands/alfa-romeo-mark.svg",
+      "photoProvenance": "photography-sources.json",
+      "socialImage": "/assets/social/porsche-preview-v1.jpg",
+      "socialVideo": null
+    },
+    {
+      "path": "/auto-repair-meta/thank-you/",
+      "type": "marketing",
+      "title": "Request Received | Houston Auto Pros",
+      "description": "Your appointment request has been received. Houston Auto Pros will contact you to confirm availability.",
+      "h1": "Thank you for reaching out.",
+      "canonical": "https://houstonautopros.com/auto-repair-meta/thank-you/",
+      "indexState": "noindex",
+      "uniqueIntent": "Request Received | Houston Auto Pros",
+      "serviceRef": null,
+      "locationRef": "houston",
+      "evidenceIds": [
+        "owner-houston",
+        "owner-services"
+      ],
+      "contentOwner": "Houston Auto Pros",
+      "reviewed": "2026-10-29",
+      "hero": null,
+      "photoProvenance": "photography-sources.json",
+      "socialImage": "/assets/social/porsche-preview-v1.jpg",
+      "socialVideo": null
+    },
+    {
+      "path": "/auto-repair-meta/thank-you1/",
+      "type": "marketing",
+      "title": "Appointment Request Help | Houston Auto Pros",
+      "description": "Get help sending your appointment request to Houston Auto Pros.",
+      "h1": "Let’s get your visit arranged.",
+      "canonical": "https://houstonautopros.com/auto-repair-meta/thank-you1/",
+      "indexState": "noindex",
+      "uniqueIntent": "Appointment Request Help | Houston Auto Pros",
+      "serviceRef": null,
+      "locationRef": "houston",
+      "evidenceIds": [
+        "owner-houston",
+        "owner-services"
+      ],
+      "contentOwner": "Houston Auto Pros",
+      "reviewed": "2026-10-29",
+      "hero": null,
+      "photoProvenance": "photography-sources.json",
+      "socialImage": "/assets/social/porsche-preview-v1.jpg",
+      "socialVideo": null
+    },
+    {
       "path": "/bmw/",
       "type": "make",
       "title": "BMW Service & Repair in Houston | Houston Auto Pros",
