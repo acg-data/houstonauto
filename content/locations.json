@@ -1,0 +1,35 @@
+[
+  {
+    "id": "houston",
+    "name": "Houston",
+    "region": "TX",
+    "country": "US",
+    "type": "service-area",
+    "coverageVerified": true,
+    "servingLocationId": "pagewood",
+    "status": "ready",
+    "indexingApproved": true,
+    "candidatePath": "/locations/houston/",
+    "intent": "Plan a Houston service visit with verified arrival information and local shop evidence.",
+    "evidenceIds": ["owner-houston", "owner-pagewood", "texas-emissions"],
+    "localEvidence": [
+      {"id": "owner-pagewood", "kind": "staffed-office", "approved": true},
+      {"id": "texas-emissions", "kind": "local-process", "approved": true}
+    ],
+    "title": "European Auto Care in Houston | Houston Auto Pros",
+    "description": "Visit Houston Auto Pros at 8614 Pagewood Ln, Houston, TX. Explore European car services, get directions and request an appointment for your vehicle.",
+    "h1": "European Auto Care in Houston",
+    "intro": "European and luxury automotive care for Houston-area drivers, from our shop at 8614 Pagewood Ln. Choose your service and tell us about your car to arrange a visit.",
+    "sections": [
+      {"heading": "Find us on Pagewood Lane.", "paragraphs": ["Use 8614 Pagewood Ln, Houston, TX as the destination in your map app. The directions link opens a search for this shop address, so you can plan the journey from your own starting point.", "Request your preferred day before traveling. We’ll contact you to confirm availability and the arrival arrangements. Include any special drop-off needs in the notes so they can be discussed in advance."]},
+      {"heading": "Choose the visit your car needs.", "paragraphs": ["The service directory covers maintenance, diagnostics, brakes, suspension, cooling, air conditioning and condition checks. Each service has a dedicated guide explaining what to share before the appointment and which questions are useful for that concern.", "Choose the make in the booking form, including Porsche, BMW, Mercedes-Benz, Audi and the broader European range. A clear model, symptom description and service history help focus the conversation before your Houston visit."]},
+      {"heading": "Condition checks and registration are different.", "paragraphs": ["Harris County is part of Texas’s vehicle emissions program. A general condition check or pre-purchase inspection is a separate service from a state emissions inspection for registration.", "For current registration requirements and a certified emissions-station search, use the Texas Commission on Environmental Quality guidance linked below. Our service pages describe maintenance, diagnosis and condition checks; they do not advertise state inspection-station certification."], "source": "https://www.tceq.texas.gov/airquality/mobilesource/vim/overview.html", "sourceLabel": "Texas vehicle emissions guidance"}
+    ],
+    "faqs": [
+      ["Where is the Houston shop?", "Houston Auto Pros is at 8614 Pagewood Ln, Houston, TX. Use the directions link for the address and confirm your appointment and arrival arrangements before traveling."],
+      ["What area do you serve?", "We serve Houston-area drivers from the Pagewood Lane shop. If you are arranging a visit from elsewhere in the area, include your preferred day and any drop-off questions in the request."],
+      ["Is a pre-purchase inspection a Texas emissions inspection?", "No. A pre-purchase inspection discusses a vehicle’s condition before buying it. State emissions inspection requirements are a separate registration matter. The TCEQ guidance on this page links to current requirements and certified inspection stations."]
+    ],
+    "serviceSlugs": ["scheduled-maintenance", "engine-diagnostics", "brake-pads-rotors", "cooling-system", "air-conditioning", "pre-purchase"]
+  }
+]

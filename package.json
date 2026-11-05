@@ -4,6 +4,9 @@
   "private": true,
   "description": "Houston Auto Pros website with Cloudflare appointment email delivery",
   "scripts": {
+    "build:seo": "python scripts/build_seo.py",
+    "test:seo": "python -m unittest discover -s tests -p test_seo.py",
+    "audit:seo": "python scripts/audit_static_site.py dist --origin https://houstonautopros.com --production --allow-noindex /404.html --allow-noindex /brand.html --allow-noindex /photography.html --allow-noindex /auto-repair-meta/ --allow-noindex /auto-repair-meta/thank-you/ --allow-noindex /auto-repair-meta/thank-you1/ --json outputs/seo/audit.json",
     "deploy": "wrangler deploy",
     "deploy:check": "wrangler deploy --dry-run",
     "deploy:site": "wrangler deploy -c wrangler.site.jsonc",

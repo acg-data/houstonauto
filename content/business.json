@@ -1,0 +1,47 @@
+{
+  "id": "houston-auto-pros",
+  "name": "Houston Auto Pros",
+  "origin": "https://houstonautopros.com",
+  "launchState": "production",
+  "contactPolicy": {"phone": "hidden-at-owner-request", "hours": "not-published"},
+  "category": "European and luxury automotive maintenance, diagnostics and repair",
+  "phone": "",
+  "phoneDisplay": "",
+  "textNumber": "",
+  "email": "",
+  "address": {"street": "8614 Pagewood Ln", "city": "Houston", "region": "TX", "postalCode": "77063"},
+  "mapsUrl": "",
+  "geo": null,
+  "hours": [],
+  "physicalLocations": [
+    {
+      "id": "pagewood",
+      "name": "Houston Auto Pros",
+      "staffed": true,
+      "addressVerified": true,
+      "address": {"street": "8614 Pagewood Ln", "city": "Houston", "region": "TX", "postalCode": "77063", "country": "US"},
+      "evidenceId": "owner-pagewood"
+    }
+  ],
+  "gbpProfiles": [],
+  "booking": {
+    "endpoint": "https://houston-auto-pros.justin-b75.workers.dev/api/appointments",
+    "recipient": "justin@aryocg.com",
+    "schedulerUrl": ""
+  },
+  "rating": {"value": null, "count": null},
+  "reviewsUrl": "",
+  "reviews": [],
+  "sameAs": [],
+  "analytics": {"ga4Id": "", "googleAdsConversion": "", "metaPixelId": ""},
+  "indexingApproved": true,
+  "evidence": [
+    {"id": "owner-houston", "kind": "owner-direction", "source": "Owner-approved Houston Auto Pros website, Houston, Texas; no street address supplied."},
+    {"id": "owner-services", "kind": "service-inventory", "source": "Existing owner-approved 18-service catalogue in content/services.json."},
+    {"id": "owner-booking", "kind": "owner-direction", "source": "Owner supplied justin@aryocg.com for appointment requests."},
+    {"id": "owner-pagewood", "kind": "staffed-office", "source": "Owner confirmed Houston-area coverage and shop address 8614 Pagewood Ln, Houston, TX in this conversation, 2026-10-29."},
+    {"id": "texas-emissions", "kind": "local-process", "source": "https://www.tceq.texas.gov/airquality/mobilesource/vim/overview.html", "reviewed": "2026-10-29", "scope": "Harris County emissions-program context only; does not establish that the shop is a state inspection station."},
+    {"id": "pagewood-postal", "kind": "address-reference", "source": "https://davis-commercial.com/wp-content/uploads/2023/05/NEW8614Pagewood-v6.pdf", "scope": "Postal code 77063 for the owner-supplied address; no claims about current building amenities or ownership."},
+    {"id": "owner-phone-policy", "kind": "owner-direction", "source": "Owner explicitly requested that no phone number be displayed, 2026-10-29. Public contact is the working appointment form. Hours have not been supplied and remain unpublished."}
+  ]
+}

@@ -3,7 +3,7 @@ const ROOTS = new Map([
   ['www.houstonautopros.com', '/'],
   ['houstonautodiagpro.com', '/services/#diagnostics'],
   ['houstonbmwpros.com', '/bmw/'],
-  ['houstonenginebuilders.com', '/services/#engine-diagnostics'],
+  ['houstonenginebuilders.com', '/services/engine-diagnostics/'],
   ['houstonporschemechanic.com', '/porsche/'],
   ['houstonporschepros.com', '/porsche/'],
   ['houstonporscherepair.com', '/porsche/']

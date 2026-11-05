@@ -1,0 +1,434 @@
+[
+  {
+    "slug": "oil-filter-service",
+    "title": "Oil & Filter Service in Houston",
+    "description": "Plan oil and filter service for your European car in Houston. Review oil specifications, service history and timing with Houston Auto Pros.",
+    "lead": "An oil service should start with the requirements of your engine, its service history and the way you use the car.",
+    "heading": "The right specification comes first.",
+    "overview": [
+      "A viscosity grade alone does not identify every oil suitable for a European engine. The model year, engine and manufacturer approval matter when choosing the service. Bring the details of your car and any previous invoices so the conversation begins with the correct application.",
+      "Tell us whether you are following a scheduled reminder, catching up after buying the car or concerned about oil use between visits. A routine oil change and an investigation of oil loss answer different questions. Describing that difference helps us plan the right appointment."
+    ],
+    "considerations": [
+      ["Engine and oil requirements", "Confirm your exact model and engine, including any modifications or unusual operating conditions that may affect the service discussion."],
+      ["Filter and service history", "Share the date and mileage of the last oil and filter change, along with the oil specification shown on its invoice."],
+      ["Oil use or warning messages", "Mention top-ups, visible leaks or dashboard messages when requesting the visit rather than treating them as a routine reminder."]
+    ],
+    "prepare": ["Vehicle year, model, engine and current mileage.", "Last oil-service invoice or maintenance record, if available.", "Any oil top-ups, warning messages or drips you have noticed."],
+    "faqs": [
+      ["How often should my European car have an oil change?", "Start with the maintenance instructions for your exact model and engine. Time, mileage and operating conditions can affect the schedule. Send your vehicle details and service history so the appointment can be planned around its requirements rather than a universal interval."],
+      ["Can I request an oil service if I do not know which oil it uses?", "Yes. Include the year, make and model, and tell us what records you have. The specification should be established before the work is agreed; you do not need to choose an oil from a generic list."],
+      ["What if the car is losing oil between services?", "Mention how often you add oil, roughly how much and any visible drips. Oil loss needs its own discussion. The oil and fluid leak diagnosis page explains what information is useful when the source is unclear."]
+    ],
+    "related": ["scheduled-maintenance", "leak-diagnosis", "fluid-service"],
+    "sources": ["manufacturer-manuals"]
+  },
+  {
+    "slug": "scheduled-maintenance",
+    "title": "Scheduled European Car Maintenance in Houston",
+    "description": "Plan scheduled maintenance for your European car in Houston. Review service reminders, mileage, time and maintenance records with Houston Auto Pros.",
+    "lead": "Bring the service reminder and the history together before deciding what your car needs next.",
+    "heading": "A schedule built around your actual car.",
+    "overview": [
+      "Maintenance requirements vary between model years, engines and vehicle systems. A general mileage milestone is a starting point for a conversation, not a complete service plan. The relevant maintenance booklet and the car’s recorded history help distinguish work that is due from work already completed.",
+      "A car that covers few miles may still have time-based maintenance requirements. A recently purchased car may have gaps in its records. Tell us which situation applies, along with the exact wording of any service display, so you can discuss priorities before agreeing to work."
+    ],
+    "considerations": [
+      ["Time and mileage", "Share both the odometer reading and the dates of previous services; mileage alone does not describe the maintenance history."],
+      ["Service reminders", "A photo or exact transcription of the reminder helps distinguish a scheduled item from a separate warning or fault message."],
+      ["Records and priorities", "Bring invoices and tell us about a change in how the car drives. Maintenance planning and a new symptom may need separate attention."]
+    ],
+    "prepare": ["Current mileage and the exact service reminder.", "Previous invoices, digital service entries or maintenance booklet.", "How you use the car and any upcoming journey you are planning."],
+    "faqs": [
+      ["Is a service reminder the same as a fault warning?", "Not necessarily. A maintenance reminder and a warning about vehicle operation can refer to different needs. Send the exact message and describe any change in the car so the request is routed appropriately."],
+      ["What if I have no service records?", "Tell us that when requesting the visit. Share what you know about ownership, mileage and recent work. Missing records can be discussed as part of establishing a maintenance baseline; they should not be replaced with assumptions about what has been done."],
+      ["Do all cars of the same brand follow the same schedule?", "No single schedule covers every engine, model year and powertrain. Consult the maintenance information for your car, then request a visit with its specific details."]
+    ],
+    "related": ["oil-filter-service", "brake-fluid", "vehicle-inspection"],
+    "sources": ["manufacturer-manuals", "bmw-maintenance"]
+  },
+  {
+    "slug": "fluid-service",
+    "title": "Vehicle Fluid Checks & Service in Houston",
+    "description": "Discuss fluid checks and service for your European car in Houston, including service history, correct specifications and unexplained fluid loss.",
+    "lead": "Different systems need different fluids and service decisions. Start with the system, its history and the concern you have noticed.",
+    "heading": "More useful than a general top-up.",
+    "overview": [
+      "Engine oil, coolant, brake fluid and other vehicle fluids serve different purposes. Their specifications and maintenance requirements should be matched to the exact vehicle. A single general fluid-service label does not establish which systems need attention or what is appropriate for them.",
+      "When you request a visit, explain whether the concern is a scheduled service, a dashboard message or an unexplained drop in level. If you have added fluid, share its name or a photo of the container. That history is useful when deciding what to inspect or discuss before any service is agreed."
+    ],
+    "considerations": [
+      ["Which system needs attention", "Identify the message, reservoir or maintenance item involved, if known. It is fine to describe what you see without identifying the fluid yourself."],
+      ["What has already been added", "Previous top-ups and products used are relevant details. Bring the invoice or container information if you have it."],
+      ["Loss versus scheduled replacement", "A repeated need to add fluid is a different conversation from routine maintenance. Tell us how often the level changes."]
+    ],
+    "prepare": ["Exact warning message or the maintenance item you want reviewed.", "Records of previous fluid services or top-ups.", "Any visible leaks, smells or changes in vehicle operation."],
+    "faqs": [
+      ["Can every fluid be replaced at the same interval?", "No. Requirements depend on the system and the vehicle’s maintenance information. Ask about the particular fluid rather than assuming that one interval applies to the whole car."],
+      ["What if I cannot identify the fluid under the car?", "You can still request a visit. Describe where the spot appears, its approximate size and when you first noticed it. Avoid naming a fluid based only on appearance; the leak diagnosis service is a more useful starting point."],
+      ["Should I send the brand of fluid I have added?", "Yes, if you have that information. A photo of the product label or a previous service invoice can help explain the car’s recent maintenance history."]
+    ],
+    "related": ["leak-diagnosis", "cooling-system", "brake-fluid"],
+    "sources": ["manufacturer-manuals"]
+  },
+  {
+    "slug": "vehicle-inspection",
+    "title": "European Vehicle Condition Checks in Houston",
+    "description": "Request a vehicle condition check in Houston. Discuss visible wear, maintenance gaps and the concerns you want reviewed for your European car.",
+    "lead": "Build a clearer picture of the car you own, with attention to the questions that matter to you.",
+    "heading": "Know what you want the visit to answer.",
+    "overview": [
+      "A condition check can be useful after a change of ownership, a long period of storage or when several small concerns have accumulated. Explain what prompted the request and the areas you want discussed so the scope is clear before the appointment.",
+      "An overall condition conversation is different from diagnosing one specific fault. It is also different from a buyer’s pre-purchase inspection. Choosing the right starting point helps keep the visit focused and makes it easier to separate maintenance questions from a symptom that needs more targeted investigation."
+    ],
+    "considerations": [
+      ["Your priorities", "List the items you want reviewed, such as a new sound, visible wear or uncertainty about previous maintenance."],
+      ["A clear scope", "Ask which areas will be included and what may require a separate diagnostic appointment. An inspection should have agreed boundaries."],
+      ["History alongside condition", "Records can explain when work was last completed; present condition and maintenance history answer complementary questions."]
+    ],
+    "prepare": ["A short list of the concerns you want reviewed.", "Mileage, ownership history and any period the car was stored.", "Maintenance records and details of recent repairs."],
+    "faqs": [
+      ["Is this the right service for a car I already own?", "Yes, this request is intended for discussing the condition and maintenance needs of your current vehicle. If you are evaluating a car before buying it, choose the pre-purchase inspection page instead."],
+      ["Does a condition check diagnose every possible problem?", "Its scope should be agreed in advance. A broad review and the investigation of an intermittent or complex fault are different tasks. Describe specific symptoms when booking so the right type of visit can be arranged."],
+      ["Can I prioritize only a few concerns?", "Include those priorities in your request. Clear questions help define a useful appointment, particularly if you are establishing the history of a car that is new to you."]
+    ],
+    "related": ["scheduled-maintenance", "pre-purchase", "pre-trip"],
+    "sources": []
+  },
+  {
+    "slug": "check-engine-light",
+    "title": "Check Engine Light Diagnostics in Houston",
+    "description": "Request check engine light diagnostics for your European car in Houston. Share warning messages, symptoms and previous scan results to plan the visit.",
+    "lead": "A warning light is the beginning of a diagnosis. Tell us what appeared and what changed in the way the car behaves.",
+    "heading": "Start with the message, then the context.",
+    "overview": [
+      "The exact warning, when it appeared and the conditions around it are useful details for a diagnostic request. Note whether the light stays on, comes and goes or appears alongside another message. Follow the instructions in your vehicle’s manual for the warning shown.",
+      "If someone has already scanned the car, share the code numbers and the report rather than only a suggested replacement part. A scan result can help frame the investigation, but a code description alone does not establish the complete cause of a problem. Recent work and any attempt to clear the warning are also relevant."
+    ],
+    "considerations": [
+      ["Warning behavior", "Record the exact wording and whether the warning is constant or intermittent, without trying to recreate a concerning symptom."],
+      ["How the car runs", "Mention rough running, starting difficulty or a change in performance, and whether it began at the same time as the warning."],
+      ["Previous findings", "Bring code reports, prior diagnostic notes and details of repairs already attempted so the same history does not need to be reconstructed."]
+    ],
+    "prepare": ["A photo of the warning or its exact wording.", "Any scan report with full code numbers, if available.", "When the warning first appeared and what happened immediately beforehand."],
+    "faqs": [
+      ["Does a fault code identify the part that needs replacing?", "A code is diagnostic information, not a complete repair decision. The vehicle’s behavior and further checks may be needed to understand the cause. Bring the original report rather than relying only on a part recommendation."],
+      ["Do I need to know the code before requesting a visit?", "No. Explain the warning and any symptoms you have noticed. If a report exists, it is helpful to share it, but you do not need to arrange a separate scan just to submit a request."],
+      ["Can you tell me online whether it is safe to drive?", "The request form cannot assess whether a vehicle is safe to drive. Follow your model’s warning instructions and seek appropriate assistance if you are uncertain about moving the car."]
+    ],
+    "related": ["engine-diagnostics", "electrical-diagnostics", "battery-charging"],
+    "sources": ["manufacturer-manuals"]
+  },
+  {
+    "slug": "engine-diagnostics",
+    "title": "European Engine Diagnostics in Houston",
+    "description": "Plan engine diagnostics in Houston for rough running, starting concerns or a change in performance. Share your European car’s symptoms and repair history.",
+    "lead": "A change in engine behavior deserves a clear description before a repair is proposed.",
+    "heading": "Describe the pattern behind the problem.",
+    "overview": [
+      "An engine concern may be constant, appear only on a cold start or develop after the car has been running for a while. Describe the pattern you have already observed, along with any warning messages. Those details help distinguish the main concern from a list of possible causes.",
+      "Tell us about recent maintenance, modifications and repairs, including work that did not resolve the issue. A useful diagnostic request focuses on what the car does and when it does it. You do not need to choose an engine component or decide on a repair before making contact."
+    ],
+    "considerations": [
+      ["Starting and running", "Explain whether the concern happens during starting, at idle or while driving, and whether it is repeatable or intermittent."],
+      ["Sounds and performance", "Describe the change in your own words. Existing recordings can help explain a symptom without needing to reproduce it for a video."],
+      ["The repair timeline", "Previous findings, recent parts and the point when the concern began can help establish a coherent history for the visit."]
+    ],
+    "prepare": ["Year, model, engine and any modifications you know about.", "A timeline of symptoms, warning messages and recent work.", "Previous diagnostic reports and relevant invoices."],
+    "faqs": [
+      ["Can I request diagnostics without a warning light?", "Yes. Describe the change in starting, running, sound or performance. A warning light is useful information when present, but the concern itself is the starting point for the request."],
+      ["Should I choose an engine repair before booking?", "No. Describe the symptom and any previous findings. The appropriate checks and repair options can be discussed after the concern and the vehicle’s history are understood."],
+      ["What if the issue only happens occasionally?", "Note the conditions you have already observed, such as a cold start or a particular part of a normal journey. Mention how often it happens and any previous attempts to investigate it."]
+    ],
+    "related": ["check-engine-light", "leak-diagnosis", "overheating"],
+    "sources": []
+  },
+  {
+    "slug": "electrical-diagnostics",
+    "title": "European Car Electrical Diagnostics in Houston",
+    "description": "Discuss electrical diagnostics for your European car in Houston. Plan a visit for intermittent accessories, warning messages or unexplained electrical behavior.",
+    "lead": "Intermittent electrical concerns are easier to explain with a clear record of what stops working, and when.",
+    "heading": "Connect the symptoms before choosing a component.",
+    "overview": [
+      "A window, lighting circuit, comfort feature or dashboard message may behave differently from one drive to the next. Tell us which functions are involved and whether they change together. The sequence of events can be more useful than a guessed component name.",
+      "Battery replacement, aftermarket equipment and recent work are relevant history to share, without assuming that any one item caused the problem. If a previous report exists, include it. The goal of the request is to identify the concern and agree a focused next step, rather than replace parts on the strength of an online description."
+    ],
+    "considerations": [
+      ["Affected functions", "List the specific accessories or systems involved, including any that still operate normally when the concern occurs."],
+      ["Timing and recurrence", "Describe how often it happens, whether restarting changes it and any conditions you have already noticed."],
+      ["Recent electrical work", "Mention battery work, added equipment, repairs or previous diagnostic findings that may be relevant to the history."]
+    ],
+    "prepare": ["Exact warning messages and the functions affected.", "A timeline of recent work, battery changes and accessory installation.", "Existing reports or recordings of the intermittent behavior."],
+    "faqs": [
+      ["Is an electrical concern always a battery problem?", "That cannot be established from a description alone. Share the starting behavior, affected functions and warning messages. Battery and charging checks have a separate page when the main concern is starting or charging."],
+      ["What if the accessory works again by the time of the visit?", "Explain how often the issue occurs and bring any existing record of it. Mention what changed before it started working again; intermittent concerns still need a clear history."],
+      ["Should I mention aftermarket accessories?", "Yes. Include installed equipment and any recent changes, even if you do not think they are related. The purpose is to provide a complete timeline, not to assume a cause."]
+    ],
+    "related": ["battery-charging", "check-engine-light", "engine-diagnostics"],
+    "sources": []
+  },
+  {
+    "slug": "battery-charging",
+    "title": "Battery & Charging Checks in Houston",
+    "description": "Plan battery and charging checks for your European car in Houston. Discuss slow cranking, repeated jump-starts, battery history and charging warnings.",
+    "lead": "A starting concern is a reason to discuss the battery and charging system together, with the recent history in view.",
+    "heading": "Tell the whole starting story.",
+    "overview": [
+      "Describe whether the engine cranks slowly, does not crank or starts differently after the car sits. Include how long the car was parked and whether it needed a jump-start. These are observations for the request, not a diagnosis of which component needs replacement.",
+      "Share the battery’s approximate age, previous replacements and any charging-system messages. The correct battery and any related procedures depend on the vehicle. Ask about the requirements of your exact model before agreeing to a replacement based only on size or a general battery label."
+    ],
+    "considerations": [
+      ["Starting behavior", "Explain what happens when you try to start the car and whether the concern follows a period of storage or normal daily use."],
+      ["Battery history", "Previous replacement dates, invoices and recent jump-starts help establish how the concern has developed."],
+      ["Warnings and equipment", "Mention charging messages and added electrical equipment so the visit can be planned with that context."]
+    ],
+    "prepare": ["Battery age or replacement invoice, if known.", "Dates of recent jump-starts and how long the car had been parked.", "Exact charging or battery warning messages."],
+    "faqs": [
+      ["Does slow starting mean I need a new battery?", "It is a symptom to investigate, not enough information to choose a replacement on its own. Describe the starting behavior and any warning messages when requesting checks."],
+      ["Does the exact battery specification matter?", "Yes. Discuss the specification and any vehicle-specific replacement procedures for your model. Do not assume that every battery that physically fits is the appropriate choice."],
+      ["Can I include a battery concern with another service request?", "Mention it in the notes, including any starting or charging symptoms. This helps distinguish an additional concern from the scheduled maintenance you originally planned."]
+    ],
+    "related": ["electrical-diagnostics", "engine-diagnostics", "scheduled-maintenance"],
+    "sources": ["manufacturer-manuals"]
+  },
+  {
+    "slug": "leak-diagnosis",
+    "title": "Oil & Fluid Leak Diagnosis in Houston",
+    "description": "Request oil and fluid leak diagnosis in Houston. Share where drips appear, changing fluid levels, recent work and warning messages for your European car.",
+    "lead": "A new drip or a changing fluid level calls for a conversation about the source, not just another top-up.",
+    "heading": "Separate the observation from the cause.",
+    "overview": [
+      "The position of a spot on the ground does not by itself identify where a leak begins. Explain where you normally see it, when it appears and whether the amount has changed. A photo you already have can be useful without needing you to identify the fluid or inspect beneath the car.",
+      "Tell us about recent maintenance, added fluids and any smell or warning message that appeared around the same time. A leak investigation and a scheduled fluid service are different requests. Sharing the history helps define the concern before discussing possible repairs."
+    ],
+    "considerations": [
+      ["Where and when it appears", "Describe the parking position, approximate size of the spot and whether it appears after a drive or after standing."],
+      ["Levels and top-ups", "Mention any measured fluid loss and the products or quantities added, if known, without guessing which system is responsible."],
+      ["Recent work or new symptoms", "Include maintenance dates, warning messages or an unusual smell so the timeline is clear."]
+    ],
+    "prepare": ["Existing photos of the spot and a description of its usual location.", "Any fluid top-up records or changes in dashboard messages.", "Invoices for work completed shortly before the leak was noticed."],
+    "faqs": [
+      ["Can you identify a leak from a photo?", "A photo can explain what you have noticed, but it does not establish the source or the repair required. Include it as context for a request rather than treating the image as a diagnosis."],
+      ["Do I need to know which fluid is leaking?", "No. Describe the observation and any associated warnings or top-ups. It is more useful to share accurate details than to choose a fluid name based only on color."],
+      ["Is a fluid service the same as fixing a leak?", "No. Scheduled fluid maintenance and identifying a source of fluid loss address different needs. Mention the leak explicitly so it can be discussed as its own concern."]
+    ],
+    "related": ["oil-filter-service", "cooling-system", "fluid-service"],
+    "sources": []
+  },
+  {
+    "slug": "brake-pads-rotors",
+    "title": "Brake Pad & Rotor Service in Houston",
+    "description": "Discuss brake pad and rotor service for your European car in Houston. Plan a visit around wear messages, braking noise, vibration and previous brake work.",
+    "lead": "Brake wear, noise and vibration are different observations. Describe what changed before deciding which parts need attention.",
+    "heading": "Begin with how the car stops.",
+    "overview": [
+      "Tell us whether the concern is a wear message, a sound, a vibration or a change in pedal feel. Include when you first noticed it and any brake work completed beforehand. That history helps make the request specific without assuming pads or rotors are the only items involved.",
+      "Parts and service requirements depend on the exact brake system fitted to the car. Share the model, year and any relevant equipment or modifications. Ask about inspection findings, the proposed scope and parts options before approving work; an online symptom description cannot establish component condition."
+    ],
+    "considerations": [
+      ["Wear and dashboard messages", "Bring the exact reminder or warning wording, along with the date and mileage of previous brake work."],
+      ["Noise or vibration", "Describe when the symptom occurs and whether it is new or has changed since a recent service."],
+      ["Brake-system specification", "Tell us about performance brake equipment or modifications so the discussion refers to the system fitted to your car."]
+    ],
+    "prepare": ["Year, model and details of any non-standard brake equipment.", "Exact warning text and the symptoms already observed.", "Previous brake invoices, including parts and mileage where available."],
+    "faqs": [
+      ["Does brake noise always mean the pads need replacing?", "Noise alone does not establish component condition or identify the correct repair. Describe the sound and when it happens so an appropriate inspection can be discussed."],
+      ["Will pads and rotors always be replaced together?", "The proposed scope should follow the findings and the requirements of the fitted system. Ask which components need attention and why rather than assuming a fixed package applies to every car."],
+      ["Is brake fluid included with pads and rotors?", "Brake fluid is a separate maintenance topic. Mention it if it is due or its history is uncertain, and confirm the agreed scope before work begins."]
+    ],
+    "related": ["brake-fluid", "suspension", "steering"],
+    "sources": ["manufacturer-manuals"]
+  },
+  {
+    "slug": "brake-fluid",
+    "title": "Brake Fluid Service in Houston",
+    "description": "Plan brake fluid service for your European car in Houston. Review time-based maintenance requirements, previous service records and any braking concerns.",
+    "lead": "Brake-fluid maintenance is its own service decision, separate from the visible wear of pads and rotors.",
+    "heading": "Look beyond the mileage on the pads.",
+    "overview": [
+      "Review the maintenance instructions for your exact vehicle and the date of its previous brake-fluid service. Brake-fluid requirements should not be inferred solely from how many miles the current pads have covered or whether the car displays a pad-wear reminder.",
+      "If you are requesting service because of a pedal concern, leak or warning, describe that separately. A scheduled fluid service and an investigation of changed braking behavior have different purposes. The appointment should be planned around both the maintenance history and what you are noticing now."
+    ],
+    "considerations": [
+      ["Previous service date", "A dated record helps establish the maintenance history even when the car has covered relatively few miles."],
+      ["Vehicle requirements", "Ask about the correct fluid specification and service procedure for the system fitted to your model."],
+      ["Any change in braking", "Mention pedal feel, warnings or suspected leaks when booking so a maintenance request does not overlook a separate concern."]
+    ],
+    "prepare": ["The date and invoice for the previous brake-fluid service, if available.", "Your model, year and current mileage.", "Any warnings or changes in pedal feel you have already noticed."],
+    "faqs": [
+      ["Does a brake pad replacement prove the fluid was serviced?", "No. Check the invoice or service record for a separate brake-fluid entry. The two tasks should not be assumed to have been completed together."],
+      ["How often is brake fluid service needed?", "Use the maintenance instructions for your exact car and its service history. Time-based requirements can apply, so avoid relying on a universal mileage figure."],
+      ["Can fluid service be booked for a changed brake pedal?", "Describe the pedal concern when making contact. A change in braking behavior needs its own discussion rather than being treated automatically as routine fluid maintenance."]
+    ],
+    "related": ["brake-pads-rotors", "scheduled-maintenance", "fluid-service"],
+    "sources": ["bmw-maintenance", "manufacturer-manuals"]
+  },
+  {
+    "slug": "suspension",
+    "title": "Suspension Checks & Repair in Houston",
+    "description": "Discuss suspension checks for your European car in Houston. Plan a visit for clunks, changes in ride quality, uneven tire wear or previous suspension work.",
+    "lead": "A change in ride quality is a reason to discuss the whole symptom before choosing a suspension part.",
+    "heading": "Pay attention to when the ride changes.",
+    "overview": [
+      "Describe whether you notice a sound, a difference in comfort or a change in the car’s behavior. Tell us when it occurs in normal use and whether it began suddenly or gradually. You do not need to identify a damper, joint or bushing before requesting the visit.",
+      "Recent tire changes, wheel damage, suspension work and modifications are useful history. Uneven tire wear or a pulling concern may also involve a steering or tire-related discussion. Clear observations help define the checks and avoid assuming that every ride concern has the same cause."
+    ],
+    "considerations": [
+      ["Ride quality and sounds", "Describe the behavior and where you seem to hear or feel it, without treating that location as a confirmed source."],
+      ["Tire and wheel history", "Mention recent replacements, visible wear or damage, along with any other changes made around the time the concern began."],
+      ["Equipment and modifications", "Share details of non-standard suspension or height changes so the discussion reflects the actual vehicle."]
+    ],
+    "prepare": ["A description of the sound or ride change and when it occurs.", "Recent tire, wheel and suspension invoices.", "Any modifications or equipment changes you know about."],
+    "faqs": [
+      ["Can a clunk identify the suspension part that needs replacing?", "A sound alone does not establish the source. Describe when it occurs and bring the repair history so the concern can be assessed before parts are proposed."],
+      ["Should I mention uneven tire wear?", "Yes. Include where the wear appears and whether tires or wheels were recently changed. It is useful context for a broader ride or steering concern."],
+      ["Are steering and suspension checks the same request?", "They can overlap, but the symptom should guide the conversation. If the main issue is steering feel or a steering warning, include that explicitly and review the steering concerns page."]
+    ],
+    "related": ["steering", "brake-pads-rotors", "vehicle-inspection"],
+    "sources": []
+  },
+  {
+    "slug": "steering",
+    "title": "Steering Concern Diagnostics in Houston",
+    "description": "Request a visit for steering concerns in Houston. Describe changes in steering effort, vibration, pulling or warning messages on your European car.",
+    "lead": "Explain what feels different at the wheel, with the recent tire, wheel and repair history alongside it.",
+    "heading": "A precise description helps focus the visit.",
+    "overview": [
+      "Changes in steering effort, a vibration or a tendency to pull are observations with several possible explanations. Tell us what you have already noticed in normal use and whether any warning message accompanies it. The request form is a way to describe the concern, not establish that a particular steering component has failed.",
+      "Include recent tire replacement, wheel damage, suspension work and any event that preceded the change. If the symptom mainly happens during braking, make that clear. That distinction helps separate the questions to discuss before an inspection or repair is agreed."
+    ],
+    "considerations": [
+      ["Effort, vibration or pulling", "Describe the main change in your own words and whether it happens consistently or only in particular conditions."],
+      ["Messages and timing", "Share the exact warning text and when the change first appeared, especially if it followed other work."],
+      ["Related work", "Tire, wheel, brake and suspension history can all be relevant to explaining the sequence of events."]
+    ],
+    "prepare": ["The main steering symptom and any warning text.", "Recent tire, wheel, brake or suspension records.", "When the change began and whether it is constant or intermittent."],
+    "faqs": [
+      ["Does pulling to one side always mean an alignment is needed?", "The observation alone does not identify the cause or the correct service. Describe the behavior and recent work so the next checks can be discussed."],
+      ["What if the vibration only happens while braking?", "Mention that distinction in the request. It helps define the concern and whether a brake-related discussion should be part of the appointment."],
+      ["Can the form confirm the car is safe to drive?", "No. An online request does not assess driving safety. Follow the vehicle’s warning instructions and seek appropriate assistance if you are unsure about moving it."]
+    ],
+    "related": ["suspension", "brake-pads-rotors", "electrical-diagnostics"],
+    "sources": ["manufacturer-manuals"]
+  },
+  {
+    "slug": "cooling-system",
+    "title": "Cooling System Service in Houston",
+    "description": "Plan cooling system checks for your European car in Houston. Discuss coolant loss, leaks, service history and temperature changes with Houston Auto Pros.",
+    "lead": "Coolant loss, a scheduled service and a temperature warning each call for a different starting conversation.",
+    "heading": "Understand the concern before choosing the service.",
+    "overview": [
+      "Tell us whether you are reviewing coolant maintenance or have noticed a change in temperature, a warning or repeated top-ups. A cooling-system request should explain the observation and the relevant history before assuming a particular component needs replacement.",
+      "The coolant specification and maintenance instructions depend on the vehicle. Bring previous service information and details of anything added to the system. If the main concern is an overheating event, use the overheating diagnosis page to describe exactly when it happened and any associated messages."
+    ],
+    "considerations": [
+      ["Coolant history", "Share previous services, top-ups and the name of any product added, if known. This gives the discussion a useful starting point."],
+      ["Leaks or level changes", "Describe when you notice fluid loss or a new spot under the car, without assuming the visible spot identifies its source."],
+      ["Temperature behavior", "Mention the exact warning or change in the normal display and the conditions in which it appeared."]
+    ],
+    "prepare": ["Exact coolant or temperature messages, if any.", "Previous cooling-system invoices and top-up details.", "When the concern occurs and whether fluid loss has repeated."],
+    "faqs": [
+      ["Is coolant service the same as overheating diagnosis?", "No. Scheduled maintenance and investigating an overheating event have different purposes. Describe the temperature concern explicitly so it can be discussed before a service is planned."],
+      ["Can I choose coolant by color?", "Use the specification for your exact vehicle rather than color alone. If you have already added a product, share its label or name when requesting the visit."],
+      ["What should I include after a temperature warning?", "Provide the exact message, when it appeared and whether the car lost coolant or behaved differently. Follow the operating instructions for that warning; the online request cannot determine whether the car should be driven."]
+    ],
+    "related": ["overheating", "leak-diagnosis", "fluid-service"],
+    "sources": ["manufacturer-manuals"]
+  },
+  {
+    "slug": "overheating",
+    "title": "European Car Overheating Diagnosis in Houston",
+    "description": "Discuss overheating diagnosis for your European car in Houston. Share temperature warnings, the sequence of events and recent cooling-system work.",
+    "lead": "A temperature event needs a clear history, including what the car displayed and what happened next.",
+    "heading": "Reconstruct the event before assuming a cause.",
+    "overview": [
+      "Note the exact warning and whether the event occurred while idling, in traffic or during another part of normal driving. Share any coolant loss, recent cooling work or earlier temperature concerns. These details describe the event without treating an online list of possible causes as a diagnosis.",
+      "The request form cannot establish whether the vehicle is safe to move or what damage, if any, occurred. Follow the warning instructions for the model and arrange appropriate assistance when needed. When contacting us, explain how the vehicle is currently situated so the next step can be discussed before a visit."
+    ],
+    "considerations": [
+      ["The warning sequence", "Share the exact display message and whether other warnings or changes in operation appeared at the same time."],
+      ["Recent cooling history", "Prior repairs, fluid top-ups and repeated level changes are useful context for the conversation."],
+      ["Current vehicle situation", "Explain whether the car is parked and what happened after the event. Do not recreate the concern to gather more information."]
+    ],
+    "prepare": ["The warning text and a timeline of the temperature event.", "Cooling-system repair records and details of any added coolant.", "The vehicle’s current situation and your questions about arranging the visit."],
+    "faqs": [
+      ["Is an overheating event proof that the water pump failed?", "No. The event alone does not identify a component or the repair required. Share the observations and history so an appropriate investigation can be discussed."],
+      ["Can I arrange ordinary coolant service instead?", "Mention the overheating event explicitly. A routine maintenance request does not explain that history and should not substitute for discussing a temperature concern."],
+      ["Can you confirm online whether I should drive the car in?", "No. Follow the instructions for your vehicle’s warning and seek appropriate assistance if you are uncertain. Explain the situation when making contact so arrival arrangements can be discussed."]
+    ],
+    "related": ["cooling-system", "leak-diagnosis", "engine-diagnostics"],
+    "sources": ["manufacturer-manuals"]
+  },
+  {
+    "slug": "air-conditioning",
+    "title": "European Car AC Diagnostics in Houston",
+    "description": "Request air-conditioning diagnostics for your European car in Houston. Describe weak cooling, inconsistent airflow, cabin-zone differences and previous AC work.",
+    "lead": "A warm cabin, weak airflow and an intermittent noise are different concerns. Describe which one you are experiencing.",
+    "heading": "Separate airflow from cooling performance.",
+    "overview": [
+      "Tell us whether air is moving normally but feels warm, whether the airflow itself is weak or whether different vents behave differently. Include whether the concern is constant or changes during a normal drive. These details help define the appointment without assuming the system simply needs refrigerant.",
+      "Previous AC work, refrigerant additions and changes in noise are useful history. The system and its service requirements depend on the vehicle, so a general refill request may not answer the underlying concern. Discuss the symptoms and previous findings before agreeing to the scope of a diagnostic visit."
+    ],
+    "considerations": [
+      ["Air temperature and volume", "Explain whether the main issue is warm air, reduced airflow or both, and which vents or cabin zones are affected."],
+      ["When the behavior changes", "Mention differences you have already noticed between parts of a normal journey or between climate-control settings."],
+      ["Previous service", "Share earlier findings, refrigerant additions and how long any previous improvement lasted."]
+    ],
+    "prepare": ["Which vents or cabin zones are affected.", "Whether the concern changes during normal use and any unusual sound.", "Records of previous AC repairs or refrigerant additions."],
+    "faqs": [
+      ["Does warm air always mean the AC needs a recharge?", "Warm air alone does not establish the cause or the appropriate service. Describe airflow, temperature differences and previous work so the concern can be investigated rather than assuming a refill is the answer."],
+      ["Should I mention that one side cools better than the other?", "Yes. Explain which vents or cabin zones differ and whether changing the settings affects the behavior. Those observations make the request more specific."],
+      ["What if the AC worked briefly after previous service?", "Include what was done, when it was done and how long the improvement lasted. Previous findings and invoices help explain why you are requesting another diagnostic conversation."]
+    ],
+    "related": ["electrical-diagnostics", "cooling-system", "vehicle-inspection"],
+    "sources": []
+  },
+  {
+    "slug": "pre-purchase",
+    "title": "European Pre-Purchase Car Inspections in Houston",
+    "description": "Plan a European car pre-purchase inspection in Houston. Discuss the seller’s vehicle, service records, inspection scope and questions before buying.",
+    "lead": "Use the inspection request to define the questions you want answered before the car becomes yours.",
+    "heading": "Make the buying decision more informed.",
+    "overview": [
+      "Send the year, make, model and mileage of the car you are considering, along with any listing details and service records you can obtain. Tell us about specific concerns, previous findings or modifications. The seller’s availability and permission also matter when arranging access to the vehicle.",
+      "Discuss the inspection scope and the type of findings you want explained before agreeing to an appointment. A condition review can inform a purchase decision, but it cannot promise future reliability or replace missing maintenance history. Keep the inspection separate from any repair work or negotiation you may choose afterward."
+    ],
+    "considerations": [
+      ["Access and timing", "Coordinate with the seller and explain your decision timeline. Confirm availability before committing to a purchase or assuming an inspection time."],
+      ["Records and known concerns", "Listing information, invoices and previous findings help identify which questions deserve particular attention."],
+      ["Agreed scope", "Ask which areas will be reviewed, what limitations apply and how findings will be discussed before authorizing the inspection."]
+    ],
+    "prepare": ["Vehicle listing, year, model, mileage and known modifications.", "Seller’s permission, vehicle availability and your purchase timeline.", "Available service records and a short list of questions for the inspection."],
+    "faqs": [
+      ["Should I book before buying the car?", "That is the purpose of a pre-purchase request. Coordinate access with the seller and confirm inspection availability before relying on a particular date for your buying decision."],
+      ["Does an inspection guarantee the car will be reliable?", "No. Discuss the agreed scope and limitations. Findings describe what can be assessed during that visit; they do not guarantee future condition or establish work absent from the maintenance records."],
+      ["What if I already own the vehicle?", "Use the vehicle condition checks page to discuss the car you currently own. It addresses a different decision from evaluating a seller’s car before purchase."]
+    ],
+    "related": ["vehicle-inspection", "engine-diagnostics", "leak-diagnosis"],
+    "sources": []
+  },
+  {
+    "slug": "pre-trip",
+    "title": "Pre-Trip Vehicle Checks in Houston",
+    "description": "Plan a pre-trip condition check for your European car in Houston. Review service history, current concerns and the timing of your upcoming journey.",
+    "lead": "A useful pre-trip conversation starts early enough to discuss findings before your departure date.",
+    "heading": "Prepare around the journey and the car.",
+    "overview": [
+      "Tell us when you plan to leave, the approximate journey length and the concerns you want reviewed. Include service reminders, recent work and anything that has changed in normal driving. The departure date helps explain your priorities; it does not reserve an appointment or guarantee a completion time.",
+      "Discuss the scope of the condition check and any separate diagnostics needed for an existing symptom. A pre-trip visit can help you plan maintenance and questions, but no inspection can guarantee a trouble-free journey. Allow time to consider findings rather than treating the check as an automatic pass for travel."
+    ],
+    "considerations": [
+      ["Departure and availability", "Share your dates early and confirm appointment availability before making plans around the visit."],
+      ["Maintenance and recent work", "Current reminders and service records help distinguish scheduled items from new concerns you want investigated."],
+      ["Specific driving concerns", "Mention noises, temperature changes, braking behavior or starting issues in the request rather than assuming a general check covers every diagnosis."]
+    ],
+    "prepare": ["Departure date and a general description of the planned journey.", "Current mileage, service reminders and recent invoices.", "A prioritized list of concerns already noticed during normal driving."],
+    "faqs": [
+      ["How far ahead should I request a pre-trip visit?", "Make contact early enough to confirm availability and discuss any findings before departure. Share the date in your request; scheduling and any additional work need separate confirmation."],
+      ["Does a pre-trip check guarantee the journey will be trouble-free?", "No. Agree the inspection scope and discuss its limitations. A check informs planning and maintenance decisions; it cannot predict every future issue."],
+      ["Can I include a known problem in the request?", "Yes. Describe the symptom clearly. A specific fault may require a diagnostic discussion in addition to the general condition check, so include it before the appointment is arranged."]
+    ],
+    "related": ["vehicle-inspection", "scheduled-maintenance", "cooling-system"],
+    "sources": []
+  }
+]

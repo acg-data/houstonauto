@@ -176,7 +176,7 @@ def polish():
         for asset in soup.select('script[src], link[href]'):
             key = 'src' if asset.name == 'script' else 'href'
             if re.match(r'^/(app\.js|config\.js|style\.css)\?v=', asset.get(key, '')):
-                asset[key] = re.sub(r'\?v=\d+', '?v=9', asset[key])
+                asset[key] = re.sub(r'\?v=\d+', '?v=12', asset[key])
         if soup.head and not soup.select_one('meta[property="og:locale"]'):
             meta = soup.new_tag('meta', property='og:locale', content='en_US'); soup.head.append(meta)
         for name, source in [('twitter:title', 'og:title'), ('twitter:description', 'og:description'), ('twitter:image', 'og:image'), ('twitter:image:alt', 'og:image:alt')]:
