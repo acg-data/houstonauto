@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "houston-auto-pros",
+  "account_id": "b750824d7f77ea68f5630ba69e740894",
+  "compatibility_date": "2026-10-29",
+  "main": "./worker/index.mjs",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": false,
+  "send_email": [{ "name": "APPOINTMENT_EMAIL", "destination_address": "justin@aryocg.com" }],
+  "vars": {
+    "BOOKING_RECIPIENT": "justin@aryocg.com",
+    "BOOKING_SENDER": "leads@alerts.homeservicesecretshopper.com"
+  },
+  "d1_databases": [{
+    "binding": "BOOKING_DB",
+    "database_name": "houston-auto-pros-booking",
+    "database_id": "75e9239b-6938-44b2-bb9e-d9e1ddb18e33"
+  }],
+  "ratelimits": [{ "name": "BOOKING_LIMITER", "namespace_id": "2941011701", "simple": { "limit": 5, "period": 60 } }],
+  "observability": { "enabled": true, "head_sampling_rate": 1 }
+}

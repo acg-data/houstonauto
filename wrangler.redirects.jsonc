@@ -1,0 +1,26 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "houston-auto-domain-redirects",
+  "account_id": "7c12471009410a8a7acfbbc195cfb8ac",
+  "compatibility_date": "2026-10-29",
+  "main": "./worker/domain-redirects.mjs",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": { "enabled": true, "head_sampling_rate": 1 },
+  "routes": [
+    { "pattern": "www.houstonautopros.com", "custom_domain": true },
+    { "pattern": "houstonautodiagpro.com", "custom_domain": true },
+    { "pattern": "www.houstonautodiagpro.com", "custom_domain": true },
+    { "pattern": "houstonbmwpros.com", "custom_domain": true },
+    { "pattern": "www.houstonbmwpros.com", "custom_domain": true },
+    { "pattern": "houstonenginebuilders.com", "custom_domain": true },
+    { "pattern": "www.houstonenginebuilders.com", "custom_domain": true },
+    { "pattern": "houstonporschemechanic.com", "custom_domain": true },
+    { "pattern": "www.houstonporschemechanic.com", "custom_domain": true },
+    { "pattern": "houstonporschepros.com", "custom_domain": true },
+    { "pattern": "www.houstonporschepros.com", "custom_domain": true },
+    { "pattern": "houstonporscherepair.com", "custom_domain": true },
+    { "pattern": "www.houstonporscherepair.com", "custom_domain": true }
+  ]
+}
