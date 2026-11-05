@@ -1,57 +1,142 @@
-.campaign-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--graphite);color:var(--platinum);padding:1rem 5vw}.campaign-header .logo{color:inherit}.campaign-hero{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5vw;align-items:center;padding:clamp(2rem,6vw,6rem) 5vw;background:linear-gradient(90deg,#101214ed,#101214c9),url('/assets/atelier-hero-1536.webp') center/cover;color:var(--platinum)}.campaign-copy h1,.confirmation h1{font-size:clamp(2.5rem,5vw,5rem);line-height:1.05;letter-spacing:-.05em}.campaign-copy p,.confirmation p{margin:1rem 0}.campaign-hero .appointment-form{background:var(--porcelain);color:var(--graphite)}.campaign-content{padding:clamp(2rem,6vw,6rem) 5vw;background:var(--porcelain);color:var(--graphite)}.campaign-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:1rem;margin:2rem 0}.campaign-cards article{padding:1.5rem;background:white;border:1px solid var(--platinum)}.confirmation{min-height:60vh}@media(max-width:840px){.campaign-hero{grid-template-columns:1fr}}
-.campaign-wrap { max-width: 76rem; margin-inline: auto; }
-.campaign-split { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 4rem; align-items: center; }
-.campaign-split img { width: 100%; height: auto; object-fit: cover; }
-.campaign-dark { background: var(--graphite); color: var(--platinum); }
-.campaign-label { font-size: .8rem; font-weight: 700; letter-spacing: .12em; }
-.campaign-pills { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
-.campaign-pills li { border: 1px solid var(--steel); border-radius: 2rem; padding: .35rem .8rem; }
-.campaign-center, #services { text-align: center; }
-.campaign-booking form { max-width: 48rem; margin: 2rem auto 0; background: white; }
-.campaign-faq { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem 2rem; }
-.campaign-faq details { border-top: 1px solid var(--steel); padding-block: 1rem; }
-.campaign-faq summary { cursor: pointer; font-weight: 700; }
-@media(max-width:840px){ .campaign-split,.campaign-faq { grid-template-columns: 1fr; gap: 1rem; } }
+/* Houston Auto Pros — paid-social landing and confirmation pages. Scoped to body.lp. */
 
-.campaign-strip { background: var(--gunmetal); color: var(--platinum); text-align: center; padding: .5rem 1rem; }
-.campaign-hero { background: var(--graphite); gap: 48px; }
-.llg-q { padding: 24px; background: white !important; color: var(--graphite); border: 1px solid var(--platinum); border-radius: 12px; }
-.llg-q .appointment-fields { margin: 0; padding: 0; border: 0; min-width: 0; }
-.llg-q .q-heading { text-align: center; font-size: 26px; line-height: 1.35; margin: 0; }
-.llg-q .q-intro { text-align: center; margin: 0 0 20px; }
-.llg-q .q-grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 12px; }
-.llg-q label { display: block; font-size: 13px; font-weight: 600; }
-.llg-q input:not([type=hidden]):not([type=checkbox]):not(.hp), .llg-q select, .llg-q textarea { display: block; width: 100%; min-height: 48px; padding: 12px; background: var(--porcelain); color: var(--graphite); border: 1px solid var(--steel); border-radius: 6px; font: inherit; font-size: 16px; }
-.llg-q textarea { min-height: 68px; resize: vertical; }
-.llg-q .q-consent { display: flex; align-items: flex-start; gap: 8px; font-weight: 400; }
-.llg-q .q-hint { font-size: 12px; margin: 3px 0 0; }
-.llg-q .q-hint[hidden] { display: none; }
-.llg-q .appointment-submit { width: 100%; min-height: 50px; margin-top: 12px; }
-@media (max-width:1023px) { .campaign-hero { grid-template-columns: 1fr; gap: 32px; } }
+html:has(body.lp) { scroll-padding-top: 16px; }
+body.lp { background: var(--night); color: var(--graphite); }
+.lp p { color: var(--ink-2); }
+.lp-wrap { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: max(20px, 5vw); }
 
-.campaign-hero { display: block; padding-block: 40px 80px; }
-.campaign-hero-inner { max-width: 1216px; margin: auto; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 48px; align-items: center; }
-.campaign-copy h1 { font-size: clamp(36px,5vw,59px); }
-#services .campaign-cards { max-width: 1216px; margin-inline: auto; grid-template-columns: repeat(3,minmax(0,1fr)); text-align: left; }
-#services .campaign-cards article { padding: 0; border-radius: 8px; overflow: hidden; }
-#services .campaign-cards img { width: 100%; height: 18rem; display: block; object-fit: cover; }
-.service-card-copy { padding: 20px; }
-.campaign-booking form { max-width: 760px; }
-.campaign-footer { background: var(--graphite); color: var(--platinum); padding: 60px 5vw; }
-.campaign-footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 48px; }
-.campaign-footer nav a { display: block; margin-top: .65rem; color: inherit; }
-@media(max-width:1023px) { .campaign-hero-inner { grid-template-columns: 1fr; gap: 32px; } #services .campaign-cards { grid-template-columns: repeat(2,minmax(0,1fr)); } }
-@media(max-width:640px) { #services .campaign-cards,.campaign-footer-grid { grid-template-columns: 1fr; } }
+/* ---------- Header ---------- */
+.lp-header { position: absolute; inset: 0 0 auto; z-index: 3; color: var(--platinum); }
+.lp-header-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 88px; }
+.lp-header .logo { color: var(--platinum); }
+.lp-header-call { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 18px; border: 1px solid var(--line-dark); color: var(--platinum); font-size: 14px; font-weight: 500; }
+.lp-header-call:hover { border-color: var(--platinum); }
 
-.campaign-hero-inner { align-items: start; }
-.campaign-hero-inner .campaign-copy { padding-top: clamp(12px, 2vw, 28px); }
-.campaign-makes { text-align: center; }
-.campaign-make-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); gap: 12px; list-style: none; padding: 0; margin: 24px 0 0; }
-.campaign-make-grid li { display: grid; justify-items: center; align-content: center; gap: 8px; min-height: 104px; background: white; border: 1px solid var(--platinum); padding: 10px; font-size: 13px; }
-.campaign-make-grid img { width: 52px; height: 52px; object-fit: contain; }
-.llg-q .q-consent input[type="checkbox"] { appearance: auto; flex: 0 0 16px; width: 16px; height: 16px; min-height: 0; margin: 2px 0 0; padding: 0; accent-color: var(--graphite); }
-.llg-q .q-consent span { flex: 1; min-width: 0; line-height: 1.5; }
+/* ---------- Hero and form ---------- */
+.lp-hero { position: relative; isolation: isolate; overflow: hidden; background: var(--night); color: var(--platinum); padding: 128px 0 clamp(64px, 8vw, 112px); }
+.lp-hero-media { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 68% 50%; }
+.lp-hero::after, .lp-confirm::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(16, 18, 20, .94) 0%, rgba(16, 18, 20, .82) 42%, rgba(16, 18, 20, .45) 100%); }
+.lp-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 468px); gap: clamp(40px, 6vw, 96px); align-items: center; }
+.lp-hero h1 { max-width: 11ch; color: var(--platinum); font-size: clamp(42px, 5.4vw, 78px); }
+.lp-lede { max-width: 32rem; margin-top: 28px; font-size: 18px; line-height: 1.6; }
+.lp .lp-lede { color: var(--on-dark-2); }
+.lp-points { max-width: 30rem; margin-top: 40px; border-top: 1px solid var(--line-dark); }
+.lp-points li { padding: 14px 0; border-bottom: 1px solid var(--line-dark); color: var(--on-dark-2); font-size: 14px; }
 
-.campaign-hero { background: linear-gradient(90deg, #101214e8, #101214a6), url("/assets/atelier-hero-1536.webp") center / cover no-repeat; }
+.lp-form.appointment-form { padding: clamp(24px, 2.6vw, 36px); background: var(--porcelain); color: var(--graphite); box-shadow: 0 32px 80px rgba(0, 0, 0, .35); }
+.lp-form-title { margin: 0 0 20px; font-size: 26px; font-weight: 400; line-height: 1.25; letter-spacing: -.02em; }
+.lp-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 14px; }
+.lp-wide { grid-column: 1 / -1; }
+.lp-field { display: block; min-width: 0; font-size: 13px; font-weight: 500; color: var(--graphite); }
+.lp-optional { color: var(--ink-3); font-weight: 400; }
+.lp-form input:not([type='checkbox']):not([type='hidden']):not(.hp),
+.lp-form select,
+.lp-form textarea { margin-top: 6px; padding: 11px 12px; min-height: 46px; background-color: #fbfaf7; border-color: rgba(23, 25, 27, .26); font-size: 16px; font-weight: 400; }
+.lp-form select:invalid { color: var(--ink-3); }
+.lp-form select option { color: var(--graphite); }
+.lp-form textarea { min-height: 72px; }
+.lp-form ::placeholder { color: #6b7175; opacity: 1; }
+.lp-consent { display: flex; align-items: flex-start; gap: 10px; margin-top: 2px; font-size: 12.5px; line-height: 1.5; color: var(--ink-2); }
+.lp-consent input[type='checkbox'] { appearance: auto; flex: 0 0 18px; width: 18px; height: 18px; margin: 1px 0 0; padding: 0; accent-color: var(--graphite); }
+.lp-consent a { color: var(--graphite); font-weight: 600; }
+.lp-form .appointment-submit { width: 100%; margin-top: 20px; }
+.lp .lp-form-note { margin-top: 12px; color: var(--ink-3); font-size: 12px; line-height: 1.5; text-align: center; }
+.lp-form .appointment-result { display: grid; gap: 4px; justify-items: start; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
+.lp-form .appointment-result p { margin-bottom: 6px; }
+.lp-form .appointment-result p { font-size: 15px; }
+.lp-form .appointment-result .text-link { font-weight: 600; }
 
-.campaign-hero .campaign-copy > p { color: #fff; font-weight: 600; line-height: 1.55; text-shadow: 0 1px 4px #000, 0 0 10px #000; }
+/* ---------- Makes ---------- */
+.lp-makes { padding: 44px 0 48px; background: var(--porcelain); border-bottom: 1px solid var(--line); }
+.lp-makes-title { margin: 0 0 26px; font-size: 13px; font-weight: 500; letter-spacing: 0; line-height: 1.5; text-align: center; color: var(--ink-3); }
+.lp-make-row { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 28px 16px; max-width: 980px; margin-inline: auto; }
+.lp-make-row li { display: grid; place-items: center; }
+.lp-make-row img { width: 40px; height: 40px; object-fit: contain; filter: grayscale(1); opacity: .78; }
+
+/* ---------- Sections ---------- */
+.lp-services, .lp-faq { padding: clamp(72px, 9vw, 128px) 0; background: var(--porcelain); }
+.lp-services-grid, .lp-faq-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(40px, 6vw, 96px); align-items: start; }
+.lp-services h2, .lp-faq h2, .lp-process h2, .lp-close h2 { font-size: clamp(36px, 4vw, 56px); }
+.lp-services-head { position: sticky; top: 40px; }
+.lp-services-head .button { margin-top: 36px; }
+.lp-service-list { border-top: 1px solid var(--line-strong); }
+.lp-service-list li { display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); gap: 8px 40px; padding: 26px 0; border-bottom: 1px solid var(--line); }
+.lp-service-list h3 { font-size: 20px; }
+.lp-service-list p { font-size: 15px; }
+
+.lp-process { padding: clamp(72px, 9vw, 128px) 0; background: var(--graphite); color: var(--platinum); }
+.lp-process h2 { color: var(--platinum); }
+.lp-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; margin: 56px 0 0; padding: 0; list-style: none; }
+.lp-steps li { padding-top: 24px; border-top: 1px solid var(--line-dark); }
+.lp-steps h3 { font-size: 20px; color: var(--platinum); }
+.lp .lp-steps p { margin-top: 8px; font-size: 15px; color: var(--on-dark-2); }
+
+.lp-faq-list { border-top: 1px solid var(--line-strong); }
+.lp-faq-list details { border-bottom: 1px solid var(--line); }
+.lp-faq-list summary { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px 0; font-size: 17px; cursor: pointer; list-style: none; }
+.lp-faq-list summary::-webkit-details-marker { display: none; }
+.lp-faq-list summary svg { flex-shrink: 0; transition: transform .3s var(--ease); }
+.lp-faq-list details[open] summary svg { transform: rotate(45deg); }
+.lp-faq-list details p { max-width: 40rem; padding: 0 0 24px; font-size: 15px; }
+
+.lp-close { padding: clamp(80px, 10vw, 144px) 0; background: var(--night); color: var(--platinum); text-align: center; }
+.lp-close h2 { color: var(--platinum); }
+.lp-close .button { margin-top: 36px; }
+
+/* ---------- Footer ---------- */
+.lp-footer { padding: 40px 0 48px; background: var(--night); color: var(--on-dark-3); border-top: 1px solid var(--line-dark); font-size: 13px; }
+.lp-footer-grid { display: grid; grid-template-columns: auto 1fr auto; gap: 20px 48px; align-items: start; }
+.lp-footer .logo { color: var(--platinum); }
+.lp-footer address { font-style: normal; line-height: 1.6; color: var(--on-dark-3); }
+.lp-privacy summary { cursor: pointer; color: var(--on-dark-2); list-style: none; }
+.lp-privacy summary::-webkit-details-marker { display: none; }
+.lp .lp-privacy p { max-width: 26rem; margin-top: 10px; color: var(--on-dark-3); font-size: 13px; }
+.lp .lp-legal { grid-column: 1 / -1; color: var(--on-dark-3); font-size: 12px; }
+
+/* ---------- Mobile request bar ---------- */
+.lp-bar { display: none; }
+
+/* ---------- Confirmation pages ---------- */
+.lp-confirm { position: relative; isolation: isolate; display: grid; align-items: center; min-height: 100svh; padding: 128px 0 80px; background: var(--night); color: var(--platinum); overflow: hidden; }
+.lp-confirm h1 { max-width: 14ch; color: var(--platinum); font-size: clamp(40px, 5vw, 72px); }
+.lp .lp-confirm p { max-width: 32rem; margin-top: 24px; font-size: 18px; color: var(--on-dark-2); }
+.lp-confirm-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 40px; }
+.lp-confirm-actions a:not(.button) { color: var(--on-dark-2); font-size: 14px; }
+.lp-confirm-actions a:not(.button):hover { color: var(--platinum); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1023px) {
+  .lp-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .lp-hero::after, .lp-confirm::after { background: linear-gradient(180deg, rgba(16, 18, 20, .6) 0%, rgba(16, 18, 20, .86) 45%, rgba(16, 18, 20, .96) 100%); }
+  .lp-form.appointment-form { max-width: 560px; }
+  .lp-services-grid, .lp-faq-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .lp-services-head { position: static; display: contents; }
+  .lp-make-row { grid-template-columns: repeat(6, minmax(0, 1fr)); max-width: 560px; }
+  .lp-services-head .button { order: 3; justify-self: start; margin-top: 8px; }
+  .lp-service-list { order: 2; }
+  .lp-steps { grid-template-columns: minmax(0, 1fr); gap: 28px; margin-top: 40px; }
+  .lp-footer-grid { grid-template-columns: minmax(0, 1fr); }
+
+  .lp-bar { position: fixed; inset: auto 0 0; z-index: 10; display: block; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: rgba(16, 18, 20, .94); border-top: 1px solid var(--line-dark); transform: translateY(110%); visibility: hidden; transition: transform .3s var(--ease), visibility 0s linear .3s; }
+  .lp-bar.is-visible { transform: none; visibility: visible; transition: transform .3s var(--ease), visibility 0s; }
+  .lp-bar .button { width: 100%; min-height: 50px; }
+  .lp-footer { padding-bottom: 104px; }
+}
+@media (max-width: 640px) {
+  .lp-header-inner { min-height: 72px; }
+  .lp-hero { padding-top: 100px; }
+  .lp-hero h1 { font-size: 40px; }
+  .lp-lede { margin-top: 18px; font-size: 16px; }
+  .lp-points { margin-top: 24px; }
+  .lp-points li { padding: 10px 0; font-size: 13px; }
+  .lp-hero-grid { gap: 32px; }
+  .lp-form.appointment-form { margin-inline: calc(-1 * max(20px, 5vw) + 8px); padding: 24px 18px; }
+  .lp-fields { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .lp-make-row { gap: 22px 8px; }
+  .lp-make-row img { width: 32px; height: 32px; }
+  .lp-service-list li { grid-template-columns: minmax(0, 1fr); padding: 22px 0; }
+  .lp-faq-list summary { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lp-bar, .lp-bar.is-visible, .lp-faq-list summary svg { transition: none; }
+}

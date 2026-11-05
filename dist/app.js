@@ -30,11 +30,11 @@
     window.fbq('track', 'PageView');
   }
   const metaEvents = { generate_lead: 'Lead', call_click: 'Contact', text_click: 'Contact', email_click: 'Contact' };
-  function track(event, params = {}) {
+  function track(event, params = {}, { meta = true } = {}) {
     window.dataLayer.push({ event, ...params });
     if (googleIds.length) gtag('event', event, params);
     if (event === 'generate_lead' && C.googleAdsConversion) gtag('event', 'conversion', { send_to: C.googleAdsConversion });
-    if (window.fbq) metaEvents[event] ? window.fbq('track', metaEvents[event]) : window.fbq('trackCustom', event, params);
+    if (meta && window.fbq) metaEvents[event] ? window.fbq('track', metaEvents[event]) : window.fbq('trackCustom', event, params);
   }
 
   /* Remember where this visit came from so requests carry ad attribution. */
@@ -416,7 +416,11 @@
         if (!delivery && !data.d.company) throw new Error('missing_endpoint');
         await delivery;
         if (delivery && inlineForm.dataset.successUrl) {
-          track('generate_lead', { service: data.d.service, make: data.d.make, source: 'core-services-form' });
+          // The confirmation page records the Meta Lead once, so the event is not lost to the redirect.
+          // If session storage is unavailable, record it here instead. No form contents are sent to Meta.
+          let handedOff = false;
+          try { sessionStorage.setItem('hap_meta_lead', data.d.requestId); handedOff = true; } catch {}
+          track('generate_lead', { service: data.d.service, make: data.d.make, source: 'campaign-form' }, { meta: !handedOff });
           location.assign(inlineForm.dataset.successUrl);
           return;
         }
@@ -462,6 +466,18 @@
         button.textContent = 'Request an appointment';
       }
     });
+  }
+
+  /* Campaign request bar: shown on small screens once the hero form and closing invitation are out of view. */
+  const ctaBar = $('[data-cta-bar]');
+  const ctaCovers = $$('[data-cta-cover]');
+  if (ctaBar && ctaCovers.length) {
+    const covering = new Map(ctaCovers.map(el => [el, true]));
+    const ctaObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => covering.set(entry.target, entry.isIntersecting));
+      ctaBar.classList.toggle('is-visible', ![...covering.values()].some(Boolean));
+    });
+    ctaCovers.forEach(el => ctaObserver.observe(el));
   }
 
   const dialog = $('#booking');
